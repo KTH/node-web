@@ -21,6 +21,8 @@ if (config.appInsights && config.appInsights.instrumentationKey) {
     .start()
 }
 
+const _addProxy = uri => `${config.proxyPrefixPath.uri}${uri}`
+
 // Expose the server and paths
 server.locals.secret = new Map()
 module.exports = server
@@ -97,21 +99,21 @@ function setCustomCacheControl(res, path2) {
 // Files/statics routes--
 // Map components HTML files as static content, but set custom cache control header, currently no-cache to force If-modified-since/Etag check.
 server.use(
-  config.proxyPrefixPath.uri + '/static/js/components',
+  _addProxy('/static/js/components'),
   express.static('./dist/js/components', { setHeaders: setCustomCacheControl })
 )
 
 // Expose browser configurations
-server.use(config.proxyPrefixPath.uri + '/static/browserConfig', browserConfigHandler)
+server.use(_addProxy('/static/browserConfig'), browserConfigHandler)
 // Files/statics routes
-server.use(config.proxyPrefixPath.uri + '/static/kth-style', express.static('./node_modules/kth-style/dist'))
+server.use(_addProxy('/static/kth-style'), express.static('./node_modules/kth-style/dist'))
 // Map static content like images, css and js.
-server.use(config.proxyPrefixPath.uri + '/static', express.static('./dist'))
+server.use(_addProxy('/static'), express.static('./dist'))
 
-server.use(config.proxyPrefixPath.uri + '/static/icon/favicon', express.static('./public/favicon.ico'))
+server.use(_addProxy('/static/icon/favicon'), express.static('./public/favicon.ico'))
 
 // Return 404 if static file isn't found so we don't go through the rest of the pipeline
-server.use(config.proxyPrefixPath.uri + '/static', (req, res, next) => {
+server.use(_addProxy('/static'), (req, res, next) => {
   const error = new Error('File not found: ' + req.originalUrl)
   error.status = 404
   next(error)
@@ -164,8 +166,8 @@ const {
   serverLogin,
   getServerGatewayLogin,
 } = require('kth-node-passport-cas').routeHandlers({
-  casLoginUri: config.proxyPrefixPath.uri + '/login',
-  casGatewayUri: config.proxyPrefixPath.uri + '/loginGateway',
+  casLoginUri: _addProxy('/login'),
+  casGatewayUri: _addProxy('/loginGateway'),
   proxyPrefixPath: config.proxyPrefixPath.uri,
   server,
 })
@@ -175,16 +177,11 @@ server.use(passport.initialize())
 server.use(passport.session())
 
 const authRoute = AppRouter()
-authRoute.get('cas.login', config.proxyPrefixPath.uri + '/login', authLoginHandler, redirectAuthenticatedUserHandler)
-authRoute.get(
-  'cas.gateway',
-  config.proxyPrefixPath.uri + '/loginGateway',
-  authCheckHandler,
-  redirectAuthenticatedUserHandler
-)
-authRoute.get('cas.logout', config.proxyPrefixPath.uri + '/logout', logoutHandler)
+authRoute.get('cas.login', _addProxy('/login'), authLoginHandler, redirectAuthenticatedUserHandler)
+authRoute.get('cas.gateway', _addProxy('/loginGateway'), authCheckHandler, redirectAuthenticatedUserHandler)
+authRoute.get('cas.logout', _addProxy('/logout'), logoutHandler)
 // Optional pgtCallback (use config.cas.pgtUrl?)
-authRoute.get('cas.pgtCallback', config.proxyPrefixPath.uri + '/pgtCallback', pgtCallbackHandler)
+authRoute.get('cas.pgtCallback', _addProxy('/pgtCallback'), pgtCallbackHandler)
 server.use('/', authRoute.getRouter())
 
 // Convenience methods that should really be removed
@@ -209,7 +206,7 @@ server.use(
  * ******* CRAWLER REDIRECT *******
  * ********************************
  */
-const excludePath = config.proxyPrefixPath.uri + '(?!/static).*'
+const excludePath = _addProxy('(?!/static).*')
 const excludeExpression = new RegExp(excludePath)
 server.use(
   excludeExpression,
@@ -227,19 +224,19 @@ const { requireRole } = require('./authentication')
 
 // System routes
 const systemRoute = AppRouter()
-systemRoute.get('system.monitor', config.proxyPrefixPath.uri + '/_monitor', System.monitor)
-systemRoute.get('system.about', config.proxyPrefixPath.uri + '/_about', System.about)
-systemRoute.get('system.paths', config.proxyPrefixPath.uri + '/_paths', System.paths)
+systemRoute.get('system.monitor', _addProxy('/_monitor'), System.monitor)
+systemRoute.get('system.about', _addProxy('/_about'), System.about)
+systemRoute.get('system.paths', _addProxy('/_paths'), System.paths)
 systemRoute.get('system.robots', '/robots.txt', System.robotsTxt)
 server.use('/', systemRoute.getRouter())
 
 // App routes
 const appRoute = AppRouter()
-appRoute.get('system.index', config.proxyPrefixPath.uri + '/', serverLogin, Sample.getIndex)
-appRoute.get('system.index', config.proxyPrefixPath.uri + '/:page', serverLogin, Sample.getIndex)
+appRoute.get('node.index', _addProxy('/'), serverLogin, Sample.getIndex)
+appRoute.get('node.page', _addProxy('/:page'), serverLogin, Sample.getIndex)
 appRoute.get(
   'system.gateway',
-  config.proxyPrefixPath.uri + '/gateway',
+  _addProxy('/gateway'),
   getServerGatewayLogin('/'),
   requireRole('isAdmin'),
   Sample.getIndex
