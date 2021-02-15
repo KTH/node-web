@@ -14,6 +14,7 @@
     "node": "12"
   },
   "scripts": {
+    "prettier:all": "prettier --write \"**/*.js\" \"**/*.jsx\" \"**/*.scss\"",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:notify": "jest --watch --notify",
@@ -21,7 +22,8 @@
     "build-dev": "bash ./build.sh dev /node",
     "start": "bash -c 'NODE_ENV=production node app.js'",
     "start-dev": "bash -c 'NODE_ENV=development concurrently --kill-others -n build,app \"npm run build-dev\" \"nodemon app.js\"'",
-    "lint": "eslint \"public/**/*.{js,jsx}\" --quiet"
+    "lint": "eslint \"public/**/*.{js,jsx}\" --quiet",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.13",
