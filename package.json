@@ -10,9 +10,6 @@
     "type": "git",
     "uri": "https://github.com/KTH/node-web"
   },
-  "engines": {
-    "node": "12"
-  },
   "scripts": {
     "prettier:all": "prettier --write \"**/*.js\" \"**/*.jsx\" \"**/*.scss\"",
     "test": "jest",
@@ -22,8 +19,7 @@
     "build-dev": "bash ./build.sh dev /node",
     "start": "bash -c 'NODE_ENV=production node app.js'",
     "start-dev": "bash -c 'NODE_ENV=development concurrently --kill-others -n build,app \"npm run build-dev\" \"nodemon app.js\"'",
-    "lint": "eslint \"public/**/*.{js,jsx}\" --quiet",
-    "postinstall": "husky install"
+    "lint": "eslint \"public/**/*.{js,jsx}\" --quiet"
   },
   "dependencies": {
     "@babel/runtime": "^7.12.13",
@@ -68,7 +64,7 @@
     "@types/jest": "^26.0.20",
     "concurrently": "^5.3.0",
     "eslint": "^7.19.0",
-    "husky": "^5.0.9",
+    "husky": "^4.3.8",
     "jest": "^26.6.3",
     "jest-extended": "^0.11.5",
     "nodemon": "^2.0.7",
@@ -103,5 +99,9 @@
       "jest-extended"
     ],
     "verbose": true
+  },
+  "husky": {
+    "pre-commit": "pretty-quick --staged",
+    "pre-push": "npm run test"
   }
 }
