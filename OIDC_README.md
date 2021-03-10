@@ -1,6 +1,6 @@
 # OpenID Connect Genomgång
 
-###The basics###
+### The basics
 
 Vi använder passport för autentisering i våra Express-baserade Node.js appar.
 
@@ -31,7 +31,7 @@ Som standard hamnar resultatet på req.user, något som skiljer sig från vår k
 
 _Ska vi bygga upp ett likadant objekt för att göra den initiala överången enklare? Alternativet är att varje app samt eventuella externa libs behöver går igenom vid migrering til OIDC_
 
-###Våra routes###
+### Våra routes
 
 Exempel på hur det hanteras idag på en route:
 
@@ -39,12 +39,14 @@ Exempel på hur det hanteras idag på en route:
 
 **serverLogin** är en middleware som sköter inloggningen och skickar vidare ifall användaren är inloggad.
 
-###Vad behöver vi för middleware?###
+### Vad behöver vi för middleware?
 
-####serverLogin####
+#### serverLogin
+
 Ska klara av att kontrollera ifall en användare är inloggad, och sen tvinga logga in användaren eller skicka vidare användaren rätt URL
 
-####gatewayLogin####
+#### gatewayLogin
+
 Ska klara av att kontrollera ifall en användare är inloggad och sen skicka vidare användaren till nästa middleware
 
 I CAS fungerar detta genom att
