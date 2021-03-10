@@ -49,8 +49,6 @@ Ska klara av att kontrollera ifall en användare är inloggad, och sen tvinga lo
 
 Ska klara av att kontrollera ifall en användare är inloggad och sen skicka vidare användaren till nästa middleware
 
-I CAS fungerar detta genom att
-
 **_Fråga_**
 
 _Finns konceptet gateway i OpenId Connect_
