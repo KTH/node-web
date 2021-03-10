@@ -16,10 +16,10 @@ Dvs:
   `const provider = await Issuer.discover(openIdConfigurationUrl);`
 
 - Via providern skapar vi en Client som vi konfigurerar med
-- clientId
-- clientSecret
-- redirectUris
-- mm
+  - clientId
+  - clientSecret
+  - redirectUris
+  - mm
 - Vi skapar en Strategy med ovanstående client samt en funktion som vi själva implementerar för att avgöra ifall användaren är ok.
 - Vi confar upp denna strategi i passport med namnet "oidc": `passport.use("oidc", strategy);`
 
