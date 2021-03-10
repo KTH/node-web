@@ -153,7 +153,7 @@ const { languageHandler } = require('kth-node-web-common/lib/language')
 server.use(config.proxyPrefixPath.uri, languageHandler)
 
 /* ******************************
- * ******* AUTHENTICATION *******
+ * ** AUTHENTICATION - CAS     **
  * ******************************
  */
 const passport = require('passport')
@@ -187,6 +187,15 @@ server.use('/', authRoute.getRouter())
 // Convenience methods that should really be removed
 server.login = serverLogin
 server.gatewayLogin = getServerGatewayLogin
+
+/* ******************************
+ * ** AUTHENTICATION - OIDC    **
+ * ******************************
+ */
+
+const oidcServerLoginStrategy = require('./oidc')(config.oidc)
+
+passport.use('oidc', oidcServerLoginStrategy)
 
 /* ******************************
  * ******* CORTINA BLOCKS *******

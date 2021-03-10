@@ -26,6 +26,10 @@ const devSessionUseRedis = devDefaults(true)
 const devRedis = devDefaults('redis://localhost:6379/')
 const devLdap = undefined // Do not enter LDAP_URI or LDAP_PASSWORD here, use env_vars
 const devSsoBaseURL = devDefaults('https://login-r.referens.sys.kth.se')
+const devOidcURL = devDefaults('https://login.ref.ug.kth.se/adfs')
+const devOidcConfigurationURL = devDefaults(`${devOidcURL}/.well-known/openid-configuration`)
+const devOidcCallbackURL = devDefaults('https://localhost:3000/node/auth/callback')
+const devOidcLogoutURL = devDefaults('https://localhost:3000/node/auth/logout')
 const devLdapBase = devDefaults('OU=UG,DC=ref,DC=ug,DC=kth,DC=se')
 // END DEFAULT SETTINGS
 
@@ -71,6 +75,14 @@ module.exports = {
   },
   cas: {
     ssoBaseURL: getEnv('CAS_SSO_URI', devSsoBaseURL),
+  },
+  oidc: {
+    clientId: getEnv('OIDC_APPLICATION_ID', null),
+    clientSecret: getEnv('OIDC_CLIENT_SECRET', null),
+    adfsUrl: getEnv('OIDC_ADFS_URL', devDefaults(devOidcURL)),
+    configurationUrl: getEnv('OIDC_CONFIGURATION_URL', devDefaults(devOidcConfigurationURL)),
+    callbackUrl: getEnv('OIDC_CALLBACK_URL', devDefaults(devOidcCallbackURL)),
+    logoutUrl: getEnv('OIDC_LOGOUT_URL', devDefaults(devOidcLogoutURL)),
   },
   ldap: unpackLDAPConfig('LDAP_URI', getEnv('LDAP_PASSWORD'), devLdap, ldapOptions),
 
