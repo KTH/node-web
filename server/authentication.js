@@ -73,26 +73,26 @@ passport.use(
 // The factory routeHandlers.getRedirectAuthenticatedUser returns a middleware that sets the user in req.session.authUser and
 // redirects to appropriate place when returning from CAS login
 // The unpackLdapUser function transforms an ldap user to a user object that is stored as
-const ldapClient = require('./adldapClient')
-// eslint-disable-next-line import/order
-const { hasGroup } = require('kth-node-ldap').utils
-module.exports.redirectAuthenticatedUserHandler = require('kth-node-passport-cas').routeHandlers.getRedirectAuthenticatedUser(
-  {
-    ldapConfig: config.ldap,
-    ldapClient,
-    proxyPrefixPath: config.proxyPrefixPath.uri,
-    unpackLdapUser: (ldapUser, pgtIou) => {
-      return {
-        username: ldapUser.ugUsername,
-        displayName: ldapUser.displayName,
-        email: ldapUser.mail,
-        pgtIou,
-        // This is where you can set custom roles
-        isAdmin: hasGroup(config.auth.adminGroup, ldapUser),
-      }
-    },
-  }
-)
+// const ldapClient = require('./adldapClient')
+// // eslint-disable-next-line import/order
+// const { hasGroup } = require('kth-node-ldap').utils
+// module.exports.redirectAuthenticatedUserHandler = require('kth-node-passport-cas').routeHandlers.getRedirectAuthenticatedUser(
+//   {
+//     ldapConfig: config.ldap,
+//     ldapClient,
+//     proxyPrefixPath: config.proxyPrefixPath.uri,
+//     unpackLdapUser: (ldapUser, pgtIou) => {
+//       return {
+//         username: ldapUser.ugUsername,
+//         displayName: ldapUser.displayName,
+//         email: ldapUser.mail,
+//         pgtIou,
+//         // This is where you can set custom roles
+//         isAdmin: hasGroup(config.auth.adminGroup, ldapUser),
+//       }
+//     },
+//   }
+// )
 
 /*
   Checks req.session.authUser as created above im unpackLdapUser.

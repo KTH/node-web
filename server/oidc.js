@@ -17,6 +17,7 @@ module.exports = async ({ configurationUrl, clientId, clientSecret, callbackUrl,
 
   const strategy = new Strategy({ client, passReqToCallback: true, usePKCE: 'S256' }, (req, tokenSet, done) => {
     req.session['_id_token'] = tokenSet.id_token // store id_token for logout
+    const claims = tokenSet.claims()
     return done(null, tokenSet.claims())
   })
 

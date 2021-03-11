@@ -35,6 +35,7 @@ async function getIndex(req, res, next) {
       breadcrumbsPath: [],
       lang,
       proxyPrefix,
+      user: JSON.stringify(req.user),
     })
   } catch (err) {
     log.error('Error in getIndex', { error: err })

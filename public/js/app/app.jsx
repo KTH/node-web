@@ -40,6 +40,7 @@ function appFactory(applicationStore) {
     <MobxStoreProvider initCallback={() => applicationStore}>
       <Switch>
         <Route exact path="/" component={Start} />
+        <Route exact path="/test" component={Start} />
       </Switch>
     </MobxStoreProvider>
   )

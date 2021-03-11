@@ -158,44 +158,80 @@ server.use(config.proxyPrefixPath.uri, languageHandler)
  */
 const passport = require('passport')
 // const ldapClient = require('./adldapClient')
-const {
-  authLoginHandler,
-  authCheckHandler,
-  logoutHandler,
-  pgtCallbackHandler,
-  serverLogin,
-  getServerGatewayLogin,
-} = require('kth-node-passport-cas').routeHandlers({
-  casLoginUri: _addProxy('/login'),
-  casGatewayUri: _addProxy('/loginGateway'),
-  proxyPrefixPath: config.proxyPrefixPath.uri,
-  server,
-})
-const { redirectAuthenticatedUserHandler } = require('./authentication')
+// const {
+//   authLoginHandler,
+//   authCheckHandler,
+//   logoutHandler,
+//   pgtCallbackHandler,
+//   serverLogin,
+//   getServerGatewayLogin,
+// } = require('kth-node-passport-cas').routeHandlers({
+//   casLoginUri: _addProxy('/login'),
+//   casGatewayUri: _addProxy('/loginGateway'),
+//   proxyPrefixPath: config.proxyPrefixPath.uri,
+//   server,
+// })
+// const { redirectAuthenticatedUserHandler } = require('./authentication')
 
-server.use(passport.initialize())
-server.use(passport.session())
+// server.use(passport.initialize())
+// server.use(passport.session())
 
-const authRoute = AppRouter()
-authRoute.get('cas.login', _addProxy('/login'), authLoginHandler, redirectAuthenticatedUserHandler)
-authRoute.get('cas.gateway', _addProxy('/loginGateway'), authCheckHandler, redirectAuthenticatedUserHandler)
-authRoute.get('cas.logout', _addProxy('/logout'), logoutHandler)
-// Optional pgtCallback (use config.cas.pgtUrl?)
-authRoute.get('cas.pgtCallback', _addProxy('/pgtCallback'), pgtCallbackHandler)
-server.use('/', authRoute.getRouter())
+// const authRoute = AppRouter()
+// authRoute.get('cas.login', _addProxy('/login'), authLoginHandler, redirectAuthenticatedUserHandler)
+// authRoute.get('cas.gateway', _addProxy('/loginGateway'), authCheckHandler, redirectAuthenticatedUserHandler)
+// authRoute.get('cas.logout', _addProxy('/logout'), logoutHandler)
+// // Optional pgtCallback (use config.cas.pgtUrl?)
+// authRoute.get('cas.pgtCallback', _addProxy('/pgtCallback'), pgtCallbackHandler)
+// server.use('/', authRoute.getRouter())
 
-// Convenience methods that should really be removed
-server.login = serverLogin
-server.gatewayLogin = getServerGatewayLogin
+// // Convenience methods that should really be removed
+// server.login = serverLogin
+// server.gatewayLogin = getServerGatewayLogin
 
 /* ******************************
  * ** AUTHENTICATION - OIDC    **
  * ******************************
  */
+const serverLogin = (req, res, next) => {
+  if (typeof req.isAuthenticated === 'function' && req.isAuthenticated()) {
+    return next()
+  }
+  if (req.session) {
+    req.session.returnTo = req.originalUrl || req.url
+  }
+  return res.redirect(_addProxy('/login'))
+}
 
-const oidcServerLoginStrategy = require('./oidc')(config.oidc)
+server.use(passport.initialize())
+server.use(passport.session())
 
-passport.use('oidc', oidcServerLoginStrategy)
+const setupOidc = async () => {
+  const oidcServerLoginStrategy = await require('./oidc')(config.oidc)
+  passport.use('oidc', oidcServerLoginStrategy)
+}
+
+setupOidc()
+
+server.get(_addProxy('/login'), (req, res, next) => {
+  passport.authenticate(
+    'oidc'
+    // Uncomment if you want to call the ADFS userinfo endpoint
+    // {
+    //  resource: 'urn:microsoft:userinfo',
+    // }
+  )(req, res, next)
+})
+
+server.get(_addProxy('/auth/callback'), (req, res, next) => {
+  // passport.authenticate('oidc', {
+  //   successRedirect: _addProxy('/'),
+  //   failureRedirect: '/',
+  // })(req, res, next)
+  passport.authenticate('oidc', {
+    successRedirect: req.session.returnTo,
+    failureRedirect: '/',
+  })(req, res, next)
+})
 
 /* ******************************
  * ******* CORTINA BLOCKS *******
@@ -246,7 +282,7 @@ appRoute.get('node.page', _addProxy('/:page'), serverLogin, Sample.getIndex)
 appRoute.get(
   'system.gateway',
   _addProxy('/gateway'),
-  getServerGatewayLogin('/'),
+  // getServerGatewayLogin('/'),
   requireRole('isAdmin'),
   Sample.getIndex
 )
