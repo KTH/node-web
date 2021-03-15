@@ -1,6 +1,6 @@
 const { Issuer, Strategy } = require('openid-client')
 
-module.exports = async ({ configurationUrl, clientId, clientSecret, callbackUrl, logoutUrl }) => {
+module.exports = async ({ configurationUrl, clientId, clientSecret, callbackUrl, callbackSilentUrl, logoutUrl }) => {
   const provider = await Issuer.discover(configurationUrl)
 
   const client = new provider.Client({
@@ -15,11 +15,20 @@ module.exports = async ({ configurationUrl, clientId, clientSecret, callbackUrl,
     token_endpoint_auth_method: 'client_secret_post',
   }) // => Client
 
-  const strategy = new Strategy({ client, passReqToCallback: true, usePKCE: 'S256' }, (req, tokenSet, done) => {
+  const loginStrategy = new Strategy({ client, passReqToCallback: true, usePKCE: 'S256' }, (req, tokenSet, done) => {
     req.session['_id_token'] = tokenSet.id_token // store id_token for logout
     const claims = tokenSet.claims()
     return done(null, tokenSet.claims())
   })
 
-  return strategy
+  const loginSilentStrategy = new Strategy(
+    { client, params: { prompt: 'none', redirect_uri: callbackSilentUrl }, passReqToCallback: true, usePKCE: 'S256' },
+    (req, tokenSet, done) => {
+      req.session['_id_token'] = tokenSet.id_token // store id_token for logout
+      const claims = tokenSet.claims()
+      return done(null, tokenSet.claims())
+    }
+  )
+
+  return { loginStrategy, loginSilentStrategy }
 }

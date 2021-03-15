@@ -153,85 +153,132 @@ const { languageHandler } = require('kth-node-web-common/lib/language')
 server.use(config.proxyPrefixPath.uri, languageHandler)
 
 /* ******************************
- * ** AUTHENTICATION - CAS     **
- * ******************************
- */
+ ***** AUTHENTICATION - OIDC ****
+ ****************************** */
+
 const passport = require('passport')
-// const ldapClient = require('./adldapClient')
-// const {
-//   authLoginHandler,
-//   authCheckHandler,
-//   logoutHandler,
-//   pgtCallbackHandler,
-//   serverLogin,
-//   getServerGatewayLogin,
-// } = require('kth-node-passport-cas').routeHandlers({
-//   casLoginUri: _addProxy('/login'),
-//   casGatewayUri: _addProxy('/loginGateway'),
-//   proxyPrefixPath: config.proxyPrefixPath.uri,
-//   server,
-// })
-// const { redirectAuthenticatedUserHandler } = require('./authentication')
 
-// server.use(passport.initialize())
-// server.use(passport.session())
+server.use(passport.initialize())
+server.use(passport.session())
 
-// const authRoute = AppRouter()
-// authRoute.get('cas.login', _addProxy('/login'), authLoginHandler, redirectAuthenticatedUserHandler)
-// authRoute.get('cas.gateway', _addProxy('/loginGateway'), authCheckHandler, redirectAuthenticatedUserHandler)
-// authRoute.get('cas.logout', _addProxy('/logout'), logoutHandler)
-// // Optional pgtCallback (use config.cas.pgtUrl?)
-// authRoute.get('cas.pgtCallback', _addProxy('/pgtCallback'), pgtCallbackHandler)
-// server.use('/', authRoute.getRouter())
+const setupOidc = async () => {
+  const { loginStrategy, loginSilentStrategy } = await require('./oidc')(config.oidc)
+  passport.use('oidc', loginStrategy)
+  passport.use('oidcSilent', loginSilentStrategy)
+}
 
-// // Convenience methods that should really be removed
-// server.login = serverLogin
-// server.gatewayLogin = getServerGatewayLogin
+setupOidc()
 
-/* ******************************
- * ** AUTHENTICATION - OIDC    **
- * ******************************
- */
-const serverLogin = (req, res, next) => {
+const LOGIN_ROUTE_URL = _addProxy('/auth/login')
+
+const login = (req, res, next) => {
   if (typeof req.isAuthenticated === 'function' && req.isAuthenticated()) {
     return next()
   }
   if (req.session) {
     req.session.returnTo = req.originalUrl || req.url
   }
-  return res.redirect(_addProxy('/login'))
+  return res.redirect(LOGIN_ROUTE_URL)
 }
 
-server.use(passport.initialize())
-server.use(passport.session())
-
-const setupOidc = async () => {
-  const oidcServerLoginStrategy = await require('./oidc')(config.oidc)
-  passport.use('oidc', oidcServerLoginStrategy)
-}
-
-setupOidc()
-
-server.get(_addProxy('/login'), (req, res, next) => {
-  passport.authenticate(
-    'oidc'
-    // Uncomment if you want to call the ADFS userinfo endpoint
-    // {
-    //  resource: 'urn:microsoft:userinfo',
-    // }
-  )(req, res, next)
+server.get(LOGIN_ROUTE_URL, (req, res, next) => {
+  passport.authenticate('oidc')(req, res, next)
 })
 
 server.get(_addProxy('/auth/callback'), (req, res, next) => {
-  // passport.authenticate('oidc', {
-  //   successRedirect: _addProxy('/'),
-  //   failureRedirect: '/',
-  // })(req, res, next)
   passport.authenticate('oidc', {
     successRedirect: req.session.returnTo,
-    failureRedirect: '/',
+    failureRedirect: _addProxy(''), // Where should we send a user when this fails?
   })(req, res, next)
 })
+
+const LOGIN_SILENT_ROUTE_URL = _addProxy('/auth/silent/login')
+const ANONYMOUS_USER = 'anonymous-user'
+
+const silentLogin = (req, res, next) => {
+  if (typeof req.isAuthenticated === 'function' && req.isAuthenticated()) {
+    return next()
+  }
+  if (req.session) {
+    req.session.returnTo = req.originalUrl || req.url
+  }
+  return res.redirect(LOGIN_SILENT_ROUTE_URL)
+}
+
+server.get(LOGIN_SILENT_ROUTE_URL, (req, res, next) => {
+  passport.authenticate('oidcSilent')(req, res, next)
+})
+
+server.get(_addProxy('/auth/silent/callback'), (req, res, next) => {
+  // https://auth0.com/docs/authorization/configure-silent-authentication
+
+  // Possible error codes from ADFS
+  //  login_required
+  //  consent_required
+  //  interaction_required
+
+  // if (req.query.error) {
+  //   if (
+  //     req.query.error === 'login_required' ||
+  //     req.query.error === 'consent_required' ||
+  //     req.query.error === 'interaction_required'
+  //   ) {
+  //     req.session.authUser = ANONYMOUS_USER
+  //     // Setting a 'short' cookie max age so we re-authenticate soon
+  //     req.session.cookie.maxAge = 60000 // 1 minute
+  //     return res.redirect(req.session.returnTo)
+  //   } else {
+  //     // show error_description on error page?
+  //   }
+  // }
+
+  passport.authenticate(
+    'oidc',
+    {
+      successRedirect: req.session.returnTo,
+      failureRedirect: _addProxy(''), // Where should we send a user when this fails?
+    },
+    // eslint-disable-next-line no-unused-vars
+    (error, user, info) => {
+      if (info.error) {
+        if (
+          req.query.error === 'login_required' ||
+          req.query.error === 'consent_required' ||
+          req.query.error === 'interaction_required'
+        ) {
+          req.login(ANONYMOUS_USER, err => {
+            if (err) {
+              return next(err)
+            }
+            // Setting a 'short' cookie max age so we re-authenticate soon
+            // TODO Verkar inte fungera helt korrekt
+            req.session.cookie.maxAge = 60000 // 1 minute
+            return res.redirect(req.session.returnTo)
+          })
+        } else {
+          // show error_description on error page?
+        }
+      }
+    }
+  )(req, res, next)
+})
+
+// TODO
+
+// * Med denna lösning så blir även en anonym användare autenticerad. Dåligt?
+// * Kommer verkligen det att fungera att spara returnTo i sessionen? Vad händer vid flera slagningar. Exempel i profiles
+// * Skriv en ny requireRole (Ser grupperna ut som f;r LDAP, beh;ver vi https://github.com/KTH/kth-node-ldap/blob/master/lib/utils/hasGroup.js)
+// * Bör vi skriva ett standardsätt att konstruera en användare, typ:
+
+// unpackLdapUser: (ldapUser, pgtIou) => {
+//   //       return {
+//   //         username: ldapUser.ugUsername,
+//   //         displayName: ldapUser.displayName,
+//   //         email: ldapUser.mail,
+//   //         pgtIou,
+//   //         // This is where you can set custom roles
+//   //         isAdmin: hasGroup(config.auth.adminGroup, ldapUser),
+//   //       }
 
 /* ******************************
  * ******* CORTINA BLOCKS *******
@@ -277,8 +324,9 @@ server.use('/', systemRoute.getRouter())
 
 // App routes
 const appRoute = AppRouter()
-appRoute.get('node.index', _addProxy('/'), serverLogin, Sample.getIndex)
-appRoute.get('node.page', _addProxy('/:page'), serverLogin, Sample.getIndex)
+appRoute.get('node.page', _addProxy('/silent'), silentLogin, Sample.getIndex)
+appRoute.get('node.index', _addProxy('/'), login, Sample.getIndex)
+appRoute.get('node.page', _addProxy('/:page'), login, Sample.getIndex)
 appRoute.get(
   'system.gateway',
   _addProxy('/gateway'),
