@@ -162,6 +162,9 @@ module.exports = (
    * On a redirect this function generates a state. This is usually done inside the openid-client
    * but can also be injected into the authentication function, which is what happens here.
    *
+   * The state is basically a unique random string which we send to the OpenID Connect server
+   * and then used to verify the callback from the server. This to prevent request forgery.
+   *
    * The state is generated the same way as it is done inside the openid-client but in this way we
    * can store the originally requested URL in the session with a unique id. This id, the state, is
    * also sent to our callback function from the OpenID Connect server, where we can extract the originalUrl from the session.
