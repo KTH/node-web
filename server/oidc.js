@@ -43,12 +43,12 @@ const {
  * @param {String} config.failureRedirect In case of error
  * @param {String} [config.anonymousCookieMaxAge=600000] If a client, on a silent login, is considered anonymous, this cookie lives this long (in milliseconds).
  *
- * @typedef {Object} middlewareAndStrategy
- * @property {Function} login - Middleware which ensures a logged in user
- * @property {Function} loginStrategy - openid-client configured strategy
- * @property {Function} silentLogin - Middleware which  a logged in user
- * @property {Function} loginSilentStrategy - openid-client configured strategy for silent authentication
- * @returns {middlewareAndStrategy}
+ * @typedef {Object} oidcFunctions
+ * @property {Promise} login - A promise which resolves to a middleware which ensures a logged in user
+ * @property {Promise} silentLogin - A promise which resolves to a middleware which ensures a silent authenticated user
+ * @property {Promise} loginStrategy - A promise which resolves to a openid-client configured strategy
+ * @property {Promise} loginSilentStrategy - A promise which resolves to a openid-client configured strategy for silent authentication
+ * @returns {oidcFunctions}
  */
 
 module.exports = (
@@ -87,7 +87,10 @@ module.exports = (
       })
   )
 
-  oidcFunctions.loginStrategy = async function () {
+  /**
+   * Creates a openid-client Strategy
+   */
+  oidcFunctions.loginStrategy = async () => {
     const client = await oidcClient
     const loginStrategy = new Strategy({ client, passReqToCallback: true, usePKCE: 'S256' }, (req, tokenSet, done) => {
       req.session['_id_token'] = tokenSet.id_token // store id_token for logout
@@ -97,7 +100,10 @@ module.exports = (
     return loginStrategy
   }
 
-  oidcFunctions.loginSilentStrategy = async function () {
+  /**
+   * Creates a openid-client Strategy configured for silent authentication
+   */
+  oidcFunctions.loginSilentStrategy = async () => {
     const client = await oidcClient
     const loginSilentStrategy = new Strategy(
       { client, params: { prompt: 'none', redirect_uri: callbackSilentUrl }, passReqToCallback: true, usePKCE: 'S256' },
@@ -112,6 +118,21 @@ module.exports = (
     return loginSilentStrategy
   }
 
+  /**
+   * Setup of Express middleware
+   *
+   * Check if the user it authenticated or else redirect to OpenID Connect server
+   * for authentication
+   *
+   * On a redirect this function generates a state. This is usually done inside the openid-client
+   * but can also be injected into the authentication function, which is what is done here.
+   *
+   * The state is generated the same way as it is done inside the openid-client but in this way we
+   * can store the originally requested URL in the session with a unique id, which is also sent to the
+   * callback function, where we can extract the originalUrl from the session.
+   *
+   * Read more: https://developers.google.com/identity/protocols/oauth2/openid-connect#createxsrftoken
+   */
   oidcFunctions.login = async (req, res, next) => {
     // eslint-disable-next-line no-unused-vars
     const strategyIsReady = await oidcFunctions.loginStrategy()
@@ -127,10 +148,26 @@ module.exports = (
 
       req.session.redirects[newState] = req.originalUrl || req.url
 
-      passport.authenticate('oidc', { state: newState })(req, res, next)
+      return passport.authenticate('oidc', { state: newState })(req, res, next)
     })(req, res, next)
   }
 
+  /**
+   * Setup of Express middleware
+   *
+   * Check if the user is anonymous or authenticated, known as a "silent login"
+   *
+   * Read More: https://auth0.com/docs/authorization/configure-silent-authentication
+   *
+   * On a redirect this function generates a state. This is usually done inside the openid-client
+   * but can also be injected into the authentication function, which is what happens here.
+   *
+   * The state is generated the same way as it is done inside the openid-client but in this way we
+   * can store the originally requested URL in the session with a unique id. This id, the state, is
+   * also sent to our callback function from the OpenID Connect server, where we can extract the originalUrl from the session.
+   *
+   * Read more: https://developers.google.com/identity/protocols/oauth2/openid-connect#createxsrftoken
+   */
   oidcFunctions.silentLogin = async (req, res, next) => {
     // eslint-disable-next-line no-unused-vars
     const silentStrategyIsReady = await oidcFunctions.loginSilentStrategy()
@@ -146,27 +183,40 @@ module.exports = (
 
       req.session.redirects[newState] = req.originalUrl || req.url
 
-      passport.authenticate('oidcSilent', { state: newState })(req, res, next)
+      return passport.authenticate('oidcSilent', { state: newState })(req, res, next)
     })(req, res, next)
   }
 
+  /**
+   * Setup of express route. Callback route to be used by OpenID Connect server
+   * for authentication
+   *
+   * On a successful authentication the user is redirected to the original url
+   */
   expressApp.get(appCallbackUrl, (req, res, next) => {
     const nextUrl = req.session.redirects[req.query.state] || defaultRedirect
     delete req.session.redirects[req.query.state]
     passport.authenticate('oidc', {
       successRedirect: nextUrl,
-      failureRedirect, // Where should we send a user when this fails?
+      failureRedirect,
     })(req, res, next)
   })
 
+  /**
+   * Setup of express route. Callback route to be used by OpenID Connect server
+   * for silent authentication
+   *
+   * Handles error codes from OpenID Connect server if the user isn't logged in.
+   * Possible error codes
+   * - login_required
+   * - consent_required
+   * - interaction_required
+   *
+   * Read More: https://auth0.com/docs/authorization/configure-silent-authentication
+   *
+   * On a successful authentication the user is redirected to the original url
+   */
   expressApp.get(appCallbackSilentUrl, (req, res, next) => {
-    // https://auth0.com/docs/authorization/configure-silent-authentication
-
-    // Possible error codes from ADFS
-    //  login_required
-    //  consent_required
-    //  interaction_required
-
     const nextUrl = req.session.redirects[req.query.state] || defaultRedirect
     delete req.session.redirects[req.query.state]
 
@@ -182,13 +232,13 @@ module.exports = (
         return res.redirect(nextUrl)
         // eslint-disable-next-line no-else-return
       } else {
-        // show error_description on error page?
+        // TODO show error_description on error page?
       }
     }
 
     passport.authenticate('oidcSilent', {
       successRedirect: nextUrl,
-      failureRedirect, // Where should we send a user when this fails?
+      failureRedirect,
     })(req, res, next)
   })
 
