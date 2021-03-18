@@ -157,131 +157,23 @@ server.use(config.proxyPrefixPath.uri, languageHandler)
  ***** AUTHENTICATION - OIDC ****
  ****************************** */
 
-const passport = require('passport')
+const { login, silentLogin } = require('./oidc')(server, {
+  ...config.oidc,
+  appCallbackUrl: _addProxy('/auth/callback'),
+  appCallbackSilentUrl: _addProxy('/auth/silent/callback'),
+  defaultRedirect: _addProxy(''),
+  failureRedirect: _addProxy(''),
+})
 
-server.use(passport.initialize())
-server.use(passport.session())
-
-const setupOidc = async () => {
-  const { loginStrategy, loginSilentStrategy } = await require('./oidc')(config.oidc)
-  passport.use('oidc', loginStrategy)
-  passport.use('oidcSilent', loginSilentStrategy)
-}
-
-setupOidc()
+// const { login, silentLogin } = setupOidc()
 
 const LOGIN_ROUTE_URL = _addProxy('/auth/login')
-const NEXT_URL_PARAM = 'nextUrl'
-
-const login = (req, res, next) => {
-  if (typeof req.isAuthenticated === 'function' && req.isAuthenticated()) {
-    return next()
-  }
-
-  const newState = state()
-
-  req.session.redirects = req.session.redirects || {}
-
-  req.session.redirects[newState] = req.originalUrl || req.url
-
-  passport.authenticate('oidc', { state: newState })(req, res, next)
-}
-
-const {
-  generators: { state },
-} = require('openid-client')
-
-server.get(LOGIN_ROUTE_URL, login, (req, res, next) => {
-  res.redirect(_addProxy(''))
-
-  // const callbackWithNextUrl = new URL(config.oidc.callbackUrl)
-  // if (req.query[NEXT_URL_PARAM]) {
-  //   callbackWithNextUrl.searchParams.append(NEXT_URL_PARAM, req.query[NEXT_URL_PARAM]) // // URL encode ???
-  // }
-  // passport.authenticate('oidc', { redirect_uri: callbackWithNextUrl.href })(req, res, next)
-  // const crypto = require('crypto')
-  // const newState = state()
-  // req.session.redirects = req.session.redirects || {}
-  // req.session.redirects[newState] = req.query[NEXT_URL_PARAM]
-  // passport.authenticate('oidc', { state: newState })(req, res, next)
-  // passport.authenticate('oidc')(req, res, next)
-})
-
-server.get(_addProxy('/auth/callback'), (req, res, next) => {
-  const nextUrl = req.session.redirects[req.query.state]
-  delete req.session.redirects[req.query.state]
-  passport.authenticate('oidc', {
-    successRedirect: nextUrl,
-    failureRedirect: _addProxy(''), // Where should we send a user when this fails?
-  })(req, res, next)
-})
+// eslint-disable-next-line no-unused-vars
+server.get(LOGIN_ROUTE_URL, login, (req, res, next) => res.redirect(_addProxy('')))
 
 const LOGIN_SILENT_ROUTE_URL = _addProxy('/auth/silent/login')
-
-const silentLogin = (req, res, next) => {
-  if (req.session.anonymous || (typeof req.isAuthenticated === 'function' && req.isAuthenticated())) {
-    return next()
-  }
-
-  const loginSilentWithNextUrl = new URL(LOGIN_SILENT_ROUTE_URL)
-  loginSilentWithNextUrl.searchParams.append(NEXT_URL_PARAM, req.originalUrl || req.url) // // URL encode ???
-  return res.redirect(loginSilentWithNextUrl.href)
-}
-
-server.get(LOGIN_SILENT_ROUTE_URL, (req, res, next) => {
-  passport.authenticate('oidcSilent')(req, res, next)
-})
-
-server.get(_addProxy('/auth/silent/callback'), (req, res, next) => {
-  // https://auth0.com/docs/authorization/configure-silent-authentication
-
-  // Possible error codes from ADFS
-  //  login_required
-  //  consent_required
-  //  interaction_required
-
-  if (req.query.error) {
-    if (
-      req.query.error === 'login_required' ||
-      req.query.error === 'consent_required' ||
-      req.query.error === 'interaction_required'
-    ) {
-      req.session.anonymous = true
-      // Setting a 'short' cookie max age so we re-authenticate soon
-      req.session.cookie.maxAge = 60000 // 1 minute
-      return res.redirect(req.session.returnTo)
-      // eslint-disable-next-line no-else-return
-    } else {
-      // show error_description on error page?
-    }
-  }
-
-  passport.authenticate('oidcSilent', {
-    successRedirect: req.session.returnTo,
-    failureRedirect: _addProxy(''), // Where should we send a user when this fails?
-  })(req, res, next)
-})
-
-// TODO
-
-// *
-// * Ta med getGroups - och den andra funktionen fr[n ldap paketet]
-// * Kommer verkligen det att fungera att spara returnTo i sessionen? Vad händer vid flera slagningar. Exempel i profiles
-// * Skriv en ny requireRole (Ser grupperna ut som f;r LDAP, beh;ver vi https://github.com/KTH/kth-node-ldap/blob/master/lib/utils/hasGroup.js)
-// * Bör vi skriva ett standardsätt att konstruera en användare, typ:
-// * Secure cookie?
-// https://developers.google.com/identity/protocols/oauth2/openid-connect#createxsrftoken
-// https://github.com/panva/node-openid-client/issues/83
-
-// unpackLdapUser: (ldapUser, pgtIou) => {
-//   //       return {
-//   //         username: ldapUser.ugUsername,
-//   //         displayName: ldapUser.displayName,
-//   //         email: ldapUser.mail,
-//   //         pgtIou,
-//   //         // This is where you can set custom roles
-//   //         isAdmin: hasGroup(config.auth.adminGroup, ldapUser),
-//   //       }
+// eslint-disable-next-line no-unused-vars
+server.get(LOGIN_SILENT_ROUTE_URL, silentLogin, (req, res, next) => res.redirect(_addProxy('')))
 
 /* ******************************
  * ******* CORTINA BLOCKS *******
