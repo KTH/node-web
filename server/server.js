@@ -6,6 +6,7 @@ const config = require('./configuration').server
 require('./api')
 const AppRouter = require('kth-node-express-routing').PageRouter
 const { getPaths } = require('kth-node-express-routing')
+const url = require('url')
 
 if (config.appInsights && config.appInsights.instrumentationKey) {
   const appInsights = require('applicationinsights')
@@ -170,39 +171,61 @@ const setupOidc = async () => {
 setupOidc()
 
 const LOGIN_ROUTE_URL = _addProxy('/auth/login')
+const NEXT_URL_PARAM = 'nextUrl'
 
 const login = (req, res, next) => {
   if (typeof req.isAuthenticated === 'function' && req.isAuthenticated()) {
     return next()
   }
-  if (req.session) {
-    req.session.returnTo = req.originalUrl || req.url
-  }
-  return res.redirect(LOGIN_ROUTE_URL)
+
+  const newState = state()
+
+  req.session.redirects = req.session.redirects || {}
+
+  req.session.redirects[newState] = req.originalUrl || req.url
+
+  passport.authenticate('oidc', { state: newState })(req, res, next)
 }
 
-server.get(LOGIN_ROUTE_URL, (req, res, next) => {
-  passport.authenticate('oidc')(req, res, next)
+const {
+  generators: { state },
+} = require('openid-client')
+
+server.get(LOGIN_ROUTE_URL, login, (req, res, next) => {
+  res.redirect(_addProxy(''))
+
+  // const callbackWithNextUrl = new URL(config.oidc.callbackUrl)
+  // if (req.query[NEXT_URL_PARAM]) {
+  //   callbackWithNextUrl.searchParams.append(NEXT_URL_PARAM, req.query[NEXT_URL_PARAM]) // // URL encode ???
+  // }
+  // passport.authenticate('oidc', { redirect_uri: callbackWithNextUrl.href })(req, res, next)
+  // const crypto = require('crypto')
+  // const newState = state()
+  // req.session.redirects = req.session.redirects || {}
+  // req.session.redirects[newState] = req.query[NEXT_URL_PARAM]
+  // passport.authenticate('oidc', { state: newState })(req, res, next)
+  // passport.authenticate('oidc')(req, res, next)
 })
 
 server.get(_addProxy('/auth/callback'), (req, res, next) => {
+  const nextUrl = req.session.redirects[req.query.state]
+  delete req.session.redirects[req.query.state]
   passport.authenticate('oidc', {
-    successRedirect: req.session.returnTo,
+    successRedirect: nextUrl,
     failureRedirect: _addProxy(''), // Where should we send a user when this fails?
   })(req, res, next)
 })
 
 const LOGIN_SILENT_ROUTE_URL = _addProxy('/auth/silent/login')
-const ANONYMOUS_USER = 'anonymous-user'
 
 const silentLogin = (req, res, next) => {
-  if (typeof req.isAuthenticated === 'function' && req.isAuthenticated()) {
+  if (req.session.anonymous || (typeof req.isAuthenticated === 'function' && req.isAuthenticated())) {
     return next()
   }
-  if (req.session) {
-    req.session.returnTo = req.originalUrl || req.url
-  }
-  return res.redirect(LOGIN_SILENT_ROUTE_URL)
+
+  const loginSilentWithNextUrl = new URL(LOGIN_SILENT_ROUTE_URL)
+  loginSilentWithNextUrl.searchParams.append(NEXT_URL_PARAM, req.originalUrl || req.url) // // URL encode ???
+  return res.redirect(loginSilentWithNextUrl.href)
 }
 
 server.get(LOGIN_SILENT_ROUTE_URL, (req, res, next) => {
@@ -217,58 +240,38 @@ server.get(_addProxy('/auth/silent/callback'), (req, res, next) => {
   //  consent_required
   //  interaction_required
 
-  // if (req.query.error) {
-  //   if (
-  //     req.query.error === 'login_required' ||
-  //     req.query.error === 'consent_required' ||
-  //     req.query.error === 'interaction_required'
-  //   ) {
-  //     req.session.authUser = ANONYMOUS_USER
-  //     // Setting a 'short' cookie max age so we re-authenticate soon
-  //     req.session.cookie.maxAge = 60000 // 1 minute
-  //     return res.redirect(req.session.returnTo)
-  //   } else {
-  //     // show error_description on error page?
-  //   }
-  // }
-
-  passport.authenticate(
-    'oidc',
-    {
-      successRedirect: req.session.returnTo,
-      failureRedirect: _addProxy(''), // Where should we send a user when this fails?
-    },
-    // eslint-disable-next-line no-unused-vars
-    (error, user, info) => {
-      if (info.error) {
-        if (
-          req.query.error === 'login_required' ||
-          req.query.error === 'consent_required' ||
-          req.query.error === 'interaction_required'
-        ) {
-          req.login(ANONYMOUS_USER, err => {
-            if (err) {
-              return next(err)
-            }
-            // Setting a 'short' cookie max age so we re-authenticate soon
-            // TODO Verkar inte fungera helt korrekt
-            req.session.cookie.maxAge = 60000 // 1 minute
-            return res.redirect(req.session.returnTo)
-          })
-        } else {
-          // show error_description on error page?
-        }
-      }
+  if (req.query.error) {
+    if (
+      req.query.error === 'login_required' ||
+      req.query.error === 'consent_required' ||
+      req.query.error === 'interaction_required'
+    ) {
+      req.session.anonymous = true
+      // Setting a 'short' cookie max age so we re-authenticate soon
+      req.session.cookie.maxAge = 60000 // 1 minute
+      return res.redirect(req.session.returnTo)
+      // eslint-disable-next-line no-else-return
+    } else {
+      // show error_description on error page?
     }
-  )(req, res, next)
+  }
+
+  passport.authenticate('oidcSilent', {
+    successRedirect: req.session.returnTo,
+    failureRedirect: _addProxy(''), // Where should we send a user when this fails?
+  })(req, res, next)
 })
 
 // TODO
 
-// * Med denna lösning så blir även en anonym användare autenticerad. Dåligt?
+// *
+// * Ta med getGroups - och den andra funktionen fr[n ldap paketet]
 // * Kommer verkligen det att fungera att spara returnTo i sessionen? Vad händer vid flera slagningar. Exempel i profiles
 // * Skriv en ny requireRole (Ser grupperna ut som f;r LDAP, beh;ver vi https://github.com/KTH/kth-node-ldap/blob/master/lib/utils/hasGroup.js)
 // * Bör vi skriva ett standardsätt att konstruera en användare, typ:
+// * Secure cookie?
+// https://developers.google.com/identity/protocols/oauth2/openid-connect#createxsrftoken
+// https://github.com/panva/node-openid-client/issues/83
 
 // unpackLdapUser: (ldapUser, pgtIou) => {
 //   //       return {
