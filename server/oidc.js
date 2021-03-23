@@ -27,8 +27,8 @@ const {
 //   //         isAdmin: hasGroup(config.auth.adminGroup, ldapUser),
 //   //       }
 
- * 
- * 
+ *
+ *
  * @param {Object} expressApp The express app instance
  * @param {Object} config
  * @param {String} config.configurationUrl
@@ -138,7 +138,7 @@ module.exports = (
     const strategyIsReady = await oidcFunctions.loginStrategy()
     // eslint-disable-next-line no-shadow
     return ((req, res, next) => {
-      if (typeof req.isAuthenticated === 'function' && req.isAuthenticated()) {
+      if (req.user) {
         return next()
       }
 
@@ -176,7 +176,10 @@ module.exports = (
     const silentStrategyIsReady = await oidcFunctions.loginSilentStrategy()
     // eslint-disable-next-line no-shadow
     return ((req, res, next) => {
-      if (req.session.anonymous || (typeof req.isAuthenticated === 'function' && req.isAuthenticated())) {
+      if (req.session.anonymous && req.user) {
+        req.session.anonymous = false
+      }
+      if (req.session.anonymous || req.user) {
         return next()
       }
 
@@ -230,8 +233,6 @@ module.exports = (
         req.query.error === 'interaction_required'
       ) {
         req.session.anonymous = true
-        // Setting a 'short' cookie max age so we re-authenticate soon
-        req.session.cookie.maxAge = anonymousCookieMaxAge
         return res.redirect(nextUrl)
         // eslint-disable-next-line no-else-return
       } else {

@@ -217,9 +217,16 @@ systemRoute.get('system.paths', _addProxy('/_paths'), System.paths)
 systemRoute.get('system.robots', '/robots.txt', System.robotsTxt)
 server.use('/', systemRoute.getRouter())
 
+const _showDebug = (req, res, next) => {
+  const { anonymous } = req.session
+  const { url: _url, user } = req
+  console.log('\n', { url: _url, anonymous, user }, '\n')
+  next()
+}
+
 // App routes
 const appRoute = AppRouter()
-appRoute.get('node.page', _addProxy('/silent'), silentLogin, Sample.getIndex)
+appRoute.get('node.page', _addProxy('/silent'), silentLogin, _showDebug, Sample.getIndex)
 appRoute.get('node.index', _addProxy('/'), login, Sample.getIndex)
 appRoute.get('node.page', _addProxy('/:page'), login, Sample.getIndex)
 appRoute.get(
