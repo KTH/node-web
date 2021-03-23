@@ -193,6 +193,21 @@ module.exports = (
   }
 
   /**
+   *
+   * @param {*} req
+   * @param {*} res
+   * @param {*} next
+   *
+   * @returns {Promise}
+   */
+  // eslint-disable-next-line no-unused-vars
+  oidcFunctions.doLogoutUser = async (req, res, next) => {
+    const client = await oidcClient
+    req.session.destroy() // ??
+    res.redirect(client.endSessionUrl())
+  }
+
+  /**
    * Setup of express route. Callback route to be used by OpenID Connect server
    * for authentication
    *

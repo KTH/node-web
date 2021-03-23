@@ -157,7 +157,7 @@ server.use(config.proxyPrefixPath.uri, languageHandler)
  ***** AUTHENTICATION - OIDC ****
  ****************************** */
 
-const { login, silentLogin } = require('./oidc')(server, {
+const { login, silentLogin, doLogoutUser } = require('./oidc')(server, {
   ...config.oidc,
   appCallbackUrl: _addProxy('/auth/callback'),
   appCallbackSilentUrl: _addProxy('/auth/silent/callback'),
@@ -174,6 +174,8 @@ server.get(LOGIN_ROUTE_URL, login, (req, res, next) => res.redirect(_addProxy(''
 const LOGIN_SILENT_ROUTE_URL = _addProxy('/auth/silent/login')
 // eslint-disable-next-line no-unused-vars
 server.get(LOGIN_SILENT_ROUTE_URL, silentLogin, (req, res, next) => res.redirect(_addProxy('')))
+
+server.get(_addProxy('/logout'), doLogoutUser)
 
 /* ******************************
  * ******* CORTINA BLOCKS *******
