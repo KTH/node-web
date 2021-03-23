@@ -1,5 +1,3 @@
-'use strict'
-
 const passport = require('passport')
 const log = require('kth-node-log')
 
@@ -22,26 +20,43 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((user, done) => {
   if (user) {
-    log.debug('User deserialized: ' + user)
-    done(null, user)
+    const { username, email, unique_name: name, memberOf } = user
+    const _user = {
+      username,
+      displayName: Array.isArray(name) && name.length > 0 ? name[0] : null,
+      email,
+      // pgtIou, // ??
+      roles: {
+        isAdmin: memberOf.includes('app.node.admin'),
+        //
+        // ** You might want to add more roles, here: **
+        //
+        // isProgramEditor: memberOf.includes('app.program.editor'),
+      },
+    }
+    log.debug('User deserialized: ', _user)
+    done(null, _user)
   } else {
     done()
   }
 })
 
+/**
+ * Usage: requireRole('isAdmin', 'isEditor')
+ * @param  {...any} roles
+ * @returns
+ */
 function requireRole(...roles) {
-  return function _hasNoneOfAcceptedRoles(req, res, next) {
-    const ldapUser = req.session.authUser || {}
-
-    // Check if we have any of the roles passed
-    const hasAuthorizedRole = roles.reduce((prev, curr) => prev || ldapUser[curr], false)
-    // If we don't have one of these then access is forbidden
-    if (!hasAuthorizedRole) {
-      const error = new Error('Forbidden')
-      error.status = 403
-      return next(error)
+  return (req, res, next) => {
+    if (req.user && req.user.roles) {
+      if (roles.some(key => req.user.roles[key])) {
+        next()
+        return
+      }
     }
-    return next()
+    const error = new Error('Forbidden')
+    error.status = 403
+    next(error)
   }
 }
 
