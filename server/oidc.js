@@ -41,7 +41,6 @@ const {
  * @param {String} config.logoutUrl
  * @param {String} config.defaultRedirect Fallback if no next url is supplied to login
  * @param {String} config.failureRedirect In case of error
- * @param {String} [config.anonymousCookieMaxAge=600000] If a client, on a silent login, is considered anonymous, this cookie lives this long (in milliseconds).
  *
  * @typedef {Object} oidcFunctions
  * @property {Promise} login - A promise which resolves to a middleware which ensures a logged in user
@@ -64,7 +63,6 @@ module.exports = (
     logoutUrl,
     defaultRedirect,
     failureRedirect,
-    anonymousCookieMaxAge = 600000,
   }
 ) => {
   expressApp.use(passport.initialize())
@@ -93,8 +91,9 @@ module.exports = (
   oidcFunctions.loginStrategy = async () => {
     const client = await oidcClient
     const loginStrategy = new Strategy({ client, passReqToCallback: true, usePKCE: 'S256' }, (req, tokenSet, done) => {
-      req.session['_id_token'] = tokenSet.id_token // store id_token for logout
-      return done(null, tokenSet.claims())
+      req.session._id_token = tokenSet.id_token // store id_token for logout
+      const claims = tokenSet.claims()
+      return done(null, claims)
     })
     passport.use('oidc', loginStrategy)
     return loginStrategy
@@ -108,9 +107,9 @@ module.exports = (
     const loginSilentStrategy = new Strategy(
       { client, params: { prompt: 'none', redirect_uri: callbackSilentUrl }, passReqToCallback: true, usePKCE: 'S256' },
       (req, tokenSet, done) => {
-        req.session['_id_token'] = tokenSet.id_token // store id_token for logout
+        req.session._id_token = tokenSet.id_token // store id_token for logout
         const claims = tokenSet.claims()
-        return done(null, tokenSet.claims())
+        return done(null, claims)
       }
     )
 
