@@ -153,40 +153,51 @@ const { languageHandler } = require('kth-node-web-common/lib/language')
 server.use(config.proxyPrefixPath.uri, languageHandler)
 
 /* ******************************
- * ******* AUTHENTICATION *******
- * ******************************
- */
+ ***** AUTHENTICATION - OIDC ****
+ ****************************** */
+
 const passport = require('passport')
-// const ldapClient = require('./adldapClient')
-const {
-  authLoginHandler,
-  authCheckHandler,
-  logoutHandler,
-  pgtCallbackHandler,
-  serverLogin,
-  getServerGatewayLogin,
-} = require('kth-node-passport-cas').routeHandlers({
-  casLoginUri: _addProxy('/login'),
-  casGatewayUri: _addProxy('/loginGateway'),
-  proxyPrefixPath: config.proxyPrefixPath.uri,
-  server,
-})
-const { redirectAuthenticatedUserHandler } = require('./authentication')
 
 server.use(passport.initialize())
 server.use(passport.session())
 
-const authRoute = AppRouter()
-authRoute.get('cas.login', _addProxy('/login'), authLoginHandler, redirectAuthenticatedUserHandler)
-authRoute.get('cas.gateway', _addProxy('/loginGateway'), authCheckHandler, redirectAuthenticatedUserHandler)
-authRoute.get('cas.logout', _addProxy('/logout'), logoutHandler)
-// Optional pgtCallback (use config.cas.pgtUrl?)
-authRoute.get('cas.pgtCallback', _addProxy('/pgtCallback'), pgtCallbackHandler)
-server.use('/', authRoute.getRouter())
+passport.serializeUser((user, done) => {
+  if (user) {
+    done(null, user)
+  } else {
+    done()
+  }
+})
 
-// Convenience methods that should really be removed
-server.login = serverLogin
-server.gatewayLogin = getServerGatewayLogin
+passport.deserializeUser((user, done) => {
+  if (user) {
+    done(null, user)
+  } else {
+    done()
+  }
+})
+
+const { OpenIDConnect, hasGroup } = require('@kth/kth-node-passport-oidc')
+
+const oidc = new OpenIDConnect(server, passport, {
+  ...config.oidc,
+  appCallbackLoginUrl: _addProxy('/auth/login/callback'),
+  appCallbackLogoutUrl: _addProxy('/auth/logout/callback'),
+  appCallbackSilentLoginUrl: _addProxy('/auth/silent/callback'),
+  defaultRedirect: _addProxy(''),
+  failureRedirect: _addProxy(''),
+  // eslint-disable-next-line no-unused-vars
+  extendUser: (user, claims) => {
+    // eslint-disable-next-line no-param-reassign
+    user.isAdmin = hasGroup(config.auth.adminGroup, user)
+  },
+})
+
+// eslint-disable-next-line no-unused-vars
+server.get(_addProxy('/login'), oidc.login, (req, res, next) => res.redirect(_addProxy('')))
+
+// eslint-disable-next-line no-unused-vars
+server.get(_addProxy('/logout'), oidc.logout)
 
 /* ******************************
  * ******* CORTINA BLOCKS *******
@@ -220,7 +231,6 @@ server.use(
  * **********************************
  */
 const { System, Sample } = require('./controllers')
-const { requireRole } = require('./authentication')
 
 // System routes
 const systemRoute = AppRouter()
@@ -232,15 +242,9 @@ server.use('/', systemRoute.getRouter())
 
 // App routes
 const appRoute = AppRouter()
-appRoute.get('node.index', _addProxy('/'), serverLogin, Sample.getIndex)
-appRoute.get('node.page', _addProxy('/:page'), serverLogin, Sample.getIndex)
-appRoute.get(
-  'system.gateway',
-  _addProxy('/gateway'),
-  getServerGatewayLogin('/'),
-  requireRole('isAdmin'),
-  Sample.getIndex
-)
+appRoute.get('node.index', _addProxy('/'), oidc.login, Sample.getIndex)
+appRoute.get('node.page', _addProxy('/:page'), oidc.login, Sample.getIndex)
+appRoute.get('system.gateway', _addProxy('/gateway'), oidc.silentLogin, oidc.requireRole('isAdmin'), Sample.getIndex)
 server.use('/', appRoute.getRouter())
 
 // Not found etc
