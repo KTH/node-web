@@ -10,7 +10,7 @@ The two projects are [node-web](https://github.com/KTH/node-web), a web server w
 
 It's important that we try to make changes that affect the template projects in the template projects themselves.
 
-> Are you looking for information about converting your app to use OpenID Connect? [Read more](./OICD_Migration.md)
+> Are you looking for information about converting your app to use OpenID Connect? [Read more](./OIDC_Migration.md)
 
 ## Quickrun
 
