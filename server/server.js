@@ -157,23 +157,48 @@ server.use(config.proxyPrefixPath.uri, languageHandler)
  ***** AUTHENTICATION - OIDC ****
  ****************************** */
 
-const { login, silentLogin } = require('./oidc')(server, {
-  ...config.oidc,
-  appCallbackUrl: _addProxy('/auth/callback'),
-  appCallbackSilentUrl: _addProxy('/auth/silent/callback'),
-  defaultRedirect: _addProxy(''),
-  failureRedirect: _addProxy(''),
+const passport = require('passport')
+
+server.use(passport.initialize())
+server.use(passport.session())
+
+passport.serializeUser((user, done) => {
+  if (user) {
+    done(null, user)
+  } else {
+    done()
+  }
 })
 
-// const { login, silentLogin } = setupOidc()
+passport.deserializeUser((user, done) => {
+  if (user) {
+    done(null, user)
+  } else {
+    done()
+  }
+})
 
-const LOGIN_ROUTE_URL = _addProxy('/auth/login')
-// eslint-disable-next-line no-unused-vars
-server.get(LOGIN_ROUTE_URL, login, (req, res, next) => res.redirect(_addProxy('')))
+const { OpenIDConnect, hasGroup } = require('@kth/kth-node-passport-oidc')
 
-const LOGIN_SILENT_ROUTE_URL = _addProxy('/auth/silent/login')
+const oidc = new OpenIDConnect(server, passport, {
+  ...config.oidc,
+  appCallbackLoginUrl: _addProxy('/auth/login/callback'),
+  appCallbackLogoutUrl: _addProxy('/auth/logout/callback'),
+  appCallbackSilentLoginUrl: _addProxy('/auth/silent/callback'),
+  defaultRedirect: _addProxy(''),
+  failureRedirect: _addProxy(''),
+  // eslint-disable-next-line no-unused-vars
+  extendUser: (user, claims) => {
+    // eslint-disable-next-line no-param-reassign
+    user.isAdmin = hasGroup(config.auth.adminGroup, user)
+  },
+})
+
 // eslint-disable-next-line no-unused-vars
-server.get(LOGIN_SILENT_ROUTE_URL, silentLogin, (req, res, next) => res.redirect(_addProxy('')))
+server.get(_addProxy('/login'), oidc.login, (req, res, next) => res.redirect(_addProxy('')))
+
+// eslint-disable-next-line no-unused-vars
+server.get(_addProxy('/logout'), oidc.logout)
 
 /* ******************************
  * ******* CORTINA BLOCKS *******
@@ -207,7 +232,7 @@ server.use(
  * **********************************
  */
 const { System, Sample } = require('./controllers')
-const { requireRole } = require('./authentication')
+// const { requireRole } = require('./authentication')
 
 // System routes
 const systemRoute = AppRouter()
@@ -219,14 +244,14 @@ server.use('/', systemRoute.getRouter())
 
 // App routes
 const appRoute = AppRouter()
-appRoute.get('node.page', _addProxy('/silent'), silentLogin, Sample.getIndex)
-appRoute.get('node.index', _addProxy('/'), login, Sample.getIndex)
-appRoute.get('node.page', _addProxy('/:page'), login, Sample.getIndex)
+appRoute.get('node.page', _addProxy('/silent'), oidc.silentLogin, Sample.getIndex)
+appRoute.get('node.index', _addProxy('/'), oidc.login, Sample.getIndex)
+appRoute.get('node.page', _addProxy('/:page'), oidc.login, Sample.getIndex)
 appRoute.get(
   'system.gateway',
   _addProxy('/gateway'),
   // getServerGatewayLogin('/'),
-  requireRole('isAdmin'),
+  oidc.requireRole('isAdmin'),
   Sample.getIndex
 )
 server.use('/', appRoute.getRouter())

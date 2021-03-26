@@ -14,23 +14,23 @@ const config = require('./configuration').server
  * to Passport which implements the necessary serialization and deserialization logic. In a typical
  * application, this will be as simple as serializing the user ID, and finding the user by ID when deserializing.
  */
-passport.serializeUser((user, done) => {
-  if (user) {
-    log.debug('User serialized: ' + user)
-    done(null, user)
-  } else {
-    done()
-  }
-})
+// passport.serializeUser((user, done) => {
+//   if (user) {
+//     log.debug('User serialized: ' + user)
+//     done(null, user)
+//   } else {
+//     done()
+//   }
+// })
 
-passport.deserializeUser((user, done) => {
-  if (user) {
-    log.debug('User deserialized: ' + user)
-    done(null, user)
-  } else {
-    done()
-  }
-})
+// passport.deserializeUser((user, done) => {
+//   if (user) {
+//     log.debug('User deserialized: ' + user)
+//     done(null, user)
+//   } else {
+//     done()
+//   }
+// })
 
 /**
  * Before asking Passport to authenticate a request, the strategy (or strategies) used by an application must
@@ -94,28 +94,28 @@ passport.use(
 //   }
 // )
 
-/*
-  Checks req.session.authUser as created above im unpackLdapUser.
+// /*
+//   Checks req.session.authUser as created above im unpackLdapUser.
 
-  Usage:
+//   Usage:
 
-  requireRole('isAdmin', 'isEditor')
-*/
+//   requireRole('isAdmin', 'isEditor')
+// */
 
-function requireRole(...roles) {
-  return function _hasNoneOfAcceptedRoles(req, res, next) {
-    const ldapUser = req.session.authUser || {}
+// function requireRole(...roles) {
+//   return function _hasNoneOfAcceptedRoles(req, res, next) {
+//     const ldapUser = req.session.authUser || {}
 
-    // Check if we have any of the roles passed
-    const hasAuthorizedRole = roles.reduce((prev, curr) => prev || ldapUser[curr], false)
-    // If we don't have one of these then access is forbidden
-    if (!hasAuthorizedRole) {
-      const error = new Error('Forbidden')
-      error.status = 403
-      return next(error)
-    }
-    return next()
-  }
-}
+//     // Check if we have any of the roles passed
+//     const hasAuthorizedRole = roles.reduce((prev, curr) => prev || ldapUser[curr], false)
+//     // If we don't have one of these then access is forbidden
+//     if (!hasAuthorizedRole) {
+//       const error = new Error('Forbidden')
+//       error.status = 403
+//       return next(error)
+//     }
+//     return next()
+//   }
+// }
 
-module.exports.requireRole = requireRole
+// module.exports.requireRole = requireRole

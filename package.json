@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.12.13",
+    "@kth/kth-node-passport-oidc": "file:../kth-node-passport-oidc",
     "applicationinsights": "^1.8.9",
     "body-parser": "^1.19.0",
     "component-registry": "^1.3.1",

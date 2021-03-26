@@ -28,9 +28,9 @@ const devLdap = undefined // Do not enter LDAP_URI or LDAP_PASSWORD here, use en
 const devSsoBaseURL = devDefaults('https://login-r.referens.sys.kth.se')
 const devOidcIssuerURL = devDefaults('https://login.ref.ug.kth.se/adfs')
 const devOidcConfigurationURL = devDefaults(`${devOidcIssuerURL}/.well-known/openid-configuration`)
-const devOidcCallbackURL = devDefaults('http://localhost:3000/node/auth/callback')
+const devOidcCallbackURL = devDefaults('http://localhost:3000/node/auth/login/callback')
 const devOidcCallbackSilentURL = devDefaults('http://localhost:3000/node/auth/silent/callback')
-const devOidcLogoutURL = devDefaults('http://localhost:3000/node/auth/logout')
+const devOidcLogoutCallbackURL = devDefaults('http://localhost:3000/node/auth/logout/callback')
 const devLdapBase = devDefaults('OU=UG,DC=ref,DC=ug,DC=kth,DC=se')
 // END DEFAULT SETTINGS
 
@@ -78,13 +78,13 @@ module.exports = {
     ssoBaseURL: getEnv('CAS_SSO_URI', devSsoBaseURL),
   },
   oidc: {
+    configurationUrl: getEnv('OIDC_CONFIGURATION_URL', devDefaults(devOidcConfigurationURL)),
     clientId: getEnv('OIDC_APPLICATION_ID', null),
     clientSecret: getEnv('OIDC_CLIENT_SECRET', null),
-    issuerUrl: getEnv('OIDC_ISSUER_URL', devDefaults(devOidcIssuerURL)),
-    configurationUrl: getEnv('OIDC_CONFIGURATION_URL', devDefaults(devOidcConfigurationURL)),
-    callbackUrl: getEnv('OIDC_CALLBACK_URL', devDefaults(devOidcCallbackURL)),
-    callbackSilentUrl: getEnv('OIDC_CALLBACK_SILENT_URL', devDefaults(devOidcCallbackSilentURL)),
-    logoutUrl: getEnv('OIDC_LOGOUT_URL', devDefaults(devOidcLogoutURL)),
+    // issuerUrl: getEnv('OIDC_ISSUER_URL', devDefaults(devOidcIssuerURL)),
+    callbackLoginUrl: getEnv('OIDC_CALLBACK_URL', devDefaults(devOidcCallbackURL)),
+    callbackSilentLoginUrl: getEnv('OIDC_CALLBACK_SILENT_URL', devDefaults(devOidcCallbackSilentURL)),
+    callbackLogoutUrl: getEnv('OIDC_LOGOUT_URL', devDefaults(devOidcLogoutCallbackURL)),
   },
   ldap: unpackLDAPConfig('LDAP_URI', getEnv('LDAP_PASSWORD'), devLdap, ldapOptions),
 
