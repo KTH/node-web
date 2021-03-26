@@ -7,14 +7,7 @@
  * *************************************************
  *
  */
-const {
-  getEnv,
-  devDefaults,
-  unpackLDAPConfig,
-  unpackRedisConfig,
-  unpackNodeApiConfig,
-} = require('kth-node-configuration')
-const { typeConversion } = require('kth-node-configuration/lib/utils')
+const { getEnv, devDefaults, unpackRedisConfig, unpackNodeApiConfig } = require('kth-node-configuration')
 
 // DEFAULT SETTINGS used for dev, if you want to override these for you local environment, use env-vars in .env
 const devPort = devDefaults(3000)
