@@ -58,7 +58,7 @@ module.exports = {
     clientSecret: getEnv('OIDC_CLIENT_SECRET', null),
     callbackLoginUrl: getEnv('OIDC_CALLBACK_URL', devDefaults(devOidcCallbackURL)),
     callbackSilentLoginUrl: getEnv('OIDC_CALLBACK_SILENT_URL', devDefaults(devOidcCallbackSilentURL)),
-    callbackLogoutUrl: getEnv('OIDC_LOGOUT_URL', devDefaults(devOidcLogoutCallbackURL)),
+    callbackLogoutUrl: getEnv('OIDC_CALLBACK_LOGOUT_URL', devDefaults(devOidcLogoutCallbackURL)),
   },
 
   // Service API's
