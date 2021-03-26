@@ -228,12 +228,11 @@ subSystems.push(ldapHealthUtil.status(ldapClient, config.ldap))
 
 Delete all with Ldap (unless you use it for more than authentication!)
 
-In development mode you need 3 new things in your .env file.
+In development mode you need 2 new things in your .env file.
 
 ```bash
 OIDC_APPLICATION_ID=
 OIDC_CLIENT_SECRET=
-OIDC_CONFIGURATION_URL=
 ```
 
 ## Production - Cellus

@@ -10,6 +10,8 @@ The two projects are [node-web](https://github.com/KTH/node-web), a web server w
 
 It's important that we try to make changes that affect the template projects in the template projects themselves.
 
+> Are you looking for information about converting your app to use OpenID Connect? [Read more](./OICD_Migration.md)
+
 ## Quickrun
 
 1.  Clone the repo
@@ -21,7 +23,7 @@ It's important that we try to make changes that affect the template projects in 
     $ npm install
     ```
 3.  Create a `.env` file in the root of the project [Read more](#Configuration)
-4.  Add LDAP config in `.env` [Read more](#Where-do-you-keep-you-secrets)
+4.  Add OIDC config in `.env` [Read more](#Where-do-you-keep-you-secrets)
 5.  Start your Redis [Read more](#Redis---Mandatory)
 6.  Start the server [Read more](#Starting-the-server)
     ```bash
@@ -84,13 +86,13 @@ If you want changes that should be used by everyone developing your project, cha
 
 Secrets during local development are **ALWAYS** stored in the `.env`-file in the root of your project. This file is included in .gitignore so that it's never added to the repository.
 
-#### LDAP - Mandatory
+#### OIDC - Mandatory
 
-Node-web needs ldap connection URI and password in order for authentication to work properly:
+Node-web needs OpenID Connect configuration in order for authentication to work properly:
 
-```
-LDAP_URI=ldaps://[usertname]@ldap.ref.ug.kth.se
-LDAP_PASSWORD=[password]
+```bash
+OIDC_APPLICATION_ID=
+OIDC_CLIENT_SECRET=
 ```
 
 ### Redis - Mandatory
