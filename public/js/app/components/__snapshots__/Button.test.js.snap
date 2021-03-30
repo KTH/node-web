@@ -3,6 +3,7 @@
 exports[`Component <Button> changes output after first click 1`] = `
 <DocumentFragment>
   <button
+    class="btn btn-primary"
     type="button"
   >
     This is a message
@@ -16,6 +17,7 @@ exports[`Component <Button> changes output after first click 1`] = `
 exports[`Component <Button> creates a button 1`] = `
 <DocumentFragment>
   <button
+    class="btn btn-primary"
     type="button"
   >
     This is a message
