@@ -91,8 +91,9 @@ Secrets during local development are **ALWAYS** stored in the `.env`-file in the
 Node-web needs OpenID Connect configuration in order for authentication to work properly:
 
 ```bash
-OIDC_APPLICATION_ID=
-OIDC_CLIENT_SECRET=
+OIDC_APPLICATION_ID=<FROM ADFS>
+OIDC_CLIENT_SECRET=<FROM ADFS>
+OIDC_TOKEN_SECRET=<Random string>
 ```
 
 In server.js you will find examples of using OIDC for securing your routes.
