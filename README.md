@@ -95,6 +95,8 @@ OIDC_APPLICATION_ID=
 OIDC_CLIENT_SECRET=
 ```
 
+In server.js you will find examples of using OIDC for securing your routes.
+
 ### Redis - Mandatory
 
 We use [Redis](https://redis.io/) for storing sessions and data from Cortina (KTH.se CRM). You need to have a Redis running.

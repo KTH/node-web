@@ -19,6 +19,7 @@ const devSessionUseRedis = devDefaults(true)
 const devRedis = devDefaults('redis://localhost:6379/')
 const devOidcIssuerURL = devDefaults('https://login.ref.ug.kth.se/adfs')
 const devOidcConfigurationURL = devDefaults(`${devOidcIssuerURL}/.well-known/openid-configuration`)
+const devOidcTokenSecret = devDefaults('tokenSecretString')
 const devOidcCallbackURL = devDefaults('http://localhost:3000/node/auth/login/callback')
 const devOidcCallbackSilentURL = devDefaults('http://localhost:3000/node/auth/silent/callback')
 const devOidcLogoutCallbackURL = devDefaults('http://localhost:3000/node/auth/logout/callback')
@@ -49,6 +50,7 @@ module.exports = {
     configurationUrl: getEnv('OIDC_CONFIGURATION_URL', devDefaults(devOidcConfigurationURL)),
     clientId: getEnv('OIDC_APPLICATION_ID', null),
     clientSecret: getEnv('OIDC_CLIENT_SECRET', null),
+    tokenSecret: getEnv('OIDC_TOKEN_SECRET', devDefaults(devOidcTokenSecret)),
     callbackLoginUrl: getEnv('OIDC_CALLBACK_URL', devDefaults(devOidcCallbackURL)),
     callbackSilentLoginUrl: getEnv('OIDC_CALLBACK_SILENT_URL', devDefaults(devOidcCallbackSilentURL)),
     callbackLogoutUrl: getEnv('OIDC_CALLBACK_LOGOUT_URL', devDefaults(devOidcLogoutCallbackURL)),

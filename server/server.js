@@ -242,9 +242,11 @@ server.use('/', systemRoute.getRouter())
 
 // App routes
 const appRoute = AppRouter()
-appRoute.get('node.index', _addProxy('/'), oidc.login, Sample.getIndex)
+appRoute.get('node.index', _addProxy('/'), Sample.getIndex)
+appRoute.get('node.index', _addProxy('/secure/admin'), oidc.login, oidc.requireRole('isAdmin'), Sample.getIndex)
+appRoute.get('node.index', _addProxy('/secure'), oidc.login, Sample.getIndex)
+appRoute.get('system.gateway', _addProxy('/silent'), oidc.silentLogin, Sample.getIndex)
 appRoute.get('node.page', _addProxy('/:page'), oidc.login, Sample.getIndex)
-appRoute.get('system.gateway', _addProxy('/gateway'), oidc.silentLogin, oidc.requireRole('isAdmin'), Sample.getIndex)
 server.use('/', appRoute.getRouter())
 
 // Not found etc
