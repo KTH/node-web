@@ -181,11 +181,10 @@ const { OpenIDConnect, hasGroup } = require('@kth/kth-node-passport-oidc')
 
 const oidc = new OpenIDConnect(server, passport, {
   ...config.oidc,
-  appCallbackLoginUrl: _addProxy('/auth/login/callback'),
-  appCallbackLogoutUrl: _addProxy('/auth/logout/callback'),
-  appCallbackSilentLoginUrl: _addProxy('/auth/silent/callback'),
+  callbackLoginRoute: _addProxy('/auth/login/callback'),
+  callbackLogoutRoute: _addProxy('/auth/logout/callback'),
+  callbackSilentLoginRoute: _addProxy('/auth/silent/callback'),
   defaultRedirect: _addProxy(''),
-  failureRedirect: _addProxy(''),
   // eslint-disable-next-line no-unused-vars
   extendUser: (user, claims) => {
     // eslint-disable-next-line no-param-reassign

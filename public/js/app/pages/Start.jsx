@@ -17,6 +17,14 @@ const Start = () => {
       <hr className="my-2" />
       <p>{`${i18n.message('template_store_text', lang)}: ${message}`}</p>
       <Button caption={i18n.message('template_try_me', lang)} />
+      <hr />
+      <div>
+        <a href="/node/secure">Secured page</a>
+        <br />
+        <a href="/node/secure/admin">Secured page for admins</a>
+        <br />
+        <a href="/node/silent">Silent login page</a>
+      </div>
     </main>
   )
 }

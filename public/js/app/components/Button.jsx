@@ -12,7 +12,7 @@ function Button({ caption = 'N/A' }) {
 
   return (
     <>
-      <button type="button" onClick={() => setButtonClicked(true)}>
+      <button type="button" className="btn btn-primary" onClick={() => setButtonClicked(true)}>
         {caption}
       </button>
       {buttonClicked ? <p>{i18n.message('template_button_works', lang)}</p> : null}
