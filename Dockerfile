@@ -4,6 +4,11 @@ LABEL maintainer="KTH-Webb web-developers@kth.se"
 WORKDIR /application
 ENV NODE_PATH /application
 
+ENV TZ Europe/Stockholm
+
+COPY ["package.json", "package.json"]
+COPY ["package-lock.json", "package-lock.json"]
+
 COPY ["config", "config"]
 COPY ["i18n", "i18n"]
 COPY ["public", "public"]
@@ -11,14 +16,13 @@ COPY ["server", "server"]
 
 COPY ["app.js", "app.js"]
 COPY ["build.sh", "build.sh"]
-COPY ["package.json", "package.json"]
-COPY ["package-lock.json", "package-lock.json"]
+COPY ["webpack.config.js", "webpack.config.js"]
 
 RUN apk stats && \
     chmod a+rx build.sh && \
     apk add --no-cache bash && \
     apk add --no-cache --virtual .gyp-dependencies python make g++ util-linux && \
-    npm install --development && \
+    npm install --unsafe-perm && \
     npm run build && \
     npm prune --production && \
     apk del .gyp-dependencies && \
@@ -26,6 +30,4 @@ RUN apk stats && \
 
 EXPOSE 3000
 
-ENV TZ Europe/Stockholm
-
-CMD ["node", "app.js"]
+CMD ["npm", "start"]
