@@ -16,7 +16,7 @@ $ npm install @KTH/kth-node-passport-oidc
 
 ## Code
 
-### ServerSettings.js
+### serverSettings.js
 
 Remove
 
@@ -63,6 +63,7 @@ Add
 ```javascript
 const devOidcIssuerURL = devDefaults('https://login.ref.ug.kth.se/adfs')
 const devOidcConfigurationURL = devDefaults(`${devOidcIssuerURL}/.well-known/openid-configuration`)
+const devOidcTokenSecret = devDefaults('tokenSecretString')
 const devOidcCallbackURL = devDefaults('http://localhost:3000/node/auth/login/callback')
 const devOidcCallbackSilentURL = devDefaults('http://localhost:3000/node/auth/silent/callback')
 const devOidcLogoutCallbackURL = devDefaults('http://localhost:3000/node/auth/logout/callback')
@@ -73,6 +74,7 @@ const devOidcLogoutCallbackURL = devDefaults('http://localhost:3000/node/auth/lo
     configurationUrl: getEnv('OIDC_CONFIGURATION_URL', devDefaults(devOidcConfigurationURL)),
     clientId: getEnv('OIDC_APPLICATION_ID', null),
     clientSecret: getEnv('OIDC_CLIENT_SECRET', null),
+    tokenSecret: getEnv('OIDC_TOKEN_SECRET', devDefaults(devOidcTokenSecret)),
     callbackLoginUrl: getEnv('OIDC_CALLBACK_URL', devDefaults(devOidcCallbackURL)),
     callbackSilentLoginUrl: getEnv('OIDC_CALLBACK_SILENT_URL', devDefaults(devOidcCallbackSilentURL)),
     callbackLogoutUrl: getEnv('OIDC_LOGOUT_URL', devDefaults(devOidcLogoutCallbackURL)),
@@ -235,6 +237,22 @@ OIDC_APPLICATION_ID=
 OIDC_CLIENT_SECRET=
 ```
 
+## `req.session.authUser` is now `req.user`
+
+Go through the code and look for places where you use `req.session.authUser` and user `req.user` instead.
+
 ## Production - Cellus
 
 In your secrets file you will need:
+
+```bash
+OIDC_APPLICATION_ID=
+OIDC_CLIENT_SECRET=
+OIDC_TOKEN_SECRET=
+OIDC_CONFIGURATION_URL=
+OIDC_CALLBACK_URL=
+OIDC_CALLBACK_SILENT_URL=
+OIDC_CALLBACK_LOGOUT_URL=
+```
+
+Silent and logout is optional depending if you use it :-)
