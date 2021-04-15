@@ -239,7 +239,7 @@ OIDC_CLIENT_SECRET=
 
 ## `req.session.authUser` is now `req.user`
 
-Go through the code and look for places where you use `req.session.authUser` and user `req.user` instead.
+Go through the code and look for places where you use `req.session.authUser` and use `req.user` instead.
 
 ## Production - Cellus
 
