@@ -1,3 +1,5 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 // @ts-check
 
 const path = require('path')
@@ -30,7 +32,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 // const FastGlob = require('fast-glob')
 //
 
-// const BabelConfig = require('./.babelrc.js')
+// const BabelConfig = require('./.babelrc.json')
 const { babel: BabelConfig } = require('./package.json')
 
 process.env.NODE_ENV = 'development'
@@ -110,7 +112,7 @@ function getTransformationRules({ contextIsNode, subDir = null }) {
 
 function getOutputOptions({ contextIsNode, subDir = null }) {
   const OUTPUT_LICENSE_FILES = false
-  const MODULES_CAN_BE_IMPORTED_ON_SERVER_SIDE = { libraryTarget: contextIsNode ? 'umd' : undefined }
+  const BUNDLES_CAN_BE_IMPORTED_ON_SERVER_SIDE = contextIsNode ? { library: { type: 'commonjs2' } } : null
 
   // There are many different types of source-maps in Webpack
   // (see https://webpack.js.org/configuration/devtool)
@@ -147,7 +149,7 @@ function getOutputOptions({ contextIsNode, subDir = null }) {
       filename: '[name].js',
       path: path.resolve(__dirname, 'dist', subDir || ''),
       publicPath: composePublicPathString('static', subDir),
-      ...MODULES_CAN_BE_IMPORTED_ON_SERVER_SIDE,
+      ...BUNDLES_CAN_BE_IMPORTED_ON_SERVER_SIDE,
     },
     devtool: ENV_IS_DEV ? DEV_SOURCE_MAP_TYPE : undefined,
   }
