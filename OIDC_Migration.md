@@ -80,7 +80,7 @@ const devOidcLogoutCallbackURL = devDefaults(`http://localhost:3000${prefixPath}
     tokenSecret: getEnv('OIDC_TOKEN_SECRET', devDefaults(devOidcTokenSecret)),
     callbackLoginUrl: getEnv('OIDC_CALLBACK_URL', devDefaults(devOidcCallbackURL)),
     callbackSilentLoginUrl: getEnv('OIDC_CALLBACK_SILENT_URL', devDefaults(devOidcCallbackSilentURL)),
-    callbackLogoutUrl: getEnv('OIDC_LOGOUT_URL', devDefaults(devOidcLogoutCallbackURL)),
+    callbackLogoutUrl: getEnv('OIDC_CALLBACK_LOGOUT_URL', devDefaults(devOidcLogoutCallbackURL)),
   },
 ```
 
