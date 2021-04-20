@@ -20,9 +20,10 @@ const devRedis = devDefaults('redis://localhost:6379/')
 const devOidcIssuerURL = devDefaults('https://login.ref.ug.kth.se/adfs')
 const devOidcConfigurationURL = devDefaults(`${devOidcIssuerURL}/.well-known/openid-configuration`)
 const devOidcTokenSecret = devDefaults('tokenSecretString')
-const devOidcCallbackURL = devDefaults('http://localhost:3000/node/auth/login/callback')
-const devOidcCallbackSilentURL = devDefaults('http://localhost:3000/node/auth/silent/callback')
-const devOidcLogoutCallbackURL = devDefaults('http://localhost:3000/node/auth/logout/callback')
+const prefixPath = devDefaults('/node')
+const devOidcCallbackURL = devDefaults(`http://localhost:3000${prefixPath}/auth/login/callback`)
+const devOidcCallbackSilentURL = devDefaults(`http://localhost:3000${prefixPath}/auth/silent/callback`)
+const devOidcLogoutCallbackURL = devDefaults(`http://localhost:3000${prefixPath}/auth/logout/callback`)
 // END DEFAULT SETTINGS
 
 // These options are fixed for this application

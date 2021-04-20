@@ -64,10 +64,13 @@ Add
 const devOidcIssuerURL = devDefaults('https://login.ref.ug.kth.se/adfs')
 const devOidcConfigurationURL = devDefaults(`${devOidcIssuerURL}/.well-known/openid-configuration`)
 const devOidcTokenSecret = devDefaults('tokenSecretString')
-const devOidcCallbackURL = devDefaults('http://localhost:3000/node/auth/login/callback')
-const devOidcCallbackSilentURL = devDefaults('http://localhost:3000/node/auth/silent/callback')
-const devOidcLogoutCallbackURL = devDefaults('http://localhost:3000/node/auth/logout/callback')
+const prefixPath = devDefaults('/node') // Change this to your prefixPath!!!
+const devOidcCallbackURL = devDefaults(`http://localhost:3000${prefixPath}/auth/login/callback`)
+const devOidcCallbackSilentURL = devDefaults(`http://localhost:3000${prefixPath}/auth/silent/callback`)
+const devOidcLogoutCallbackURL = devDefaults(`http://localhost:3000${prefixPath}/auth/logout/callback`)
 ```
+
+> Note: Change the prefixPath to fit your application!
 
 ```javascript
  oidc: {
@@ -155,9 +158,9 @@ const { OpenIDConnect, hasGroup } = require('@kth/kth-node-passport-oidc')
 
 const oidc = new OpenIDConnect(server, passport, {
   ...config.oidc,
-  appCallbackLoginUrl: _addProxy('/auth/login/callback'),
-  appCallbackLogoutUrl: _addProxy('/auth/logout/callback'),
-  appCallbackSilentLoginUrl: _addProxy('/auth/silent/callback'),
+  callbackLoginRoute: _addProxy('/auth/login/callback'),
+  callbackLogoutRoute: _addProxy('/auth/logout/callback'),
+  callbackSilentLoginRoute: _addProxy('/auth/silent/callback'),
   defaultRedirect: _addProxy(''),
   failureRedirect: _addProxy(''),
   // eslint-disable-next-line no-unused-vars
@@ -208,7 +211,15 @@ const { requireRole } = require('./authentication')
 
 ### authentication.js
 
-Remove this file. Yupp, delete it!
+First check in the redirectAuthenticatedUserHandler function and specifically the unpackLdapUser function.
+
+If you have groups here, maybe "isAdmin" or "isSupport" and so on.
+
+Copy this code.
+
+And remove this file. Yupp, delete it!
+
+If you copied code, go to `server.js` and the to the `extendUser` function. This is where this code belongs now, and may the existing admin role already works for you.
 
 ### systemCtrl.js
 
