@@ -11,7 +11,7 @@ $ npm uninstall kth-node-ldap kth-node-passport-cas
 Install kth-node-passport-oidc
 
 ```bash
-$ npm install @KTH/kth-node-passport-oidc
+$ npm install @kth/kth-node-passport-oidc
 ```
 
 ## Code
