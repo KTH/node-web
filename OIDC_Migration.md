@@ -226,6 +226,10 @@ const ldapHealthUtil = registry.getUtility(IHealthCheck, 'kth-node-ldap')
 subSystems.push(ldapHealthUtil.status(ldapClient, config.ldap))
 ```
 
+## `req.session.authUser` is now `req.user`
+
+Go through the code and look for places where you use `req.session.authUser` and use `req.user` instead.
+
 ## Config .env
 
 Delete all with Ldap (unless you use it for more than authentication!)
@@ -236,10 +240,6 @@ In development mode you need 2 new things in your .env file.
 OIDC_APPLICATION_ID=
 OIDC_CLIENT_SECRET=
 ```
-
-## `req.session.authUser` is now `req.user`
-
-Go through the code and look for places where you use `req.session.authUser` and use `req.user` instead.
 
 ## Production - Cellus
 
