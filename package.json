@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.13.10",
-    "@kth/kth-node-passport-oidc": "^1.0.29",
+    "@kth/kth-node-passport-oidc": "^1.0.33",
     "applicationinsights": "^1.8.10",
     "body-parser": "^1.19.0",
     "component-registry": "^1.3.1",

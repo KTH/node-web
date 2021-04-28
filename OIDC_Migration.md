@@ -177,6 +177,12 @@ server.get(_addProxy('/login'), oidc.login, (req, res, next) => res.redirect(_ad
 server.get(_addProxy('/logout'), oidc.logout)
 ```
 
+If you don´t have the `_addProxy` function:
+
+```javascript
+const _addProxy = uri => `${config.proxyPrefixPath.uri}${uri}`
+```
+
 Change of routes examples
 
 ```javascript
@@ -220,6 +226,10 @@ Copy this code.
 And remove this file. Yupp, delete it!
 
 If you copied code, go to `server.js` and the to the `extendUser` function. This is where this code belongs now, and may the existing admin role already works for you.
+
+### adldapClient.js
+
+Delete this file if you have it
 
 ### systemCtrl.js
 
