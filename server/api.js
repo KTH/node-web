@@ -9,6 +9,7 @@ const opts = {
   log,
   redis,
   timeout: 30000,
+  retryOnESOCKETTIMEDOUT: true,
   checkAPIs: true, // performs api-key checks against the apis, if a "required" check fails, the app will exit. Required apis are specified in the config
 }
 
