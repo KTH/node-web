@@ -262,7 +262,7 @@ OIDC_APPLICATION_ID=
 OIDC_CLIENT_SECRET=
 ```
 
-## Production - Cellus
+## Referens and Production - Cellus
 
 In your secrets file you will need:
 
