@@ -27,6 +27,8 @@ async function getIndex(req, res, next) {
     const { uri: proxyPrefix } = serverConfig.proxyPrefixPath
     const html = renderStaticPage({ applicationStore, location: req.url, basename: proxyPrefix })
 
+    log.info(`node_web: toolbarUrl: ${serverConfig.toolbar.url}`)
+
     res.render('sample/index', {
       html,
       title: 'TODO',
