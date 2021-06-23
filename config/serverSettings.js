@@ -94,6 +94,7 @@ module.exports = {
       // do not set session secret here!!
       cookie: {
         secure: String(getEnv('SESSION_SECURE_COOKIE', false)).toLowerCase() === 'true',
+        path: getEnv('SERVICE_PUBLISH', '/node'),
       },
       proxy: String(getEnv('SESSION_TRUST_PROXY', true)).toLowerCase() === 'true',
     },
