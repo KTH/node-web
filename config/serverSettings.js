@@ -95,6 +95,7 @@ module.exports = {
       cookie: {
         secure: String(getEnv('SESSION_SECURE_COOKIE', false)).toLowerCase() === 'true',
         path: getEnv('SERVICE_PUBLISH', '/node'),
+        sameSite: getEnv('SESSION_SAME_SITE_COOKIE', 'Lax'),
       },
       proxy: String(getEnv('SESSION_TRUST_PROXY', true)).toLowerCase() === 'true',
     },
