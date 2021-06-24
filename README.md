@@ -2,7 +2,7 @@
 
 In an attempt to simplify the process of starting up new node.js based projects, there exists two template projects to use as a foundation.
 
-The two projects are [node-web](https://github.com/KTH/node-web), a web server with express and react, and [node-api](https://github.com/KTH/node-api), a RESTful api. Both of them use OpenID Connect and/or CAS as a mechanism for authorisation and authentication.
+The two projects are [node-web](https://github.com/KTH/node-web), a web server with express and react, and [node-api](https://github.com/KTH/node-api), a RESTful api. Both of them use OpenID Connect as a mechanism for authorisation and authentication.
 
 **The projects can be found here:**  
 [https://github.com/KTH/node-web](https://github.com/KTH/node-web)  
@@ -62,7 +62,7 @@ Configuration during local development are stored in a `.env`-file in the root o
 
 The .env file should **never** be pushed and is therefore included in the .gitignore file
 
-When running the app in development mode it's configured to work out of the box except for the LDAP (authentication), [read more about this below](#Where-do-you-keep-you-secrets).
+When running the app in development mode it's configured to work out of the box except for the LDAP, OIDC (authentication) and SESSION_SECURE_COOKIE, [read more about this below](#Where-do-you-keep-you-secrets).
 
 Most of the apps configuration resides in `./config/serverSettings.js`. Here you will find what is configured and how to override it.
 
@@ -124,9 +124,15 @@ Set a new value in your `.env`-file for SERVICE_PUBLISH e.g
 SERVICE_PUBLISH=/your-path
 ```
 
-More info, see `config/commonSettings.js`
+#### SESSION_SECURE_COOKIE on localhost
 
-#### Setup Parcel
+When you run the application locally during development on http you need to overrride SESSION_SECURE_COOKIE and set it to false.
+
+```
+SESSION_SECURE_COOKIE=false
+```
+
+More info, see `config/commonSettings.js`#### Setup Parcel
 
 Parcel needs a correct path when generating URLs.
 
