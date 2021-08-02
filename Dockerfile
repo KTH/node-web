@@ -1,4 +1,4 @@
-FROM kthse/kth-nodejs:12.0.0
+FROM kthse/kth-nodejs:16.0.0
 LABEL maintainer="KTH-Webb web-developers@kth.se"
 
 WORKDIR /application
@@ -21,7 +21,7 @@ COPY ["webpack.config.js", "webpack.config.js"]
 RUN apk stats && \
     chmod a+rx build.sh && \
     apk add --no-cache bash && \
-    apk add --no-cache --virtual .gyp-dependencies python make g++ util-linux && \
+    apk add --no-cache --virtual .gyp-dependencies python2 make g++ util-linux && \
     npm install --unsafe-perm && \
     npm run build && \
     npm prune --production && \
