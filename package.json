@@ -23,9 +23,9 @@
     "postinstall": "bash -c 'rm -rf ./dist; rm -rf ./node_modules/.cache/webpack'"
   },
   "dependencies": {
-    "@babel/runtime": "^7.14.8",
+    "@babel/runtime": "^7.15.3",
     "@kth/kth-node-passport-oidc": "^4.0.37",
-    "applicationinsights": "^2.1.4",
+    "applicationinsights": "^2.1.5",
     "body-parser": "^1.19.0",
     "component-registry": "^1.3.1",
     "cookie-parser": "^1.4.5",
@@ -33,7 +33,7 @@
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3",
     "kth-node-access-log": "^0.2.4",
-    "kth-node-api-call": "^3.0.16",
+    "kth-node-api-call": "^3.0.17",
     "kth-node-configuration": "^2.0.5",
     "kth-node-express-routing": "^2.0.9",
     "kth-node-i18n": "^1.0.10",
@@ -78,7 +78,7 @@
     "sass": "^1.37.5",
     "sass-loader": "^12.1.0",
     "terser-webpack-plugin": "^5.1.4",
-    "webpack": "^5.49.0",
+    "webpack": "^5.50.0",
     "webpack-cli": "^4.7.2"
   },
   "// (prettier)": "configuration version 2020-06-15 - might also reside in .prettierrc.json",
