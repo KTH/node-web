@@ -6,10 +6,6 @@ module.exports = {
     // General stuff
     date_format_short: '%d-%b-%Y',
 
-    // Error messages
-    error_not_found: "Sorry, we can't find your requested page",
-    error_generic: 'Something went wrong on the server, please try again later.',
-
     // Message keys
     service_name: 'Node application name',
 
