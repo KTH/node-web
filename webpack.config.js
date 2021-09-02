@@ -89,7 +89,18 @@ function getTransformationRules({ contextIsNode, subDir = null }) {
         },
         {
           test: /\.s[ac]ss$/i,
-          use: contextIsNode ? 'null-loader' : [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+          use: contextIsNode
+            ? 'null-loader'
+            : [
+                MiniCssExtractPlugin.loader,
+                {
+                  loader: 'css-loader',
+                  options: {
+                    esModule: false,
+                  },
+                },
+                'sass-loader',
+              ],
         },
         {
           test: /\.(png|jpe?g|gif|svg)$/i,
