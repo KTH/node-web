@@ -31,7 +31,7 @@
     "cookie-parser": "^1.4.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "express-handlebars": "^5.3.3",
+    "express-handlebars": "^5.3.4",
     "kth-node-access-log": "^0.2.5",
     "kth-node-api-call": "^3.0.18",
     "kth-node-configuration": "^2.0.6",
@@ -62,6 +62,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.0",
     "@types/jest": "^27.0.2",
+    "ansi-regex": "^6.0.1",
     "babel-loader": "^8.2.2",
     "concurrently": "^6.2.1",
     "css-loader": "^6.3.0",
@@ -77,11 +78,10 @@
     "pretty-quick": "^3.1.1",
     "sass": "^1.42.1",
     "sass-loader": "^12.1.0",
+    "set-value": "^4.1.0",
     "terser-webpack-plugin": "^5.2.4",
     "webpack": "^5.53.0",
-    "webpack-cli": "^4.8.0",
-    "set-value": "^4.1.0",
-    "ansi-regex": "^6.0.1"
+    "webpack-cli": "^4.8.0"
   },
   "// (prettier)": "configuration version 2020-06-15 - might also reside in .prettierrc.json",
   "prettier": {
