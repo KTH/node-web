@@ -80,7 +80,7 @@
     "sass-loader": "^12.3.0",
     "set-value": "^4.1.0",
     "terser-webpack-plugin": "^5.2.4",
-    "webpack": "^5.61.0",
+    "webpack": "^5.62.1",
     "webpack-cli": "^4.9.1"
   },
   "// (prettier)": "configuration version 2020-06-15 - might also reside in .prettierrc.json",
