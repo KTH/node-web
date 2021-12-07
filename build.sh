@@ -18,10 +18,10 @@ echoYellow "     -> Creating the server view folders"
 mkdir -p ./server/views/system ./server/views/layouts
 
 echoYellow "     -> Copying error.handlebars to server/views/system folder"
-cp -R ./node_modules/kth-node-web-common/lib/handlebars/pages/views/. server/views/system
+cp -R ./node_modules/@kth/kth-node-web-common/lib/handlebars/pages/views/. server/views/system
 
 echoYellow "     -> Copying errorLayout.handlebars to server/views/layouts folder"
-cp -R ./node_modules/kth-node-web-common/lib/handlebars/pages/layouts/. server/views/layouts
+cp -R ./node_modules/@kth/kth-node-web-common/lib/handlebars/pages/layouts/. server/views/layouts
 
 if [ "$ENV" == "prod" ]; then
   echo
