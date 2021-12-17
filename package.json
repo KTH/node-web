@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.16.5",
+    "@kth/kth-node-monitor": "^2.0.0",
     "@kth/kth-node-passport-oidc": "^4.1.5",
     "@kth/kth-node-web-common": "^7.0.2",
     "applicationinsights": "^2.2.0",
@@ -39,7 +40,6 @@
     "kth-node-express-routing": "^2.0.12",
     "kth-node-i18n": "^1.0.12",
     "kth-node-log": "^3.1.11",
-    "kth-node-monitor": "^1.1.14",
     "kth-node-redis": "^3.1.35",
     "kth-node-server": "^3.1.8",
     "kth-node-session": "^2.0.4",
