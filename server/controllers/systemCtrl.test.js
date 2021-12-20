@@ -1,6 +1,7 @@
 jest.mock('../configuration', () => ({ server: {} }))
 jest.mock('../api', () => {})
 jest.mock('../adldapClient', () => {})
+// jest.mock('@kth/kth-node-monitor', () => {})
 
 const systemCtrl = require('./systemCtrl')
 
@@ -17,5 +18,14 @@ describe('Not found', () => {
     }
 
     systemCtrl.notFound(req, {}, next)
+  })
+})
+
+describe('System monitor', () => {
+  test('Sends a correct monitor page', () => {
+    const send = data =>
+      expect(data).toEqual('APPLICATION_STATUS: OK\n\n\n\n- local system checks: OK\n\nHostname: LAPTOP-990TOHVI')
+    const status = code => expect(code).toEqual(200)
+    return systemCtrl.monitor({ headers: {} }, { status, type: () => ({ send }) })
   })
 })

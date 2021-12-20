@@ -100,11 +100,13 @@ async function _monitor(req, res) {
   try {
     const apiConfig = config.nodeApi
     await monitorSystems(req, res, [
-      ...Object.keys(api).map(apiKey => ({
-        key: apiKey,
-        required: apiConfig[apiKey].required,
-        endpoint: api[apiKey],
-      })),
+      ...(api
+        ? Object.keys(api).map(apiKey => ({
+            key: apiKey,
+            required: apiConfig[apiKey].required,
+            endpoint: api[apiKey],
+          }))
+        : []),
       // If we need local system checks, such as memory or disk, we would add it here.
       // Make sure it returns an object containing:
       // {key: 'local', isResolved: true, statusCode: ###, message: '...'}
@@ -117,7 +119,7 @@ async function _monitor(req, res) {
       },
     ])
   } catch (error) {
-    log.error('Monitor failed', error)
+    // log.error('Monitor failed', error)
     res.status(500).end()
   }
 }
