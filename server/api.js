@@ -1,6 +1,6 @@
 'use strict'
 
-const log = require('kth-node-log')
+const log = require('@kth/log')
 const redis = require('kth-node-redis')
 const connections = require('kth-node-api-call').Connections
 const config = require('./configuration').server
