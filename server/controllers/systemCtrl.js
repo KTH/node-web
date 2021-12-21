@@ -8,7 +8,7 @@ const os = require('os')
 const errorHandler = require('@kth/kth-node-web-common/lib/error')
 const { getPaths } = require('kth-node-express-routing')
 const language = require('@kth/kth-node-web-common/lib/language')
-const monitorSystems = require('@kth/kth-node-monitor')
+const monitorSystems = require('@kth/monitor')
 
 const version = require('../../config/version')
 const i18n = require('../../i18n')
