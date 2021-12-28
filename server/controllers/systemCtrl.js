@@ -16,6 +16,7 @@ const packageFile = require('../../package.json')
 
 const api = require('../api')
 const { server: config } = require('../configuration')
+const log = require('@kth/log')
 
 /**
  * Adds a zero (0) to numbers less then ten (10)
@@ -119,7 +120,7 @@ async function _monitor(req, res) {
       },
     ])
   } catch (error) {
-    // log.error('Monitor failed', error)
+    log.error('Monitor failed', error)
     res.status(500).end()
   }
 }
