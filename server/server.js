@@ -18,7 +18,7 @@ const logConfiguration = {
 
 log.init(logConfiguration)
 
-const server = require('kth-node-server')
+const server = require('@kth/server')
 
 require('./api')
 const AppRouter = require('kth-node-express-routing').PageRouter
@@ -141,7 +141,7 @@ server.use(cookieParser())
  * ******* SESSION *******
  * ***********************
  */
-const session = require('kth-node-session')
+const session = require('@kth/session')
 
 const options = config.session
 options.sessionOptions.secret = config.sessionSecret
