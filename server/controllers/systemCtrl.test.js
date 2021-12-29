@@ -11,6 +11,12 @@ const applicationPaths = {
   },
 }
 
+jest.mock('@kth/log', () => ({
+  init: jest.fn(() => {}),
+  info: jest.fn(() => {}),
+  debug: jest.fn(() => {}),
+}))
+
 jest.mock('kth-node-express-routing', () => ({
   getPaths: jest.fn(() => applicationPaths),
 }))
