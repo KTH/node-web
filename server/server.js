@@ -201,20 +201,6 @@ server.get(_addProxy('/login'), oidc.login, (req, res, next) => res.redirect(_ad
 // eslint-disable-next-line no-unused-vars
 server.get(_addProxy('/logout'), oidc.logout)
 
-/* ******************************
- * ******* CORTINA BLOCKS *******
- * ******************************
- */
-server.use(
-  config.proxyPrefixPath.uri,
-  require('@kth/kth-node-web-common/lib/web/cortina')({
-    blockUrl: config.blockApi.blockUrl,
-    proxyPrefixPath: config.proxyPrefixPath.uri,
-    hostUrl: config.hostUrl,
-    redisConfig: config.cache.cortinaBlock.redis,
-  })
-)
-
 /* ********************************
  * ******* CRAWLER REDIRECT *******
  * ********************************
@@ -229,10 +215,10 @@ server.use(
 )
 
 /* **********************************
- * ******* APPLICATION ROUTES *******
+ * ******* SYSTEM ROUTES *******
  * **********************************
  */
-const { System, Sample } = require('./controllers')
+const { System } = require('./controllers')
 
 // System routes
 const systemRoute = AppRouter()
@@ -241,6 +227,26 @@ systemRoute.get('system.about', _addProxy('/_about'), System.about)
 systemRoute.get('system.paths', _addProxy('/_paths'), System.paths)
 systemRoute.get('system.robots', '/robots.txt', System.robotsTxt)
 server.use('/', systemRoute.getRouter())
+
+/* ******************************
+ * ******* CORTINA BLOCKS *******
+ * ******************************
+ */
+server.use(
+  config.proxyPrefixPath.uri,
+  require('@kth/kth-node-web-common/lib/web/cortina')({
+    blockUrl: config.blockApi.blockUrl,
+    proxyPrefixPath: config.proxyPrefixPath.uri,
+    hostUrl: config.hostUrl,
+    redisConfig: config.cache.cortinaBlock.redis,
+  })
+)
+
+/* **********************************
+ * ******* APPLICATION ROUTES *******
+ * **********************************
+ */
+const { Sample } = require('./controllers')
 
 // App routes
 const appRoute = AppRouter()
