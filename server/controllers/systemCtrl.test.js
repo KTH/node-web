@@ -11,11 +11,7 @@ const applicationPaths = {
   },
 }
 
-jest.mock('@kth/log', () => ({
-  init: jest.fn(() => {}),
-  info: jest.fn(() => {}),
-  debug: jest.fn(() => {}),
-}))
+jest.mock('kth-node-redis')
 
 jest.mock('kth-node-express-routing', () => ({
   getPaths: jest.fn(() => applicationPaths),
@@ -23,6 +19,13 @@ jest.mock('kth-node-express-routing', () => ({
 
 jest.mock('@kth/kth-node-web-common/lib/language', () => ({
   getLanguage: jest.fn(() => 'sv'),
+}))
+
+jest.mock('@kth/log', () => ({
+  init: jest.fn(() => {}),
+  info: jest.fn(() => {}),
+  debug: jest.fn(() => {}),
+  error: jest.fn(() => {}),
 }))
 
 jest.mock('../../server/configuration', () => ({
@@ -38,9 +41,9 @@ jest.mock('../../server/configuration', () => ({
     },
     ldap: {},
     proxyPrefixPath: {
-      uri: '/cortina-calendar',
+      uri: '/cortina-screener',
     },
-    collections: [],
+    session: { redisOptions: { host: 'localhost', port: 6379 } },
   },
 }))
 
@@ -59,7 +62,7 @@ function buildRes(overrides = {}) {
     type: jest.fn(() => res).mockName('type'),
     send: jest.fn(() => res).mockName('send'),
     render: jest.fn(() => res).mockName('render'),
-
+    end: jest.fn(() => res).mockName('end'),
     ...overrides,
   }
   return res

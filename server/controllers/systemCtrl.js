@@ -9,14 +9,14 @@ const errorHandler = require('@kth/kth-node-web-common/lib/error')
 const { getPaths } = require('kth-node-express-routing')
 const language = require('@kth/kth-node-web-common/lib/language')
 const monitorSystems = require('@kth/monitor')
-
+const log = require('@kth/log')
+const redis = require('kth-node-redis')
 const version = require('../../config/version')
 const i18n = require('../../i18n')
 const packageFile = require('../../package.json')
 
 const api = require('../api')
 const { server: config } = require('../configuration')
-const log = require('@kth/log')
 
 /**
  * Adds a zero (0) to numbers less then ten (10)
@@ -108,6 +108,12 @@ async function _monitor(req, res) {
             endpoint: api[apiKey],
           }))
         : []),
+      {
+        key: 'redis',
+        required: true,
+        redis,
+        options: config.session.redisOptions,
+      },
       // If we need local system checks, such as memory or disk, we would add it here.
       // Make sure it returns an object containing:
       // {key: 'local', isResolved: true, statusCode: ###, message: '...'}
