@@ -24,11 +24,11 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.16.5",
-    "@kth/api-call": "^4.0.12",
-    "@kth/monitor": "^3.0.6",
+    "@kth/api-call": "^4.0.16",
     "@kth/kth-node-passport-oidc": "^4.1.6",
     "@kth/kth-node-web-common": "^7.0.4",
     "@kth/log": "^4.0.0",
+    "@kth/monitor": "^3.0.6",
     "@kth/server": "^4.0.1",
     "@kth/session": "^3.0.1",
     "applicationinsights": "^2.2.0",
