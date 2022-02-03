@@ -17,6 +17,7 @@ COPY ["server", "server"]
 COPY ["app.js", "app.js"]
 COPY ["build.sh", "build.sh"]
 COPY ["webpack.config.js", "webpack.config.js"]
+COPY [".env.ini", ".env.ini"]
 
 RUN apk stats && \
     chmod a+rx build.sh && \
