@@ -1,13 +1,8 @@
 import React, { useState } from 'react'
 
-import { observer } from 'mobx-react'
-import { useStore } from '../mobx'
-
 import i18n from '../../../../i18n'
 
-function Button({ caption = 'N/A' }) {
-  const { language: lang } = useStore()
-
+function Button({ caption = 'N/A', lang = 'sv' }) {
   const [buttonClicked, setButtonClicked] = useState(false)
 
   return (
@@ -20,4 +15,4 @@ function Button({ caption = 'N/A' }) {
   )
 }
 
-export default observer(Button)
+export default Button

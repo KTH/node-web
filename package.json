@@ -44,8 +44,6 @@
     "kth-node-i18n": "^1.0.12",
     "kth-node-redis": "^3.1.37",
     "kth-style": "7.0.12",
-    "mobx": "^6.4.1",
-    "mobx-react": "^7.3.0",
     "passport": "^0.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -83,7 +81,6 @@
     "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2"
   },
-  "// (prettier)": "configuration version 2020-06-15 - might also reside in .prettierrc.json",
   "prettier": {
     "arrowParens": "avoid",
     "printWidth": 120,
@@ -91,7 +88,6 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "// (babel)": "configuration version 2020-10-21 (WEB) - might also reside in .babelrc.json",
   "babel": {
     "presets": [
       "@babel/preset-env",
@@ -101,7 +97,6 @@
       "@babel/plugin-transform-runtime"
     ]
   },
-  "// (jest)": "configuration version 2020-06-15 (WEB) - might also reside as module.exports in jest.config.js",
   "jest": {
     "clearMocks": true,
     "notifyMode": "failure-change",

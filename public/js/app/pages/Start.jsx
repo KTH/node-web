@@ -16,7 +16,7 @@ const Start = () => {
       <h2>{i18n.message('template_app_works', lang)}</h2>
       <hr className="my-2" />
       <p>{`${i18n.message('template_store_text', lang)}: ${message}`}</p>
-      <Button caption={i18n.message('template_try_me', lang)} />
+      <Button caption={i18n.message('template_try_me', lang)} lang={lang} />
       <hr />
       <div>
         <a href="/node/secure">Secured page</a>

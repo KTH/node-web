@@ -21,7 +21,7 @@ async function getIndex(req, res, next) {
     const webContext = {
       isAdmin: user ? user.isAdmin : false,
       proxyPrefixPath: serverConfig.proxyPrefixPath,
-      language: 'sv',
+      lang,
       basicBreadcrumbs: [
         { label: 'KTH', url: serverConfig.hostUrl },
         { label: 'Cortina-calendar', url: serverConfig.hostUrl },

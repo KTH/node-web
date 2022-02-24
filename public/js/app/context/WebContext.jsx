@@ -2,7 +2,7 @@ import React from 'react'
 
 const WebContext = React.createContext()
 const defaultConfig = {
-  language: 'sv',
+  lang: 'sv',
   isAdmin: false,
   basicBreadcrumbs: [
     { label: 'KTH', url: 'https://kth.se' },
