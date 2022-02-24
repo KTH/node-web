@@ -14,25 +14,39 @@ const { getServerSideFunctions } = require('../utils/serverSideRendering')
 async function getIndex(req, res, next) {
   try {
     const lang = language.getLanguage(res)
+    const { user } = req
 
-    const { createStore, getCompressedStoreCode, renderStaticPage } = getServerSideFunctions()
+    const { getCompressedData, renderStaticPage } = getServerSideFunctions()
 
-    const applicationStore = createStore()
-    applicationStore.setLanguage(lang)
+    const webContext = {
+      isAdmin: user ? user.isAdmin : false,
+      proxyPrefixPath: serverConfig.proxyPrefixPath,
+      language: 'sv',
+      basicBreadcrumbs: [
+        { label: 'KTH', url: serverConfig.hostUrl },
+        { label: 'Cortina-calendar', url: serverConfig.hostUrl },
+      ],
+      message: 'howdi from controller',
+      apiHost: serverConfig.hostUrl,
+      cmUrl: serverConfig.cmUrl,
+    }
 
-    await _fillApplicationStoreOnServerSide({ applicationStore, query: req.query })
-
-    const compressedStoreCode = getCompressedStoreCode(applicationStore)
+    const compressedData = getCompressedData(webContext)
 
     const { uri: proxyPrefix } = serverConfig.proxyPrefixPath
-    const html = renderStaticPage({ applicationStore, location: req.url, basename: proxyPrefix })
 
+    const view = renderStaticPage({
+      applicationStore: {},
+      location: req.url,
+      basename: proxyPrefix,
+      context: webContext,
+    })
     log.info(`node_web: toolbarUrl: ${serverConfig.toolbar.url}`)
 
     res.render('sample/index', {
-      html,
+      html: view,
       title: 'TODO',
-      compressedStoreCode,
+      compressedData,
       description: 'TODO',
       breadcrumbsPath: [],
       lang,

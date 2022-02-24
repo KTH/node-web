@@ -6,13 +6,13 @@ import i18n from '../../../../i18n'
 
 import Button from '../components/Button'
 
-const Start = () => {
+const AdminStart = () => {
   const [webContext] = useWebContext()
   const { message, lang } = webContext
 
   return (
     <main id="mainContent">
-      <h1>Node-web</h1>
+      <h1>Node-web Admin page</h1>
       <h2>{i18n.message('template_app_works', lang)}</h2>
       <hr className="my-2" />
       <p>{`${i18n.message('template_store_text', lang)}: ${message}`}</p>
@@ -29,4 +29,4 @@ const Start = () => {
   )
 }
 
-export default Start
+export default AdminStart

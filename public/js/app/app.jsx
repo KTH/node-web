@@ -6,12 +6,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-import { MobxStoreProvider, uncompressStoreInPlaceFromDocument } from './mobx'
-import createApplicationStore from './stores/createApplicationStore'
+import { WebContextProvider } from './context/WebContext'
+import { uncompressData } from './context/compress'
 
 import '../../css/node-web.scss'
 
 import Start from './pages/Start'
+
+import AdminStart from './pages/AdminStart'
 
 export default appFactory
 
@@ -23,36 +25,34 @@ function _renderOnClientSide() {
     return
   }
 
-  // @ts-ignore
-  const basename = window.config.proxyPrefixPath.uri
+  const webContext = {}
+  uncompressData(webContext)
 
-  const applicationStore = createApplicationStore()
-  uncompressStoreInPlaceFromDocument(applicationStore)
+  const basename = webContext.proxyPrefixPath.uri
 
-  const app = <BrowserRouter basename={basename}>{appFactory(applicationStore)}</BrowserRouter>
+  const app = <BrowserRouter basename={basename}>{appFactory({}, webContext)}</BrowserRouter>
 
   const domElement = document.getElementById('app')
   ReactDOM.hydrate(app, domElement)
 }
 
-function appFactory(applicationStore) {
+function appFactory(applicationStore, context) {
   return (
-    <MobxStoreProvider initCallback={() => applicationStore}>
-      <Switch>
-        <Route exact path="/" component={Start} />
-        <Route exact path="/secure">
-          <a href="/node/">Tillbaka</a>
-          <h1>Secured page</h1>
-        </Route>
-        <Route exact path="/secure/admin">
-          <a href="/node/">Tillbaka</a>
-          <h1>Secured Admin page</h1>
-        </Route>
-        <Route exact path="/silent">
-          <a href="/node/">Tillbaka</a>
-          <h1>Silent page</h1>
-        </Route>
-      </Switch>
-    </MobxStoreProvider>
+    <Switch>
+      <WebContextProvider configIn={context}>
+        <Switch>
+          <Route exact path="/" component={Start} />
+          <Route exact path="/secure">
+            <a href="/node/">Tillbaka</a>
+            <h1>Secured page</h1>
+          </Route>
+          <Route exact path="/silent">
+            <a href="/node/">Tillbaka</a>
+            <h1>Silent page</h1>
+          </Route>
+          <Route exact path="/_admin" component={AdminStart} />
+        </Switch>
+      </WebContextProvider>
+    </Switch>
   )
 }
