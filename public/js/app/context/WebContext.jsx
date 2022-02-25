@@ -38,3 +38,11 @@ export function useWebContext() {
   }
   return context
 }
+
+export function incrementCount() {
+  const context = React.useContext(WebContext)
+  const { count } = context
+
+  console.log(`incrementcount`, count)
+  // setConfig({ ...context, ...{ count: count + 1 } })
+}

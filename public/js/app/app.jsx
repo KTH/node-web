@@ -27,11 +27,9 @@ function _renderOnClientSide() {
 
   const webContext = {}
   uncompressData(webContext)
-  console.log(`uncompressed data`, webContext)
 
   const adminContext = {}
   uncompressData(adminContext, 'admin')
-  console.log(`uncompressed data`, adminContext)
 
   const basename = webContext.proxyPrefixPath.uri
 

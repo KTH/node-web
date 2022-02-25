@@ -7,8 +7,13 @@ import i18n from '../../../../i18n'
 import Button from '../components/Button'
 
 const Start = () => {
-  const [webContext] = useWebContext()
-  const { message, lang } = webContext
+  const [webContext, setContext] = useWebContext()
+  const { message, lang, count = 0 } = webContext
+
+  const incrementCount = () => {
+    const newVal = { count: count + 1 }
+    setContext({ ...webContext, ...newVal })
+  }
 
   return (
     <main id="mainContent">
@@ -16,7 +21,10 @@ const Start = () => {
       <h2>{i18n.message('template_app_works', lang)}</h2>
       <hr className="my-2" />
       <p>{`${i18n.message('template_store_text', lang)}: ${message}`}</p>
+
       <Button caption={i18n.message('template_try_me', lang)} lang={lang} />
+      <hr />
+      <Button caption={`Increment ${count}`} lang={lang} onClick={incrementCount} />
       <hr />
       <div>
         <a href="/node/secure">Secured page</a>
