@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import { WebContextProvider } from './context/WebContext'
 import { uncompressData } from './context/compress'
-
+import { AdminContextProvider } from './context/AdminContext'
 import '../../css/node-web.scss'
 
 import Start from './pages/Start'
@@ -28,31 +28,36 @@ function _renderOnClientSide() {
   const webContext = {}
   uncompressData(webContext)
   console.log(`uncompressed data`, webContext)
+
+  const adminContext = {}
+  uncompressData(adminContext, 'admin')
+  console.log(`uncompressed data`, adminContext)
+
   const basename = webContext.proxyPrefixPath.uri
 
-  const app = <BrowserRouter basename={basename}>{appFactory({}, webContext)}</BrowserRouter>
+  const app = <BrowserRouter basename={basename}>{appFactory({}, webContext, adminContext)}</BrowserRouter>
 
   const domElement = document.getElementById('app')
   ReactDOM.hydrate(app, domElement)
 }
 
-function appFactory(applicationStore, context) {
+function appFactory(applicationStore, context, adminContext) {
   return (
-    <Switch>
-      <WebContextProvider configIn={context}>
-        <Switch>
-          <Route exact path="/" component={Start} />
-          <Route exact path="/secure">
-            <a href="/node/">Tillbaka</a>
-            <h1>Secured page</h1>
-          </Route>
-          <Route exact path="/silent">
-            <a href="/node/">Tillbaka</a>
-            <h1>Silent page</h1>
-          </Route>
+    <WebContextProvider configIn={context}>
+      <Switch>
+        <Route exact path="/" component={Start} />
+        <Route exact path="/secure">
+          <a href="/node/">Tillbaka</a>
+          <h1>Secured page</h1>
+        </Route>
+        <Route exact path="/silent">
+          <a href="/node/">Tillbaka</a>
+          <h1>Silent page</h1>
+        </Route>
+        <AdminContextProvider configIn={adminContext}>
           <Route exact path="/_admin" component={AdminStart} />
-        </Switch>
-      </WebContextProvider>
-    </Switch>
+        </AdminContextProvider>
+      </Switch>
+    </WebContextProvider>
   )
 }

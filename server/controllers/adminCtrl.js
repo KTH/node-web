@@ -32,6 +32,10 @@ async function getAdminIndex(req, res, next) {
 
     const compressedData = getCompressedData(webContext)
 
+    const adminContext = {
+      adminData: { x: 10, y: 20 },
+    }
+    const compressedAdminData = getCompressedData(adminContext, 'admin')
     const { uri: proxyPrefix } = serverConfig.proxyPrefixPath
 
     const view = renderStaticPage({
@@ -42,11 +46,12 @@ async function getAdminIndex(req, res, next) {
     })
     log.info(`node_web: toolbarUrl: ${serverConfig.toolbar.url}`)
 
-    res.render('sample/index', {
+    res.render('sample/admin', {
       html: view,
-      title: 'TODO',
+      title: 'ADMIN',
       compressedData,
-      description: 'TODO',
+      compressedAdminData,
+      description: 'ADMIN',
       breadcrumbsPath: [],
       lang,
       proxyPrefix,
