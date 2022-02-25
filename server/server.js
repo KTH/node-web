@@ -246,12 +246,12 @@ server.use(
  * ******* APPLICATION ROUTES *******
  * **********************************
  */
-const { Sample } = require('./controllers')
+const { Sample, Admin } = require('./controllers')
 
 // App routes
 const appRoute = AppRouter()
 appRoute.get('node.index', _addProxy('/'), Sample.getIndex)
-appRoute.get('node.index', _addProxy('/_admin'), oidc.login, oidc.requireRole('isAdmin'), Sample.getIndex)
+appRoute.get('node.index', _addProxy('/_admin'), oidc.login, oidc.requireRole('isAdmin'), Admin.getAdminIndex)
 appRoute.get('node.index', _addProxy('/secure'), oidc.login, Sample.getIndex)
 appRoute.get('system.gateway', _addProxy('/silent'), oidc.silentLogin, Sample.getIndex)
 appRoute.get('node.page', _addProxy('/:page'), oidc.login, Sample.getIndex)

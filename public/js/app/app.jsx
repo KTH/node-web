@@ -27,7 +27,7 @@ function _renderOnClientSide() {
 
   const webContext = {}
   uncompressData(webContext)
-
+  console.log(`uncompressed data`, webContext)
   const basename = webContext.proxyPrefixPath.uri
 
   const app = <BrowserRouter basename={basename}>{appFactory({}, webContext)}</BrowserRouter>
