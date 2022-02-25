@@ -5,12 +5,11 @@ const defaultConfig = {
   lang: 'sv',
   isAdmin: false,
   basicBreadcrumbs: [
-    { label: 'KTH', url: 'https://kth.se' },
-    { label: 'Cortina-calendar', url: 'https://kth.se/cortina-calendar' },
+    { label: 'KTH', url: 'https://www-r.referens.sys.kth.se/' },
+    { label: 'Node', url: 'https://www-r.referens.sys.kth.se/node' },
   ],
-  proxyPrefixPath: { uri: 'cortina-calendar' },
+  proxyPrefixPath: { uri: ' node' },
   message: 'howdi',
-  cmUrl: 'http://www.kth.se/om/mot/kalender',
 }
 
 export const WebContextProvider = props => {

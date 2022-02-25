@@ -41,7 +41,7 @@ jest.mock('../../server/configuration', () => ({
     },
     ldap: {},
     proxyPrefixPath: {
-      uri: '/cortina-screener',
+      uri: '/node',
     },
     session: { redisOptions: { host: 'localhost', port: 6379 } },
   },

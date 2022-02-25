@@ -24,11 +24,10 @@ async function getIndex(req, res, next) {
       lang,
       basicBreadcrumbs: [
         { label: 'KTH', url: serverConfig.hostUrl },
-        { label: 'Cortina-calendar', url: serverConfig.hostUrl },
+        { label: 'Node', url: serverConfig.hostUrl },
       ],
-      message: 'howdi from controller',
+      message: 'howdi from sample controller',
       apiHost: serverConfig.hostUrl,
-      cmUrl: serverConfig.cmUrl,
     }
 
     const compressedData = getCompressedData(webContext)
