@@ -8,7 +8,7 @@ const defaultConfig = {
     { label: 'KTH', url: 'https://www-r.referens.sys.kth.se/' },
     { label: 'Node', url: 'https://www-r.referens.sys.kth.se/node' },
   ],
-  proxyPrefixPath: { uri: ' node' },
+  proxyPrefixPath: { uri: 'node' },
   message: 'howdi',
 }
 
