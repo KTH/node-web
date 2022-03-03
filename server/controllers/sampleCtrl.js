@@ -58,11 +58,6 @@ async function getIndex(req, res, next) {
   }
 }
 
-// eslint-disable-next-line no-unused-vars
-async function _fillApplicationStoreOnServerSide({ applicationStore, query }) {
-  applicationStore.setMessage('Tjena!')
-}
-
 module.exports = {
   getIndex,
 }
