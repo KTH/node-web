@@ -95,14 +95,8 @@ function setCustomCacheControl(res, path2) {
 }
 
 // Files/statics routes--
-// Map components HTML files as static content, but set custom cache control header, currently no-cache to force If-modified-since/Etag check.
 
 const staticOption = { maxAge: 365 * 24 * 3600 * 1000 } // 365 days in ms is maximum
-
-server.use(
-  _addProxy('/static/js/components'),
-  express.static('./dist/js/components', { setHeaders: setCustomCacheControl })
-)
 
 // Expose browser configurations
 server.use(_addProxy('/static/browserConfig'), browserConfigHandler)
