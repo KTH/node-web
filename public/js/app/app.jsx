@@ -4,7 +4,7 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Link, Routes, Route } from 'react-router-dom'
 
 import { WebContextProvider } from './context/WebContext'
 import { uncompressData } from './context/compress'
@@ -39,23 +39,32 @@ function _renderOnClientSide() {
   ReactDOM.hydrate(app, domElement)
 }
 
+function SimplePage({ heading }) {
+  return (
+    <>
+      <Link to="/">Tillbaka</Link>
+      <h1>{heading}</h1>
+    </>
+  )
+}
+
 function appFactory(applicationStore, context, adminContext) {
   return (
     <WebContextProvider configIn={context}>
-      <Switch>
-        <Route exact path="/" component={Start} />
-        <Route exact path="/secure">
-          <a href="/node/">Tillbaka</a>
-          <h1>Secured page</h1>
-        </Route>
-        <Route exact path="/silent">
-          <a href="/node/">Tillbaka</a>
-          <h1>Silent page</h1>
-        </Route>
-        <AdminContextProvider configIn={adminContext}>
-          <Route exact path="/_admin" component={AdminStart} />
-        </AdminContextProvider>
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Start />} />
+        <Route path="/secure" element={<SimplePage heading="Secure page" />} />
+        <Route path="/silent" element={<SimplePage heading="Silent page" />} />
+        <Route
+          path="/_admin"
+          element={
+            <AdminContextProvider configIn={adminContext}>
+              <AdminStart />
+            </AdminContextProvider>
+          }
+        />
+        <Route path="*" element={<SimplePage heading="Not found" />} />
+      </Routes>
     </WebContextProvider>
   )
 }
