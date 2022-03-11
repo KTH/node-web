@@ -34,5 +34,12 @@ module.exports = {
     template_store_text: 'Message from applicationStore',
     template_try_me: 'Try me',
     template_button_works: 'Button works!',
+    template_button_increment: 'Increment',
+
+    template_secured_page_heading: 'Secured page',
+    template_secured_admin_page_heading: 'Secured page for admin',
+    template_silent_login_page_heading: 'Silent login page',
+    template_not_found_page_heading: 'Not found',
+    template_back_link: 'Back to start page',
   },
 }

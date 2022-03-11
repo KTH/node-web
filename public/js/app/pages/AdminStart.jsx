@@ -23,11 +23,11 @@ const AdminStart = () => {
       <p>Y: {adminData.y}</p>
       <hr />
       <div>
-        <a href="/node/secure">Secured page</a>
+        <a href="/node/secure">{i18n.message('template_secured_page_heading', lang)}</a>
         <br />
-        <a href="/node/_admin">Secured page for admins</a>
+        <a href="/node/silent">{i18n.message('template_silent_login_page_heading', lang)}</a>
         <br />
-        <a href="/node/silent">Silent login page</a>
+        <a href="/node/">{i18n.message('template_back_link', lang)}</a>
       </div>
     </main>
   )

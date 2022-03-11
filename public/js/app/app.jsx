@@ -4,16 +4,17 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter, Link, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { WebContextProvider } from './context/WebContext'
 import { uncompressData } from './context/compress'
 import { AdminContextProvider } from './context/AdminContext'
+
 import '../../css/node-web.scss'
 
 import Start from './pages/Start'
-
 import AdminStart from './pages/AdminStart'
+import Simple from './pages/Simple'
 
 export default appFactory
 
@@ -39,22 +40,13 @@ function _renderOnClientSide() {
   ReactDOM.hydrate(app, domElement)
 }
 
-function SimplePage({ heading }) {
-  return (
-    <>
-      <Link to="/">Tillbaka</Link>
-      <h1>{heading}</h1>
-    </>
-  )
-}
-
 function appFactory(applicationStore, context, adminContext) {
   return (
     <WebContextProvider configIn={context}>
       <Routes>
         <Route path="/" element={<Start />} />
-        <Route path="/secure" element={<SimplePage heading="Secure page" />} />
-        <Route path="/silent" element={<SimplePage heading="Silent page" />} />
+        <Route path="/secure" element={<Simple headingId="template_secured_page_heading" />} />
+        <Route path="/silent" element={<Simple headingId="template_silent_login_page_heading" />} />
         <Route
           path="/_admin"
           element={
@@ -63,7 +55,7 @@ function appFactory(applicationStore, context, adminContext) {
             </AdminContextProvider>
           }
         />
-        <Route path="*" element={<SimplePage heading="Not found" />} />
+        <Route path="*" element={<Simple headingId="template_not_found_page_heading" />} />
       </Routes>
     </WebContextProvider>
   )

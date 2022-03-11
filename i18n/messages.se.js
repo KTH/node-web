@@ -34,5 +34,12 @@ module.exports = {
     template_store_text: 'Meddelandet från applicationStore',
     template_try_me: 'Testa ut',
     template_button_works: 'Knappen fungerar!',
+    template_button_increment: 'Öka',
+
+    template_secured_page_heading: 'Säkrad sida',
+    template_secured_admin_page_heading: 'Säkrad sida för admin',
+    template_silent_login_page_heading: 'Sida med tyst inloggning',
+    template_not_found_page_heading: 'Sidan hittades inte ',
+    template_back_link: 'Tillbaka till start-sidan',
   },
 }
