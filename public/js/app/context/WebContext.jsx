@@ -34,7 +34,7 @@ export const WebContextProvider = props => {
 export function useWebContext() {
   const context = React.useContext(WebContext)
   if (!context) {
-    return [({}, () => {})]
+    throw new Error('useWebContext must be used within a WebContext')
   }
   return context
 }

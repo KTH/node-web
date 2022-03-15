@@ -27,7 +27,7 @@ export const AdminContextProvider = props => {
 export function useAdminContext() {
   const context = React.useContext(AdminContext)
   if (!context) {
-    return [({}, () => {})]
+    throw new Error('useAdminContext must be used within a AdminContext')
   }
   return context
 }
