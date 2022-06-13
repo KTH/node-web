@@ -19,15 +19,17 @@ COPY ["build.sh", "build.sh"]
 COPY ["webpack.config.js", "webpack.config.js"]
 COPY [".env.ini", ".env.ini"]
 
-RUN apk stats && \
-    chmod a+rx build.sh && \
-    apk add --no-cache bash && \
-    apk add --no-cache --virtual .gyp-dependencies python2 make g++ util-linux && \
+RUN chmod a+rx build.sh && \
+    addgroup -S appuser && \
+    adduser -S -G appuser appuser && \
+    chown -R appuser:appuser /application
+
+USER appuser
+
+RUN npm set-script prepare "" && \
     npm ci --unsafe-perm && \
     npm run build && \
-    npm prune --production && \
-    apk del .gyp-dependencies && \
-    apk stats
+    npm prune --production 
 
 EXPOSE 3000
 
