@@ -20,13 +20,11 @@ COPY ["webpack.config.js", "webpack.config.js"]
 COPY [".env.ini", ".env.ini"]
 
 RUN chmod a+rx build.sh && \
-    addgroup -S appuser && \
-    adduser -S -G appuser appuser && \
-    chown -R appuser:appuser /application
+    chown -R node:node /application
 
-USER appuser
+USER node
 
-RUN npm set-script prepare "" && \
+RUN npm pkg delete scripts.prepare && \
     npm ci --unsafe-perm && \
     npm run build && \
     npm prune --production 
