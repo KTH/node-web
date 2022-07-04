@@ -21,7 +21,9 @@
     "lint": "eslint \"{public,server}/**/*.{js,jsx}\" --quiet",
     "lint-v": "eslint \"{public,server}/**/*.{js,jsx}\" ",
     "prepare": "husky install",
-    "postinstall": "bash -c 'rm -rf ./dist; rm -rf ./node_modules/.cache/webpack'"
+    "postinstall": "bash -c 'rm -rf ./dist; rm -rf ./node_modules/.cache/webpack'",
+    "test:check-_paths": "node test/integration/check-_paths.js http://localhost:3000/node",
+    "test:integration-in-docker": "docker build --progress plain -t node-web . && bash -c 'LOCAL_IMAGE_ID=node-web docker-compose -f docker-compose-integration-tests.yml up --abort-on-container-exit --build --no-log-prefix --remove-orphans  --always-recreate-deps --force-recreate'"
   },
   "dependencies": {
     "@babel/runtime": "^7.18.3",
