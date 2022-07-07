@@ -14,6 +14,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:notify": "jest --watch --notify",
+    "test:coverage": "jest --coverage",
     "build": "bash ./build.sh prod",
     "build-dev": "bash ./build.sh dev",
     "start": "bash -c 'cat /KTH_NODEJS; NODE_ENV=production node app.js'",
@@ -72,6 +73,7 @@
     "husky": "^8.0.1",
     "jest": "^27.5.1",
     "jest-extended": "^2.0.0",
+    "jest-sonar-reporter": "^2.0.0",
     "mini-css-extract-plugin": "^2.6.1",
     "nodemon": "^2.0.19",
     "null-loader": "^4.0.1",
@@ -106,7 +108,16 @@
     "setupFilesAfterEnv": [
       "jest-extended"
     ],
+    "verbose": true,
     "testEnvironment": "jsdom",
-    "verbose": true
+    "collectCoverageFrom": [
+      "{public,server}/**/*.{js,jsx}"
+    ],
+    "coverageDirectory": "./test/coverage",
+    "testResultsProcessor": "jest-sonar-reporter"
+  },
+  "jestSonar": {
+    "reportPath": "./test/reports",
+    "reportFile": "test-reporter.xml"
   }
 }
