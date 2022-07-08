@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/Users/ricf/git/node-web/server/controllers/systemCtrl.test.js">
+    <testCase name="System controller monitor returns successfully" duration="99"/>
+    <testCase name="System controller about returns successfully" duration="14"/>
+    <testCase name="System controller robotsTxt returns successfully" duration="12"/>
+    <testCase name="System controller paths returns successfully" duration="12"/>
+  </file>
+  <file path="/Users/ricf/git/node-web/public/js/app/components/Button.test.js">
+    <testCase name="Component &lt;Button&gt; creates a button" duration="20"/>
+    <testCase name="Component &lt;Button&gt; changes output after first click" duration="8"/>
+    <testCase name="Component &lt;Button&gt; doesn&apos;t change anything after another click" duration="4"/>
+  </file>
+</testExecutions>

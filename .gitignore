@@ -46,9 +46,5 @@ docker-local.*
 # SonarQube
 .scannerwork
 
-# Jest
-test/coverage
-test/reports
-
 # Dev notes
 notes
