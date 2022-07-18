@@ -69,16 +69,8 @@ function buildRes(overrides = {}) {
 }
 
 describe(`System controller`, () => {
-  const OLD_ENV = process.env
-
-  beforeEach(() => {
-    jest.resetModules()
-    process.env = { ...OLD_ENV }
-    jest.clearAllMocks()
-  })
-  afterEach(() => {
-    process.env = OLD_ENV
-  })
+  beforeEach(() => {})
+  afterEach(() => {})
 
   test('monitor returns successfully', async () => {
     const req = buildReq({})
@@ -92,13 +84,32 @@ describe(`System controller`, () => {
   })
 
   test('about returns successfully', async () => {
-    const req = buildReq({})
+    const req = buildReq({ headers: {} })
     const res = buildRes()
 
     const { about } = require('./systemCtrl')
 
     await about(req, res)
     expect(res.render).toHaveBeenCalledTimes(1)
+  })
+  test('about JSON returns successfully', async () => {
+    const req = buildReq({})
+    const res = buildRes()
+
+    const { about } = require('./systemCtrl')
+
+    await about(req, res)
+    expect(res.json).toHaveBeenCalledTimes(1)
+  })
+  test('status  returns successfully', async () => {
+    const req = buildReq({})
+    const res = buildRes()
+
+    // eslint-disable-next-line no-shadow
+    const { status } = require('./systemCtrl')
+
+    await status(req, res)
+    expect(res.json).toHaveBeenCalledTimes(1)
   })
 
   test('robotsTxt returns successfully', async () => {

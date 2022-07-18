@@ -63,17 +63,13 @@ function _final(err, req, res, next) {
   errorHandler.renderErrorPage(res, req, statusCode, i18n, isProd, lang, err)
 }
 
-/* GET /_about
+/**
+ * GET /_about
  * About page
  */
-function _about(req, res) {
-  const { uri: proxyPrefix } = config.proxyPrefixPath
+async function getAbout(req, res) {
   const paths = getPaths()
-
-  res.render('system/about', {
-    layout: 'systemLayout',
-    title: `About ${packageFile.name}`,
-    proxyPrefix,
+  const aboutData = {
     appName: packageFile.name,
     appVersion: packageFile.version,
     appDescription: packageFile.description,
@@ -87,10 +83,16 @@ function _about(req, res) {
       : JSON.stringify(version.jenkinsBuildDate),
     dockerName: JSON.stringify(version.dockerName),
     dockerVersion: JSON.stringify(version.dockerVersion),
-    language: language.getLanguage(res),
     hostname: os.hostname(),
     started,
     env: process.env.NODE_ENV,
+  }
+  if (req.headers.accept === 'application/json') {
+    return res.json(aboutData)
+  }
+  res.render('system/about', {
+    layout: '',
+    ...aboutData,
   })
 }
 
@@ -144,7 +146,23 @@ function _robotsTxt(req, res) {
 function _paths(req, res) {
   res.json(getPaths())
 }
-
+/**
+ * GET /_status
+ * Status - dynamic status information about the application.
+ */
+async function getStatus(req, res) {
+  const statusData = {
+    appName: packageFile.name,
+    appVersion: packageFile.version,
+    hostname: os.hostname(),
+    started,
+    env: process.env.NODE_ENV,
+  }
+  if (req.headers.accept === 'application/json') {
+    return res.json(statusData)
+  }
+  return res.send(JSON.stringify(statusData))
+}
 /*
  * ----------------------------------------------------------------
  * Publicly exported functions.
@@ -153,9 +171,10 @@ function _paths(req, res) {
 
 module.exports = {
   monitor: _monitor,
-  about: _about,
+  about: getAbout,
   robotsTxt: _robotsTxt,
   paths: _paths,
   notFound: _notFound,
   final: _final,
+  status: getStatus,
 }
