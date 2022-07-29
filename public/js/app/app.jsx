@@ -1,4 +1,5 @@
 /* eslint no-use-before-define: ["error", "nofunc"] */
+import { hydrateRoot } from 'react-dom/client'
 
 // @ts-check
 
@@ -37,7 +38,7 @@ function _renderOnClientSide() {
   const app = <BrowserRouter basename={basename}>{appFactory({}, webContext, adminContext)}</BrowserRouter>
 
   const domElement = document.getElementById('app')
-  ReactDOM.hydrate(app, domElement)
+  hydrateRoot(domElement, app)
 }
 
 function appFactory(applicationStore, context, adminContext) {
