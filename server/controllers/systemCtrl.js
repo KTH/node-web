@@ -90,8 +90,8 @@ async function getAbout(req, res) {
   if (req.headers.accept === 'application/json') {
     return res.json(aboutData)
   }
-  res.render('system/about', {
-    layout: '',
+  return res.render('system/about', {
+    layout: 'systemLayout',
     ...aboutData,
   })
 }
