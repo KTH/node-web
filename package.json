@@ -27,7 +27,7 @@
     "test:integration-in-docker": "docker build --progress plain -t node-web . && bash -c 'LOCAL_IMAGE_ID=node-web docker-compose -f docker-compose-integration-tests.yml up --abort-on-container-exit --build --no-log-prefix --remove-orphans  --always-recreate-deps --force-recreate'"
   },
   "dependencies": {
-    "@babel/runtime": "^7.20.0",
+    "@babel/runtime": "^7.20.1",
     "@kth/api-call": "^4.0.40",
     "@kth/kth-node-passport-oidc": "^5.0.1",
     "@kth/kth-node-web-common": "^7.0.15",
@@ -61,11 +61,11 @@
     "@kth/eslint-config-kth": "^3.0.10",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
-    "@types/jest": "^29.2.0",
+    "@types/jest": "^29.2.1",
     "ansi-regex": "^6.0.1",
     "babel-loader": "^8.2.5",
     "browserslist": "^4.21.4",
-    "caniuse-lite": "^1.0.30001427",
+    "caniuse-lite": "^1.0.30001429",
     "concurrently": "^7.5.0",
     "css-loader": "^6.7.1",
     "eslint": "^8.26.0",
