@@ -43,6 +43,7 @@ async function getAdminIndex(req, res, next) {
       location: req.url,
       basename: proxyPrefix,
       context: webContext,
+      adminContext,
     })
     log.info(`node_web: toolbarUrl: ${serverConfig.toolbar.url}`)
 
