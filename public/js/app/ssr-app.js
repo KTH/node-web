@@ -18,6 +18,7 @@ function _getServerSideFunctions() {
       const code = compressData(data, dataId)
       return code
     },
+    // eslint-disable-next-line no-shadow
     renderStaticPage({ applicationStore, location, basename, context, adminContext }) {
       const app = (
         <StaticRouter basename={basename} location={location}>

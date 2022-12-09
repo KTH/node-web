@@ -4,7 +4,6 @@ import { hydrateRoot } from 'react-dom/client'
 // @ts-check
 
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { WebContextProvider } from './context/WebContext'
