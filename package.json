@@ -35,7 +35,7 @@
     "@kth/monitor": "^3.0.29",
     "@kth/server": "^4.0.4",
     "@kth/session": "^3.0.7",
-    "applicationinsights": "^2.4.0",
+    "applicationinsights": "^2.4.1",
     "body-parser": "^1.20.1",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
@@ -50,7 +50,7 @@
     "passport": "^0.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.6.2"
+    "react-router-dom": "^6.7.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.20.7",
@@ -65,7 +65,7 @@
     "ansi-regex": "^6.0.1",
     "babel-loader": "^8.3.0",
     "browserslist": "^4.21.4",
-    "caniuse-lite": "^1.0.30001445",
+    "caniuse-lite": "^1.0.30001446",
     "concurrently": "^7.6.0",
     "css-loader": "^6.7.3",
     "eslint": "^8.32.0",
