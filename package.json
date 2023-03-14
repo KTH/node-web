@@ -29,7 +29,7 @@
   "dependencies": {
     "@babel/runtime": "^7.21.0",
     "@kth/api-call": "^4.0.40",
-    "@kth/kth-node-passport-oidc": "^5.0.2",
+    "@kth/kth-node-passport-oidc": "^5.0.3",
     "@kth/kth-node-web-common": "^7.0.16",
     "@kth/log": "^4.0.6",
     "@kth/monitor": "^3.0.30",
@@ -65,7 +65,7 @@
     "ansi-regex": "^6.0.1",
     "babel-loader": "^8.3.0",
     "browserslist": "^4.21.5",
-    "caniuse-lite": "^1.0.30001465",
+    "caniuse-lite": "^1.0.30001466",
     "concurrently": "^7.6.0",
     "css-loader": "^6.7.3",
     "eslint": "^8.36.0",
