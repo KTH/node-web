@@ -100,6 +100,7 @@ async function getAbout(req, res) {
  * Monitor page
  */
 async function _monitor(req, res) {
+  console.log('🌐 Monitor in Node Web:', { hostname: req.hostname })
   try {
     const apiConfig = config.nodeApi
     await monitorSystems(req, res, [
