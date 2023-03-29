@@ -1,3 +1,5 @@
 /package-lock.json
 /docker-compose-integration-tests.yml
 /config/version.js
+/.azure/azure-pipelines.pr.yml
+/.azure/azure-pipelines.ref.yml
