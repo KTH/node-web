@@ -6,6 +6,23 @@ if (process.env.APPLICATIONINSIGHTS_CONNECTION_STRING || process.env.APPINSIGHTS
   const appInsights = require('applicationinsights')
   appInsights.setup().setAutoCollectConsole(true, true).start()
   appInsights.defaultClient.context.tags['ai.cloud.role'] = 'node-web'
+
+  appInsights.defaultClient.addTelemetryProcessor(envelope => {
+    if (envelope.data?.baseType === 'MessageData') {
+      try {
+        const originalMessage = JSON.parse(envelope.data.baseData.message)
+        if (originalMessage.msg && originalMessage.name && originalMessage.level) {
+          envelope.data.baseData.message = originalMessage.msg
+        }
+      } catch (e) {}
+    }
+  })
+
+  appInsights.defaultClient.addTelemetryProcessor((envelope, correlationContext) => {
+    if (envelope.data?.baseType === 'RequestData') {
+      envelope.data.baseData.properties.user_agent = correlationContext?.['http.ServerRequest']?.get('user-agent')
+    }
+  })
 }
 
 const fs = require('fs')
