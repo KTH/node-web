@@ -65,7 +65,7 @@
     "ansi-regex": "^6.0.1",
     "babel-loader": "^8.3.0",
     "browserslist": "^4.21.5",
-    "caniuse-lite": "^1.0.30001485",
+    "caniuse-lite": "^1.0.30001486",
     "concurrently": "^7.6.0",
     "css-loader": "^6.7.3",
     "eslint": "^8.40.0",
@@ -83,7 +83,7 @@
     "sass": "^1.62.1",
     "sass-loader": "^13.2.2",
     "set-value": "^4.1.0",
-    "terser-webpack-plugin": "^5.3.7",
+    "terser-webpack-plugin": "^5.3.8",
     "webpack": "^5.82.0",
     "webpack-cli": "^4.10.0"
   },
