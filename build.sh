@@ -9,23 +9,12 @@ function echoYellow() {
 
 echo
 echoYellow "|--------------------------------------------------------|"
-echoYellow "| Building the application with Bash and Webpack         |"   
+echoYellow "| Building the application with Bash and Webpack         |"
 echoYellow "|--------------------------------------------------------|\n"
-
-echoYellow "  1. Copying files"
-
-echoYellow "     -> Creating the server view folders"
-mkdir -p ./server/views/system ./server/views/layouts
-
-echoYellow "     -> Copying error.handlebars to server/views/system folder"
-cp -R ./node_modules/@kth/kth-node-web-common/lib/handlebars/pages/views/. server/views/system
-
-echoYellow "     -> Copying errorLayout.handlebars to server/views/layouts folder"
-cp -R ./node_modules/@kth/kth-node-web-common/lib/handlebars/pages/layouts/. server/views/layouts
 
 if [ "$ENV" == "prod" ]; then
   echo
-  echoYellow "  2. Bundling the client app into the /dist folder\n"
+  echoYellow "  1. Bundling the client app into the /dist folder\n"
   WEBPACK_ENV=prod WEBPACK_MODE=build webpack
 
   echo
@@ -34,10 +23,10 @@ fi
 
 if [ "$ENV" == "dev" ]; then
   echo
-  echoYellow "  2. Bundling the client app into the /dist folder to list results\n"
+  echoYellow "  1. Bundling the client app into the /dist folder to list results\n"
   WEBPACK_ENV=dev WEBPACK_MODE=build webpack
 
   echo
-  echoYellow "  3. Running watch on client app. Check /dist for changes\n"
+  echoYellow "  2. Running watch on client app. Check /dist for changes\n"
   WEBPACK_ENV=dev WEBPACK_MODE=watch webpack
 fi
