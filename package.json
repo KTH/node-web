@@ -84,7 +84,7 @@
     "sass-loader": "^13.2.2",
     "set-value": "^4.1.0",
     "terser-webpack-plugin": "^5.3.8",
-    "webpack": "^5.82.0",
+    "webpack": "^5.82.1",
     "webpack-cli": "^4.10.0"
   },
   "prettier": {
