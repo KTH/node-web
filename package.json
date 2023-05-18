@@ -50,7 +50,7 @@
     "passport": "^0.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.1"
+    "react-router-dom": "^6.11.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.5",
@@ -83,8 +83,8 @@
     "sass": "^1.62.1",
     "sass-loader": "^13.2.2",
     "set-value": "^4.1.0",
-    "terser-webpack-plugin": "^5.3.8",
-    "webpack": "^5.82.1",
+    "terser-webpack-plugin": "^5.3.9",
+    "webpack": "^5.83.1",
     "webpack-cli": "^4.10.0"
   },
   "prettier": {
