@@ -4,7 +4,7 @@ require('dotenv').config()
 
 if (process.env.APPLICATIONINSIGHTS_CONNECTION_STRING || process.env.APPINSIGHTS_INSTRUMENTATIONKEY) {
   const appInsights = require('applicationinsights')
-  appInsights.setup().setAutoCollectConsole(true, true).start()
+  appInsights.setup().setAutoCollectConsole(true).start()
   appInsights.defaultClient.context.tags['ai.cloud.role'] = 'node-web'
 
   appInsights.defaultClient.addTelemetryProcessor(envelope => {
