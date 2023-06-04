@@ -65,7 +65,7 @@
     "ansi-regex": "^6.0.1",
     "babel-loader": "^8.3.0",
     "browserslist": "^4.21.7",
-    "caniuse-lite": "^1.0.30001492",
+    "caniuse-lite": "^1.0.30001494",
     "concurrently": "^7.6.0",
     "css-loader": "^6.8.1",
     "eslint": "^8.42.0",
