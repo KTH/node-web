@@ -29,7 +29,7 @@
   "dependencies": {
     "@babel/runtime": "^7.22.3",
     "@kth/api-call": "^4.0.40",
-    "@kth/appinsights": "^0.0.4",
+    "@kth/appinsights": "^0.1.0",
     "@kth/kth-node-passport-oidc": "^5.0.5",
     "@kth/kth-node-web-common": "^8.0.0",
     "@kth/log": "^4.0.6",
@@ -50,7 +50,7 @@
     "passport": "^0.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.2"
+    "react-router-dom": "^6.12.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.5",
