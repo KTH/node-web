@@ -3,7 +3,7 @@
 require('dotenv').config()
 
 const { KthAppinsights } = require('@kth/appinsights')
-KthAppinsights.init({ name: 'niseko-admin-web' })
+KthAppinsights.init({ name: 'node-web' })
 
 const fs = require('fs')
 const log = require('@kth/log')
