@@ -1,0 +1,10 @@
+name: Npm update
+    https://github.com/KTH/team-kth-web-iac
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * *'
+    
+jobs:
+  call-workflow-1-in-local-repo:
+    uses: KTH/team-kth-web-iac/.github/workflows/npm-update.yml@v1.0
