@@ -1,10 +1,16 @@
 name: Npm update
-    https://github.com/KTH/team-kth-web-iac
 on:
   workflow_dispatch:
+    inputs:
+      skip_audit:
+        required: false
+        default: false
+        type: boolean
   schedule:
     - cron: '0 2 * * *'
-    
+
 jobs:
-  call-workflow-1-in-local-repo:
-    uses: KTH/team-kth-web-iac/.github/workflows/npm-update.yml@v1.0
+  npm-update:
+    uses: KTH/team-kth-web-iac/.github/workflows/npm-update.yml@main
+    with:
+      skip_audit: ${{ inputs.skip_audit || false }}
