@@ -31,7 +31,7 @@
     "@kth/api-call": "^4.0.40",
     "@kth/appinsights": "^0.1.0",
     "@kth/kth-node-passport-oidc": "^5.0.5",
-    "@kth/kth-node-web-common": "^8.0.0",
+    "@kth/kth-node-web-common": "^8.0.1",
     "@kth/log": "^4.0.6",
     "@kth/monitor": "^4.0.1",
     "@kth/server": "^4.0.4",
