@@ -27,7 +27,7 @@
     "test:integration-in-docker": "docker build --progress plain -t node-web . && bash -c 'LOCAL_IMAGE_ID=node-web docker-compose -f docker-compose-integration-tests.yml up --abort-on-container-exit --build --no-log-prefix --remove-orphans  --always-recreate-deps --force-recreate'"
   },
   "dependencies": {
-    "@babel/runtime": "^7.22.5",
+    "@babel/runtime": "^7.22.15",
     "@kth/api-call": "^4.0.40",
     "@kth/appinsights": "^0.1.0",
     "@kth/kth-node-passport-oidc": "^5.0.5",
