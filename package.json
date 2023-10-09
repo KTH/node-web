@@ -68,7 +68,7 @@
     "caniuse-lite": "^1.0.30001540",
     "concurrently": "^8.2.1",
     "css-loader": "^6.8.1",
-    "eslint": "^8.50.0",
+    "eslint": "^8.51.0",
     "file-loader": "^6.2.0",
     "husky": "^8.0.3",
     "jest": "^29.7.0",
