@@ -34,7 +34,6 @@
     "@kth/kth-node-web-common": "^9.0.0",
     "@kth/log": "^4.0.7",
     "@kth/monitor": "^4.2.1",
-    "@kth/server": "^4.0.4",
     "@kth/session": "^3.0.9",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",

@@ -11,7 +11,6 @@ const { getEnv, devDefaults, unpackRedisConfig, unpackNodeApiConfig } = require(
 
 // DEFAULT SETTINGS used for dev, if you want to override these for you local environment, use env-vars in .env
 const devPort = devDefaults(3000)
-const devSsl = devDefaults(false)
 const devUrl = devDefaults('http://localhost:' + devPort)
 const devNodeApi = devDefaults('http://localhost:3001/api/node?defaultTimeout=10000') // required=true&
 const devSessionKey = devDefaults('node-web.sid')
@@ -30,13 +29,7 @@ const devOidcLogoutCallbackURL = devDefaults(`http://localhost:3000${prefixPath}
 
 module.exports = {
   hostUrl: getEnv('SERVER_HOST_URL', devUrl),
-  useSsl: String(getEnv('SERVER_SSL', devSsl)).toLowerCase() === 'true',
   port: getEnv('SERVER_PORT', devPort),
-  ssl: {
-    // In development we don't have SSL feature enabled
-    pfx: getEnv('SERVER_CERT_FILE', ''),
-    passphrase: getEnv('SERVER_CERT_PASSPHRASE', ''),
-  },
 
   // API keys
   apiKey: {

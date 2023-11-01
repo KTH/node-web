@@ -2,9 +2,11 @@
 
 require('dotenv').config()
 
+// eslint-disable-next-line import/newline-after-import
 const { KthAppinsights } = require('@kth/appinsights')
 KthAppinsights.init({ name: 'node-web' })
 
+// eslint-disable-next-line import/order
 const fs = require('fs')
 const log = require('@kth/log')
 const config = require('./server/configuration').server
@@ -58,13 +60,7 @@ checkEnvironment()
  * ******* SERVER START *******
  * ****************************
  */
-module.exports = server.start({
-  useSsl: config.useSsl,
-  pfx: config.ssl.pfx,
-  passphrase: config.ssl.passphrase,
-  key: config.ssl.key,
-  ca: config.ssl.ca,
-  cert: config.ssl.cert,
-  port: config.port,
-  logger: log,
+const { port } = config
+server.listen(port, () => {
+  log.info(`Http server listening on port ${port}`)
 })

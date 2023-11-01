@@ -21,7 +21,9 @@ const logConfiguration = {
 
 log.init(logConfiguration)
 
-const server = require('@kth/server')
+const express = require('express')
+
+const server = express()
 
 require('./api')
 const AppRouter = require('kth-node-express-routing').PageRouter
@@ -70,7 +72,6 @@ server.use(accessLog(config.logging.accessLog))
  */
 const browserConfig = require('./configuration').browser
 const browserConfigHandler = require('kth-node-configuration').getHandler(browserConfig, getPaths())
-const express = require('express')
 
 // Removes the "X-Powered-By: Express header" that shows the underlying Express framework
 server.disable('x-powered-by')
