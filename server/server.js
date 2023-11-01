@@ -1,5 +1,8 @@
 /* eslint-disable import/order */
 
+const { cortinaMiddleware } = require('@kth/cortina-block')
+const i18n = require('../i18n')
+
 // Now read the server config etc.
 const config = require('./configuration').server
 
@@ -229,10 +232,11 @@ server.use('/', systemRoute.getRouter())
  */
 server.use(
   config.proxyPrefixPath.uri,
-  require('@kth/kth-node-web-common/lib/web/cortina')({
-    blockUrl: config.blockApi.blockUrl,
-    proxyPrefixPath: config.proxyPrefixPath.uri,
-    hostUrl: config.hostUrl,
+  cortinaMiddleware({
+    blockApiUrl: config.blockApi.blockUrl,
+    siteName: { en: i18n.message('site_name', 'en'), sv: i18n.message('site_name', 'sv') },
+    localeText: { en: i18n.message('locale_text', 'en'), sv: i18n.message('locale_text', 'sv') },
+    resourceUrl: config.hostUrl === 'https://www.kth.se' ? 'https://www.kth.se' : 'https://www-r.referens.sys.kth.se',
     redisConfig: config.cache.cortinaBlock.redis,
   })
 )
