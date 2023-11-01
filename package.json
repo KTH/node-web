@@ -13,7 +13,6 @@
     "prettier:all": "prettier --write \"**/*.js\" \"**/*.jsx\" \"**/*.scss\"",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:notify": "jest --watch --notify",
     "test:coverage": "jest --coverage",
     "build": "bash ./build.sh prod",
     "build-dev": "bash ./build.sh dev",

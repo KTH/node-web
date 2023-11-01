@@ -23,7 +23,7 @@ describe('Component <Button>', () => {
     expect(asFragment()).toMatchSnapshot()
     // or
     expect(screen.getByText('This is a message')).toHaveAttribute('type', 'button')
-    expect(screen.getByText('Knappen fungerar!'))
+    expect(screen.getByText('Knappen fungerar!')).toBeInTheDocument()
   })
 
   test("doesn't change anything after another click", () => {

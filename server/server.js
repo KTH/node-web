@@ -75,14 +75,6 @@ const express = require('express')
 // Removes the "X-Powered-By: Express header" that shows the underlying Express framework
 server.disable('x-powered-by')
 
-// helper
-function setCustomCacheControl(res, path2) {
-  if (express.static.mime.lookup(path2) === 'text/html') {
-    // Custom Cache-Control for HTML files
-    res.setHeader('Cache-Control', 'no-cache')
-  }
-}
-
 // Files/statics routes--
 
 const staticOption = { maxAge: 365 * 24 * 3600 * 1000 } // 365 days in ms is maximum
