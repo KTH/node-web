@@ -10,7 +10,36 @@ on:
     - cron: '0 2 * * *'
 
 jobs:
-  npm-update:
-    uses: KTH/team-kth-web-iac/.github/workflows/npm-update.yml@main
-    with:
-      skip_audit: ${{ inputs.skip_audit || false }}
+  Npm-Update:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - run: |
+          git config --global user.email "web-ci@kth.se"
+          git config --global user.name "web-ci"
+
+      - run: npm ci
+
+      - run: npx npm-check-updates -u -t minor
+      - run: npm install
+
+      - run: npm audit fix
+        if: ${{ !inputs.skip_audit }}
+
+      - run: npm test
+
+      - run: git add package.json package-lock.json
+
+      - name: Commit changes
+        run: |
+          # Only commit if there are changes
+          if ! git diff-index --quiet HEAD; then
+            git commit -m 'chore(deps): Update packages - minor by github workflow'
+          fi
+
+      - run: git push
