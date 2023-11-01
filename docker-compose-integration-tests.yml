@@ -31,7 +31,6 @@ services:
       WAIT_BEFORE: 10
       WAIT_TIMEOUT: 300
       WAIT_AFTER: 5
-      APPINSIGHTS_INSTRUMENTATIONKEY: '1234'
       SESSION_USE_REDIS: 'false'
       SESSION_KEY: 'node-web.sid'
       SESSION_SECRET: '1234567890'
