@@ -4,12 +4,8 @@ const WebContext = React.createContext()
 const defaultConfig = {
   lang: 'sv',
   isAdmin: false,
-  basicBreadcrumbs: [
-    { label: 'KTH', url: 'https://www-r.referens.sys.kth.se/' },
-    { label: 'Node', url: 'https://www-r.referens.sys.kth.se/node' },
-  ],
   proxyPrefixPath: { uri: 'node' },
-  message: 'howdi',
+  message: 'Howdi',
 }
 
 export const WebContextProvider = props => {

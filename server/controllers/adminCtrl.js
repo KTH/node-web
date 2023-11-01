@@ -22,16 +22,11 @@ async function getAdminIndex(req, res, next) {
       isAdmin: user ? user.isAdmin : false,
       proxyPrefixPath: serverConfig.proxyPrefixPath,
       lang,
-      basicBreadcrumbs: [
-        { label: 'KTH', url: serverConfig.hostUrl },
-        { label: 'Node', url: serverConfig.hostUrl },
-      ],
-      message: 'howdi from ADMIN controller',
+      message: 'Howdi from Admin controller',
       apiHost: serverConfig.hostUrl,
     }
 
     const compressedData = getCompressedData(webContext)
-
     const adminContext = {
       adminData: { x: 10, y: 20 },
     }
@@ -47,13 +42,18 @@ async function getAdminIndex(req, res, next) {
     })
     log.info(`node_web: toolbarUrl: ${serverConfig.toolbar.url}`)
 
+    const breadcrumbsList = [
+      { label: 'KTH', url: serverConfig.hostUrl },
+      { label: 'Node', url: serverConfig.hostUrl },
+    ]
+
     res.render('sample/admin', {
       html: view,
-      title: 'ADMIN',
+      title: 'Admin',
       compressedData,
       compressedAdminData,
-      description: 'ADMIN',
-      breadcrumbsPath: [],
+      description: 'Admin',
+      breadcrumbsList,
       lang,
       proxyPrefix,
       toolbarUrl: serverConfig.toolbar.url,

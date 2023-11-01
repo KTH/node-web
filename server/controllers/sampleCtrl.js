@@ -22,16 +22,11 @@ async function getIndex(req, res, next) {
       isAdmin: user ? user.isAdmin : false,
       proxyPrefixPath: serverConfig.proxyPrefixPath,
       lang,
-      basicBreadcrumbs: [
-        { label: 'KTH', url: serverConfig.hostUrl },
-        { label: 'Node', url: serverConfig.hostUrl },
-      ],
-      message: 'howdi from sample controller',
+      message: 'Howdi from Sample controller',
       apiHost: serverConfig.hostUrl,
     }
 
     const compressedData = getCompressedData(webContext)
-
     const { uri: proxyPrefix } = serverConfig.proxyPrefixPath
 
     const view = renderStaticPage({
@@ -42,12 +37,17 @@ async function getIndex(req, res, next) {
     })
     log.info(`node_web: toolbarUrl: ${serverConfig.toolbar.url}`)
 
+    const breadcrumbsList = [
+      { label: 'KTH', url: serverConfig.hostUrl },
+      { label: 'Node', url: serverConfig.hostUrl },
+    ]
+
     res.render('sample/index', {
       html: view,
-      title: 'TODO',
+      title: 'Sample',
       compressedData,
-      description: 'TODO',
-      breadcrumbsPath: [],
+      description: 'Sample',
+      breadcrumbsList,
       lang,
       proxyPrefix,
       toolbarUrl: serverConfig.toolbar.url,
