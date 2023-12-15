@@ -194,7 +194,7 @@ server.use(
  * ******* SYSTEM ROUTES *******
  * **********************************
  */
-const { System } = require('./controllers')
+const { System, New } = require('./controllers')
 
 // System routes
 const systemRoute = AppRouter()
@@ -231,6 +231,7 @@ const appRoute = AppRouter()
 appRoute.get('node.index', _addProxy('/'), Sample.getIndex)
 appRoute.get('node.index', _addProxy('/_admin'), oidc.login, oidc.requireRole('isAdmin'), Admin.getAdminIndex)
 appRoute.get('node.index', _addProxy('/secure'), oidc.login, Sample.getIndex)
+appRoute.get('node.index', _addProxy('/rsc'), New.getIndex)
 appRoute.get('system.gateway', _addProxy('/silent'), oidc.silentLogin, Sample.getIndex)
 appRoute.get('node.page', _addProxy('/:page'), oidc.login, Sample.getIndex)
 server.use('/', appRoute.getRouter())
