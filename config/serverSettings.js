@@ -74,7 +74,7 @@ module.exports = {
   },
   cache: {
     cortinaBlock: {
-      redis: unpackRedisConfig('REDIS_URI', devRedis),
+      redis: null,
     },
   },
 
@@ -82,7 +82,7 @@ module.exports = {
   sessionSecret: getEnv('SESSION_SECRET', devDefaults('1234567890')),
   session: {
     key: getEnv('SESSION_KEY', devSessionKey),
-    useRedis: String(getEnv('SESSION_USE_REDIS', devSessionUseRedis)).toLowerCase() === 'true',
+    useRedis: false,
     sessionOptions: {
       // do not set session secret here!!
       cookie: {
@@ -90,7 +90,6 @@ module.exports = {
         path: getEnv('SERVICE_PUBLISH', '/node'),
       },
     },
-    redisOptions: unpackRedisConfig('REDIS_URI', devRedis),
   },
   toolbar: {
     url: getEnv('TOOLBAR_URL', devDefaults('https://www-r.referens.sys.kth.se/social/toolbar/widget.js')),

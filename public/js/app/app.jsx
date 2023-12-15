@@ -10,7 +10,7 @@ import { WebContextProvider } from './context/WebContext'
 import { uncompressData } from './context/compress'
 import { AdminContextProvider } from './context/AdminContext'
 
-import '../../css/node-web.scss'
+// import '../../css/node-web.scss'
 
 import Start from './pages/Start'
 import AdminStart from './pages/AdminStart'

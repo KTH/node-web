@@ -6,6 +6,7 @@ const path = require('path')
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const ReactServerWebpackPlugin = require('react-server-dom-webpack/plugin')
 
 //
 // Possible problem:
@@ -223,6 +224,8 @@ module.exports = [
       'ssr-app': './public/js/app/ssr-app.js',
     },
 
+    plugins: [new ReactServerWebpackPlugin({ isServer: false })],
+
     mode: ENV_IS_DEV ? 'development' : 'production',
     ...getTransformationRules({ contextIsNode: true }),
     ...getOutputOptions({ contextIsNode: true }),
@@ -236,6 +239,8 @@ module.exports = [
       vendor: './public/js/vendor.js',
       app: './public/js/app/app.jsx',
     },
+
+    plugins: [new ReactServerWebpackPlugin({ isServer: false })],
 
     mode: ENV_IS_DEV ? 'development' : 'production',
     ...getTransformationRules({ contextIsNode: false }),
