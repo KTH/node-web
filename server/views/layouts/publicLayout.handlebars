@@ -14,6 +14,7 @@
   {{/if}}
 
   {{prefixStyle '/static/kth-style/css/kth-bootstrap.css' 'styles' 'screen'}}
+  {{prefixStyle '/assets/fonts.css' 'styles' 'screen'}}
   {{prefixStyle '/static/app.css' 'styles' 'screen'}}
 
   {{{render 'styles'}}}
@@ -24,18 +25,27 @@
   {{/if}}
 
   {{prefixScript '/static/vendor.js' 'head-scripts'}}
+  {{prefixModuleScript '/assets/js/index.js' 'head-scripts'}}
   {{prefixScript '/static/browserConfig' 'head-scripts'}}
-  {{prefixScript '/static/kth-style/js/menus.js' 'head-scripts'}}
   {{prefixScript '/static/kth-style/js/backtotop.js' 'head-scripts'}}
   {{{render 'head-scripts'}}}
 
   <script src="{{toolbarUrl}}"></script>
+  <script type="module">
+    import { MenuPanel } from '{{proxyPrefix}}/assets/js/index.js'
+    MenuPanel.init(document.querySelector('.kth-header'), document.querySelectorAll('.kth-mega-menu .kth-menu-item'))
+    MenuPanel.init(document.querySelector('.kth-header'), document.querySelectorAll('.kth-menu-item.search'))
+    MenuPanel.initModal(
+      document.querySelector('.kth-menu-item.collapsable'),
+      document.querySelector('.kth-menu-panel--modal')
+    )
+  </script>
 </head>
 
 <body>
   <a class="skipToMainContent" href="#mainContent" tabindex="1">{{i18n 'skip_to_main_content' lang}}</a>
   {{> kthHeader }}
-  <div class="container main">
+  <div class="container">
     <div class="row">
         {{{body}}}
     </div>
