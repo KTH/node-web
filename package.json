@@ -26,7 +26,7 @@
     "test:integration-in-docker": "docker build --progress plain -t node-web . && bash -c 'LOCAL_IMAGE_ID=node-web docker-compose -f docker-compose-integration-tests.yml up --abort-on-container-exit --build --no-log-prefix --remove-orphans  --always-recreate-deps --force-recreate'"
   },
   "dependencies": {
-    "@babel/runtime": "^7.24.0",
+    "@babel/runtime": "^7.24.1",
     "@kth/api-call": "^4.1.0",
     "@kth/appinsights": "^0.3.1",
     "@kth/cortina-block": "^6.1.4",
@@ -52,14 +52,14 @@
     "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.9",
-    "@babel/core": "^7.24.0",
-    "@babel/plugin-transform-runtime": "^7.24.0",
-    "@babel/preset-env": "^7.24.0",
-    "@babel/preset-react": "^7.23.3",
+    "@babel/cli": "^7.24.1",
+    "@babel/core": "^7.24.1",
+    "@babel/plugin-transform-runtime": "^7.24.1",
+    "@babel/preset-env": "^7.24.1",
+    "@babel/preset-react": "^7.24.1",
     "@kth/eslint-config-kth": "^3.4.0",
     "@testing-library/jest-dom": "^6.4.2",
-    "@testing-library/react": "^14.2.1",
+    "@testing-library/react": "^14.2.2",
     "@types/jest": "^29.5.12",
     "ansi-regex": "^6.0.1",
     "babel-loader": "^9.1.3",
