@@ -12,9 +12,6 @@ const serverConfig = require('../configuration').server
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
 async function getIndex(req, res, next) {
-  console.log('IN CON<tROLLER')
-  console.log('Blocks', res.locals.blocks)
-
   try {
     const lang = language.getLanguage(res)
     const { user } = req
