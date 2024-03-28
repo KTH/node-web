@@ -15,6 +15,3 @@ updates:
       - web-team
     reviewers:
       - 'KTH/web-team'
-    ignore:
-      - dependency-name: 'kth-style'
-        versions: ['9.x', '10.x']

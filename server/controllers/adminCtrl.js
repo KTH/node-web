@@ -57,6 +57,7 @@ async function getAdminIndex(req, res, next) {
       lang,
       proxyPrefix,
       toolbarUrl: serverConfig.toolbar.url,
+      theme: 'intranet',
     })
   } catch (err) {
     log.error('Error in getAdminIndex', { error: err })

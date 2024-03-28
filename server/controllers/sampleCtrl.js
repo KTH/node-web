@@ -12,9 +12,6 @@ const serverConfig = require('../configuration').server
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
 async function getIndex(req, res, next) {
-  console.log('IN CON<tROLLER')
-  console.log('Blocks', res.locals.blocks)
-
   try {
     const lang = language.getLanguage(res)
     const { user } = req
@@ -54,6 +51,10 @@ async function getIndex(req, res, next) {
       lang,
       proxyPrefix,
       toolbarUrl: serverConfig.toolbar.url,
+      theme: 'external',
+      translationLinkMessageKey: 'label_translation_link',
+      translationLink: `https://kth.se${lang === 'sv' ? '?l=en' : '?l=sv'}`,
+      translationDialogMessageKey: 'label_translation_dialog',
     })
   } catch (err) {
     log.error('Error in getIndex', { error: err })
