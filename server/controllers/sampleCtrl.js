@@ -52,6 +52,9 @@ async function getIndex(req, res, next) {
       proxyPrefix,
       toolbarUrl: serverConfig.toolbar.url,
       theme: 'external',
+      translationLinkMessageKey: 'label_translation_link',
+      translationLink: `https://kth.se${lang === 'sv' ? '?l=en' : '?l=sv'}`,
+      translationDialogMessageKey: 'label_translation_dialog',
     })
   } catch (err) {
     log.error('Error in getIndex', { error: err })

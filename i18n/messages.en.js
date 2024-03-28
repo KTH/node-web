@@ -41,5 +41,11 @@ module.exports = {
     template_silent_login_page_heading: 'Silent login page',
     template_not_found_page_heading: 'Not found',
     template_back_link: 'Back to start page',
+
+    label_lang_sv: 'Svenska',
+    label_not_translated: 'Den här sidan saknar översättning',
+    label_button_close: 'Close',
+    label_translation_link: 'Svenska (med dialog)',
+    label_translation_dialog: 'KTH på svenska',
   },
 }
