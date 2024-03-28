@@ -11,6 +11,7 @@
 @use '~@kth/style/scss/components/header.scss';
 @use '~@kth/style/scss/components/menu-item.scss';
 @use '~@kth/style/scss/components/menu-panel.scss';
+@use '~@kth/style/scss/components/translation-panel';
 
 .container {
   @include mixins.container;
