@@ -33,7 +33,6 @@
   <script src="{{toolbarUrl}}"></script>
   <script type="module">
     import { MenuPanel } from '{{proxyPrefix}}/assets/js/index.js'
-    MenuPanel.init(document.querySelector('.kth-header'), document.querySelectorAll('.kth-mega-menu .kth-menu-item'))
     MenuPanel.init(document.querySelector('.kth-header'), document.querySelectorAll('.kth-menu-item.search'))
     MenuPanel.initModal(
       document.querySelector('.kth-menu-item.collapsable'),
