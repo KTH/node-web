@@ -58,6 +58,13 @@ server.set('view engine', 'handlebars')
 // Register handlebar helpers
 require('./views/helpers')
 
+server.use('/cm', async (req, res, next) => {
+  const blockApiUrl = path.join(config.blockApi.blockUrl, req.url)
+  const response = await fetch(blockApiUrl)
+  const body = await response.text()
+  return res.status(response.status).send(body)
+})
+
 /* ******************************
  * ******* ACCESS LOGGING *******
  * ******************************

@@ -12,8 +12,9 @@
 @use '~@kth/style/scss/components/menu-item.scss';
 @use '~@kth/style/scss/components/menu-panel.scss';
 @use '~@kth/style/scss/components/translation-panel';
+@use '~@kth/style/scss/utils/prose.scss';
 
-.container {
+main {
   @include mixins.container;
-  padding-block: 30px;
+  @include prose.prose;
 }
