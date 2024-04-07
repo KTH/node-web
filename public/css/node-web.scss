@@ -1,5 +1,20 @@
 // Scss code goes here!
 
 #app {
-  padding: 30px;
+  width: 100%;
+  padding: 15px;
+
+  > nav {
+    grid-column: 1;
+  }
+
+  > main {
+    grid-column: 2;
+  }
+
+  @media (min-width: 992px) {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    padding-inline: 0;
+  }
 }
