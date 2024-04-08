@@ -64,3 +64,4 @@ const { port } = config
 server.listen(port, () => {
   log.info(`Http server listening on port ${port}`)
 })
+
