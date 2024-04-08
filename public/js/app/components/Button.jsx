@@ -7,7 +7,7 @@ function Button({ caption = 'N/A', lang = 'sv', onClick = null }) {
   const doClick = onClick || setButtonClicked
   return (
     <>
-      <button type="button" className="btn btn-primary" onClick={() => doClick(true)}>
+      <button type="button" className="kth-button primary" onClick={() => doClick(true)}>
         {caption}
       </button>
       {buttonClicked ? <p>{i18n.message('template_button_works', lang)}</p> : null}
