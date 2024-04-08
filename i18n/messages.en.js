@@ -41,5 +41,11 @@ module.exports = {
     template_silent_login_page_heading: 'Silent login page',
     template_not_found_page_heading: 'Not found',
     template_back_link: 'Back to start page',
+
+    language_link_lang_en: 'English',
+    language_link_not_translated: 'This page isn’t translated',
+    language_link_button_close: 'Stäng',
+    language_link_translation_link: 'English (with dialog)',
+    language_link_translation_dialog: 'KTH:s International Website',
   },
 }
