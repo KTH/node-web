@@ -54,7 +54,6 @@ async function getIndex(req, res, next) {
       lang,
       message: 'Howdi from Sample controller',
       apiHost: hostUrl,
-      theme: 'external',
       mainMenu: {
         parentItem,
         menuItems,
@@ -85,6 +84,7 @@ async function getIndex(req, res, next) {
       lang,
       proxyPrefix,
       toolbarUrl: serverConfig.toolbar.url,
+      theme: 'external',
     })
   } catch (err) {
     log.error('Error in getIndex', { error: err })
