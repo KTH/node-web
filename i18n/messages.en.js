@@ -49,6 +49,7 @@ module.exports = {
     language_link_translation_dialog: 'KTH på svenska',
 
     main_menu_button_close: 'Close',
+
+    search_button: 'Search',
   },
-  search_button: 'Search',
 }
