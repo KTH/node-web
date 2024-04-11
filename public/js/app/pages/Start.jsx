@@ -5,6 +5,7 @@ import i18n from '../../../../i18n'
 import { useWebContext } from '../context/WebContext'
 
 import MainMenu from '../components/MainMenu'
+import MobileMenu from '../components/MobileMenu'
 import MainContent from '../components/MainContent'
 import Button from '../components/Button'
 
@@ -20,6 +21,7 @@ function Start() {
 
   return (
     <>
+      <MobileMenu />
       <MainMenu parentItem={parentItem} menuItems={menuItems} />
       <MainContent>
         <h1>Node-web</h1>

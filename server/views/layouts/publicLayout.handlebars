@@ -32,16 +32,20 @@
   <script src="{{toolbarUrl}}"></script>
   <script type="module">
     import { MenuPanel } from '{{proxyPrefix}}/assets/js/index.js'
-    MenuPanel.init(document.querySelector('.kth-header'), document.querySelectorAll('.kth-menu-item.search'))
     MenuPanel.initModal(
       document.querySelector('.kth-menu-item.collapsable'),
-      document.querySelector('.kth-menu-panel--modal')
+      document.querySelector('.kth-mobile-menu'),
     )
     MenuPanel.initTranslationModal(
-      document.querySelector(".kth-menu-item.language"),
-      document.querySelector(".kth-translation")
+      document.querySelector('.kth-menu-item.language'),
+      document.querySelector('.kth-translation')
     )
+    MenuPanel.initModal(
+      document.querySelector('.kth-local-navigation--mobile .kth-button.menu'),
+      document.querySelector('.kth-local-navigation--mobile .kth-mobile-menu'),
+    );
   </script>
+  <script src="{{proxyPrefix}}/assets/js/localNavigation.js"></script>
 </head>
 
 <body>

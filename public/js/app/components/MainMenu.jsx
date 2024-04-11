@@ -3,8 +3,10 @@ import React from 'react'
 function ParentItem({ url, label }) {
   return (
     <ul className="nav">
-      <li className="parentLink">
-        <a href={url}>{label}</a>
+      <li>
+        <a className="kth-button back" href={url}>
+          {label}
+        </a>
       </li>
     </ul>
   )
