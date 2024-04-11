@@ -21,7 +21,7 @@ function Start() {
 
   return (
     <>
-      <MobileMenu />
+      <MobileMenu ancestorItem={menuItems[0]} />
       <MainMenu parentItem={parentItem} menuItems={menuItems} />
       <MainContent>
         <h1>Node-web</h1>
