@@ -24,7 +24,7 @@ module.exports = {
     site_name: 'Node.js Mall',
     host_name: 'KTH',
 
-    button_mobile_menu_label: 'Öppna/stäng mobilmenyn',
+    button_mobile_menu_label: 'Meny',
     mobile_menu_aria_label: 'Mobilemeny',
 
     skip_to_main_content: 'Hoppa till huvudinnehållet',
@@ -47,5 +47,9 @@ module.exports = {
     language_link_button_close: 'Stäng',
     language_link_translation_link: 'English (with dialog)',
     language_link_translation_dialog: 'KTH:s International Website',
+
+    main_menu_button_close: 'Stäng',
+
+    search_button: 'Sök',
   },
 }

@@ -50,4 +50,5 @@ module.exports = {
 
     main_menu_button_close: 'Close',
   },
+  search_button: 'Search',
 }
