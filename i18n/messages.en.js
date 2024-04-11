@@ -24,7 +24,7 @@ module.exports = {
     site_name: 'Node.js Template',
     host_name: 'KTH',
 
-    button_mobile_menu_label: 'Open/close the mobile menu',
+    button_mobile_menu_label: 'Menu',
     mobile_menu_aria_label: 'Mobile menu',
 
     skip_to_main_content: 'Skip to main content',
@@ -47,5 +47,7 @@ module.exports = {
     language_link_button_close: 'Close',
     language_link_translation_link: 'Svenska (med dialog)',
     language_link_translation_dialog: 'KTH på svenska',
+
+    main_menu_button_close: 'Close',
   },
 }
