@@ -44,7 +44,7 @@ module.exports = {
 
     language_link_lang_sv: 'Svenska',
     language_link_not_translated: 'Den här sidan saknar översättning',
-    language_link_button_close: 'Close',
+    language_link_button_close: 'Stäng',
     language_link_translation_link: 'Svenska (med dialog)',
     language_link_translation_dialog: 'KTH på svenska',
 

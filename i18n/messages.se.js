@@ -44,7 +44,7 @@ module.exports = {
 
     language_link_lang_en: 'English',
     language_link_not_translated: 'This page isn’t translated',
-    language_link_button_close: 'Stäng',
+    language_link_button_close: 'Close',
     language_link_translation_link: 'English (with dialog)',
     language_link_translation_dialog: 'KTH:s International Website',
 
