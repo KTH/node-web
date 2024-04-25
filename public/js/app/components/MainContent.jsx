@@ -1,11 +1,7 @@
 import React from 'react'
 
 function MainContent({ children }) {
-  return (
-    <main id="mainContent" className="container-fluid">
-      {children}
-    </main>
-  )
+  return <main id="mainContent">{children}</main>
 }
 
 export default MainContent

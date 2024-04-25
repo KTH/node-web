@@ -16,19 +16,18 @@
 @use '~@kth/style/scss/components/menu-panel';
 @use '~@kth/style/scss/components/mobile-menu';
 @use '~@kth/style/scss/components/local-navigation';
+@use '~@kth/style/scss/components/kpm.scss';
 
 @use '~@kth/style/scss/components/visually-hidden';
 @use '~@kth/style/scss/components/alert';
 @use '~@kth/style/scss/components/button';
 
 main {
-  @include mixins.container;
   @include prose.prose;
 }
 
 #app {
-  width: 100%;
-  padding: 15px;
+  padding: 15px 0;
 
   > nav {
     grid-column: 1;
