@@ -57,6 +57,10 @@ async function getAdminIndex(req, res, next) {
       lang,
       proxyPrefix,
       toolbarUrl: serverConfig.toolbar.url,
+      theme: 'intranet',
+      translationLinkMessageKey: 'language_link_translation_link',
+      translationLink: `https://kth.se${lang === 'sv' ? '?l=en' : '?l=sv'}`,
+      translationDialogMessageKey: 'language_link_translation_dialog',
     })
   } catch (err) {
     log.error('Error in getAdminIndex', { error: err })

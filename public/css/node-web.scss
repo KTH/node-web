@@ -1,5 +1,45 @@
 // Scss code goes here!
+@use '~@kth/style/scss/utils/layers';
+
+@use '~@kth/style/scss/utils/reset';
+@use '~@kth/style/scss/utils/mixins';
+@use '~@kth/style/scss/utils/prose';
+
+@use '~@kth/style/scss/components/content';
+@use '~@kth/style/scss/components/header';
+@use '~@kth/style/scss/components/footer';
+@use '~@kth/style/scss/components/logotype';
+@use '~@kth/style/scss/components/search';
+@use '~@kth/style/scss/components/translation-panel';
+@use '~@kth/style/scss/components/mega-menu';
+@use '~@kth/style/scss/components/menu-item';
+@use '~@kth/style/scss/components/menu-panel';
+@use '~@kth/style/scss/components/mobile-menu';
+@use '~@kth/style/scss/components/local-navigation';
+@use '~@kth/style/scss/components/kpm.scss';
+
+@use '~@kth/style/scss/components/visually-hidden';
+@use '~@kth/style/scss/components/alert';
+@use '~@kth/style/scss/components/button';
+
+main {
+  @include prose.prose;
+}
 
 #app {
-  padding: 30px;
+  padding: 15px 0;
+
+  > nav {
+    grid-column: 1;
+  }
+
+  > main {
+    grid-column: 2;
+  }
+
+  @media (min-width: 992px) {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    padding-inline: 0;
+  }
 }

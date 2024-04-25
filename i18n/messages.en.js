@@ -24,7 +24,7 @@ module.exports = {
     site_name: 'Node.js Template',
     host_name: 'KTH',
 
-    button_mobile_menu_label: 'Open/close the mobile menu',
+    button_mobile_menu_label: 'Menu',
     mobile_menu_aria_label: 'Mobile menu',
 
     skip_to_main_content: 'Skip to main content',
@@ -41,5 +41,15 @@ module.exports = {
     template_silent_login_page_heading: 'Silent login page',
     template_not_found_page_heading: 'Not found',
     template_back_link: 'Back to start page',
+
+    language_link_lang_sv: 'Svenska',
+    language_link_not_translated: 'Den här sidan saknar översättning',
+    language_link_button_close: 'Stäng',
+    language_link_translation_link: 'Svenska (med dialog)',
+    language_link_translation_dialog: 'KTH på svenska',
+
+    main_menu_button_close: 'Close',
+
+    search_button: 'Search',
   },
 }

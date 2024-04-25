@@ -1,30 +1,36 @@
 <!--indexOff: all-->
-<header>
-  <div class="container-fluid">
-    <div class="container">
-      <div class="header-container__top">
-        {{{blocks.image}}} {{{blocks.title}}}
-        <div id="mobileMenuWrapper">
-          <button id="nav-icon" class="navbar-toggler nav-icon" type="button"
-            title="{{i18n 'button_mobile_menu_label' lang}}" ></button>
-          <nav id="mobileMenu" aria-label="{{i18n 'mobile_menu_aria_label' lang}}" class=" block navbar
-            navbar-expand-lg navbar-light">
-            <div id="mobileMenuContent" class="navbar-collapse collapse">
-              <ul id="mobileMenuList" class="menu navbar-nav mr-auto"></ul>
+<header class="kth-header {{{theme}}}">
+      <div class="kth-header__container">
+        <a href="/" class="kth-logotype">
+          <figure>
+            <img class="blue" alt="Till KTH:s startsida" width="64" height="64" src="{{{proxyPrefix}}}/assets/logotype/logotype-blue.svg">
+            <img class="white" alt="Till KTH:s startsida" width="64" height="64" src="{{{proxyPrefix}}}/assets/logotype/logotype-white.svg">
+          </figure>
+        </a>
+    {{{blocks.megaMenu}}}
+    <ul class="kth-header__tools">
+      <li>
+        <button class="kth-menu-item search">
+          <span>{{i18n 'search_button' lang}}</span>
+        </button>
+        <dialog class="kth-menu-panel">
+          <div class="kth-menu-panel__container search">
+            <button class="kth-icon-button close">
+              <span class="kth-visually-hidden">{{i18n 'close_button_label' lang}}</span>
+            </button>
+            <div class="kth-menu-panel__content search">
+              {{{blocks.search}}}
             </div>
-          </nav>
-        </div>
-        {{{blocks.secondaryMenu}}}
-      </div>
-      <div class="header-container__bottom">{{{blocks.megaMenu}}} {{{blocks.search}}}</div>
-    </div>
-  </div>
-  <div id="gradientBorder"></div>
-
-  <div class="container articleNavigation">
-    <div class="row justify-content-between">
-      {{breadcrumbs breadcrumbsList lang}}
-    </div>
+          </div>
+        </dialog>
+      </li>
+      <li>
+        {{{languageLink lang translationLinkMessageKey translationLink translationDialogMessageKey}}}
+      </li>
+    </ul>
+    <button class="kth-menu-item menu collapsable">
+      <span>{{i18n 'button_mobile_menu_label' lang}}</span>
+    </button>
   </div>
 </header>
 <!--indexOn: all-->

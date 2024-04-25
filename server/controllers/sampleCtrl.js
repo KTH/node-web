@@ -5,32 +5,62 @@
 const log = require('@kth/log')
 const language = require('@kth/kth-node-web-common/lib/language')
 
-// eslint-disable-next-line no-unused-vars
-const api = require('../api')
+const i18n = require('../../i18n')
 const serverConfig = require('../configuration').server
 
 const { getServerSideFunctions } = require('../utils/serverSideRendering')
 
 async function getIndex(req, res, next) {
-  console.log('IN CON<tROLLER')
-  console.log('Blocks', res.locals.blocks)
-
   try {
     const lang = language.getLanguage(res)
     const { user } = req
 
     const { getCompressedData, renderStaticPage } = getServerSideFunctions()
 
+    const { proxyPrefixPath, hostUrl } = serverConfig
+    const { uri: proxyPrefix } = proxyPrefixPath
+
+    const parentItem = {
+      url: hostUrl,
+      label: i18n.message('host_name', lang),
+    }
+
+    const menuItems = [
+      {
+        label: i18n.message('site_name', lang),
+      },
+      [
+        {
+          type: 'leaf',
+          url: `${proxyPrefix}/secure`,
+          label: i18n.message('template_secured_page_heading', lang),
+        },
+        {
+          type: 'leaf',
+          url: `${proxyPrefix}/_admin`,
+          label: i18n.message('template_secured_admin_page_heading', lang),
+        },
+        {
+          type: 'leaf',
+          url: `${proxyPrefix}/silent`,
+          label: i18n.message('template_silent_login_page_heading', lang),
+        },
+      ],
+    ]
+
     const webContext = {
       isAdmin: user ? user.isAdmin : false,
-      proxyPrefixPath: serverConfig.proxyPrefixPath,
+      proxyPrefixPath,
       lang,
       message: 'Howdi from Sample controller',
-      apiHost: serverConfig.hostUrl,
+      apiHost: hostUrl,
+      mainMenu: {
+        parentItem,
+        menuItems,
+      },
     }
 
     const compressedData = getCompressedData(webContext)
-    const { uri: proxyPrefix } = serverConfig.proxyPrefixPath
 
     const view = renderStaticPage({
       applicationStore: {},
@@ -54,6 +84,7 @@ async function getIndex(req, res, next) {
       lang,
       proxyPrefix,
       toolbarUrl: serverConfig.toolbar.url,
+      theme: 'external',
     })
   } catch (err) {
     log.error('Error in getIndex', { error: err })

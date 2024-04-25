@@ -24,7 +24,7 @@ module.exports = {
     site_name: 'Node.js Mall',
     host_name: 'KTH',
 
-    button_mobile_menu_label: 'Öppna/stäng mobilmenyn',
+    button_mobile_menu_label: 'Meny',
     mobile_menu_aria_label: 'Mobilemeny',
 
     skip_to_main_content: 'Hoppa till huvudinnehållet',
@@ -41,5 +41,15 @@ module.exports = {
     template_silent_login_page_heading: 'Sida med tyst inloggning',
     template_not_found_page_heading: 'Sidan hittades inte ',
     template_back_link: 'Tillbaka till start-sidan',
+
+    language_link_lang_en: 'English',
+    language_link_not_translated: 'This page isn’t translated',
+    language_link_button_close: 'Close',
+    language_link_translation_link: 'English (with dialog)',
+    language_link_translation_dialog: 'KTH:s International Website',
+
+    main_menu_button_close: 'Stäng',
+
+    search_button: 'Sök',
   },
 }

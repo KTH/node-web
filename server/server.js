@@ -85,6 +85,8 @@ server.use(_addProxy('/static/browserConfig'), browserConfigHandler)
 
 // Files/statics routes
 server.use(_addProxy('/static/kth-style'), express.static('./node_modules/kth-style/dist', staticOption))
+server.use(_addProxy('/assets'), express.static('./node_modules/@kth/style/assets', staticOption))
+server.use(_addProxy('/assets/js'), express.static('./node_modules/@kth/style/dist/esm', staticOption))
 
 // Map static content like images, css and js.
 server.use(_addProxy('/static'), express.static('./dist', staticOption))
@@ -217,6 +219,7 @@ server.use(
     localeText: { en: i18n.message('locale_text', 'en'), sv: i18n.message('locale_text', 'sv') },
     resourceUrl: config.hostUrl === 'https://www.kth.se' ? 'https://www.kth.se' : 'https://www-r.referens.sys.kth.se',
     redisConfig: config.cache.cortinaBlock.redis,
+    useStyle10: true,
   })
 )
 
