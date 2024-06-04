@@ -69,30 +69,16 @@ function _final(err, req, res, next) {
  */
 async function getAbout(req, res) {
   const paths = getPaths()
-  const aboutData = {
+
+  return res.json({
     appName: packageFile.name,
     appVersion: packageFile.version,
     appDescription: packageFile.description,
     monitorUri: paths.system.monitor.uri,
-    robotsUri: paths.system.robots.uri,
-    gitBranch: JSON.stringify(version.gitBranch),
-    gitCommit: JSON.stringify(version.gitCommit),
-    jenkinsBuild: JSON.stringify(version.jenkinsBuild),
-    jenkinsBuildDate: version.jenkinsBuild
-      ? _simpleDate(new Date(parseInt(version.jenkinsBuild, 10) * 1000))
-      : JSON.stringify(version.jenkinsBuildDate),
-    dockerName: JSON.stringify(version.dockerName),
-    dockerVersion: JSON.stringify(version.dockerVersion),
+    dockerVersion: version.dockerVersion,
+    nodeVersion: version.nodeVersion,
     hostname: os.hostname(),
     started,
-    env: process.env.NODE_ENV,
-  }
-  if (req.headers.accept === 'application/json') {
-    return res.json(aboutData)
-  }
-  return res.render('system/about', {
-    layout: 'systemLayout',
-    ...aboutData,
   })
 }
 

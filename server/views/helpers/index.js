@@ -6,12 +6,12 @@ const { registerLanguageLinkHelper } = require('@kth/kth-node-web-common/lib/han
 const log = require('@kth/log')
 const config = require('../../configuration').server
 const packageFile = require('../../../package.json')
+const { dockerVersion: buildId } = require('../../../config/version')
 
 let { version } = packageFile
 
 try {
-  const buildVersion = require('../../../config/version')
-  version = version + '-' + buildVersion.jenkinsBuild
+  version = version + '-' + buildId
 } catch (err) {
   log.error(err.message)
 }
