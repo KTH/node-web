@@ -6,10 +6,15 @@ const eslintPluginExample = require('./eslint-plugin-example')
 
 module.exports = [
   {
-    files: ['**/*.js'],
+    files: ['**/*.js', '**/*.jsx'],
     languageOptions: {
-      sourceType: 'commonjs',
-      ecmaVersion: 'latest',
+      parserOptions: {
+        sourceType: 'module',
+        ecmaVersion: 'latest',
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
     },
     // Using the eslint-plugin-example plugin defined locally
     plugins: { example: eslintPluginExample },
