@@ -19,7 +19,6 @@ async function getIndex(req, res, next) {
 
     const { proxyPrefixPath, hostUrl } = serverConfig
     const { uri: proxyPrefix } = proxyPrefixPath
-    const theme = 'external'
 
     const parentItem = {
       url: hostUrl,
@@ -76,8 +75,6 @@ async function getIndex(req, res, next) {
       { label: 'Node', url: serverConfig.hostUrl },
     ]
 
-    const logotypeSrc = `${proxyPrefix}/assets/logotype/${theme === 'external' ? 'logotype-white.svg' : 'logotype-blue.svg'}`
-
     res.render('sample/index', {
       html: view,
       title: 'Sample',
@@ -87,8 +84,7 @@ async function getIndex(req, res, next) {
       lang,
       proxyPrefix,
       toolbarUrl: serverConfig.toolbar.url,
-      theme,
-      logotypeSrc,
+      theme: 'external',
     })
   } catch (err) {
     log.error('Error in getIndex', { error: err })
