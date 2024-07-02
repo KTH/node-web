@@ -1,11 +1,12 @@
 <!--indexOff: all-->
 <header class="kth-header {{{theme}}}">
       <div class="kth-header__container">
-          <a href="/" class="kth-logotype">
-            <figure>
-              <img alt="Till KTH:s startsida" width="64" height="64" src={{{logotypeSrc}}}>
-            </figure>
-          </a>
+        <a href="/" class="kth-logotype">
+          <figure>
+            <img alt="Till KTH:s startsida" width="64" height="64" 
+              src="{{{conditionalLogotypeSrc theme proxyPrefix}}}">
+          </figure>
+        </a>
     {{{blocks.megaMenu}}}
     <ul class="kth-header__tools">
       <li>
