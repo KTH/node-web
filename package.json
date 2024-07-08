@@ -31,7 +31,7 @@
     "@kth/appinsights": "^0.4.0",
     "@kth/cortina-block": "^6.2.0",
     "@kth/kth-node-passport-oidc": "^5.2.0",
-    "@kth/kth-node-web-common": "^9.3.2",
+    "@kth/kth-node-web-common": "^9.4.1",
     "@kth/log": "^4.0.7",
     "@kth/monitor": "^4.3.1",
     "@kth/session": "^3.0.9",
