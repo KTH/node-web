@@ -21,7 +21,7 @@ export const AdminContextProvider = props => {
   const [currentConfig, setConfig] = React.useState(config)
   const value = [currentConfig, setConfig]
   // eslint-disable-next-line react/jsx-props-no-spreading
-  return <AdminContext.Provider value={value} {...props} />
+  return <AdminContext value={value} {...props} />
 }
 
 export function useAdminContext() {
