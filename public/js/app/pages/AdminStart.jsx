@@ -26,9 +26,11 @@ const AdminStart = () => {
       <MainContent>
         <h1>Node-web Admin page</h1>
         <h2>{i18n.message('template_app_works', lang)}</h2>
-        <p>{`${i18n.message('template_store_text', lang)}: ${message}`}</p>
-        <p>X: {adminData.x}</p>
-        <p>Y: {adminData.y}</p>
+        <div className="kth-alert info" role="alert">
+          {`Message in WebContext: ${message}`}
+          <br />
+          {`Data in AdminContext: (x: ${adminData.x}, y: ${adminData.y})`}
+        </div>
       </MainContent>
     </>
   )
