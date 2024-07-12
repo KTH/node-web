@@ -18,6 +18,12 @@ module.exports = {
     field_label_get_example: 'My modelData(Response from api call GET): ',
     field_label_post_example: 'My modelData(Response from api call POST): ',
 
+    heading_admin_page: 'Node-web Admin page',
+    heading_add_new_user: 'Add new user',
+    field_label_id: 'ID',
+    field_label_name: 'Name',
+    button_label_add: 'Add',
+
     lang_block_id: '1.77273',
     locale_text: 'Node.js in English',
 

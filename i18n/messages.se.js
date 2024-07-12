@@ -18,6 +18,12 @@ module.exports = {
     field_label_get_example: 'Min datamodell(Svar från api anrop GET): ',
     field_label_post_example: 'Min datamodell(Svar från api anrop POST): ',
 
+    heading_admin_page: 'Node-web Admin-sida',
+    heading_add_new_user: 'Lägg till ny användare',
+    field_label_id: 'ID',
+    field_label_name: 'Namn',
+    button_label_add: 'Lägg till',
+
     lang_block_id: '1.272446',
     locale_text: 'Node.js på svenska',
 
