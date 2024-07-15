@@ -24,7 +24,7 @@ export const WebContextProvider = props => {
   const [currentConfig, setConfig] = React.useState(config)
   const value = [currentConfig, setConfig]
   // eslint-disable-next-line react/jsx-props-no-spreading
-  return <WebContext.Provider value={value} {...props} />
+  return <WebContext value={value} {...props} />
 }
 
 export function useWebContext() {
