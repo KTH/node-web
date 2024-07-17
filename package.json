@@ -50,7 +50,7 @@
     "passport": "^0.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.24.1"
+    "react-router-dom": "^6.25.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.8",
@@ -58,7 +58,7 @@
     "@babel/plugin-transform-runtime": "^7.24.7",
     "@babel/preset-env": "^7.24.8",
     "@babel/preset-react": "^7.24.7",
-    "@kth/eslint-config-kth": "^3.4.0",
+    "@kth/eslint-config-kth": "^3.5.0",
     "@testing-library/jest-dom": "^6.4.6",
     "@testing-library/react": "^14.3.1",
     "@types/jest": "^29.5.12",
