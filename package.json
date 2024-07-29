@@ -96,15 +96,6 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ],
-    "plugins": [
-      "@babel/plugin-transform-runtime"
-    ]
-  },
   "jest": {
     "clearMocks": true,
     "notifyMode": "failure-change",
