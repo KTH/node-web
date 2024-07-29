@@ -17,6 +17,7 @@ COPY ["server", "server"]
 COPY ["app.js", "app.js"]
 COPY ["build.sh", "build.sh"]
 COPY ["webpack.config.js", "webpack.config.js"]
+COPY ["babel.config.js", "babel.config.js"]
 COPY [".env.ini", ".env.ini"]
 
 RUN chmod a+rx build.sh && \
