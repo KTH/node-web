@@ -105,6 +105,12 @@
     "verbose": true,
     "testEnvironment": "jsdom",
     "resolver": "./test/resolver.js",
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!(@kth/ui-components)/)"
+    ],
+    "moduleNameMapper": {
+      "^.*\\.scss$": "<rootDir>/test/stubs/style.js"
+    },
     "collectCoverageFrom": [
       "{public,server}/**/*.{js,jsx}"
     ],
