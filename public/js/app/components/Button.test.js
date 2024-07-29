@@ -9,7 +9,9 @@ describe('Component <Button>', () => {
 
     expect(asFragment()).toMatchSnapshot()
     // or
-    expect(screen.getByText('This is a message')).toHaveAttribute('type', 'button')
+    const button = screen.getByRole('button', { name: 'This is a message' })
+    expect(button).toBeInTheDocument()
+
     expect(() => screen.getByText('Knappen fungerar!')).toThrow()
   })
 
@@ -22,7 +24,8 @@ describe('Component <Button>', () => {
 
     expect(asFragment()).toMatchSnapshot()
     // or
-    expect(screen.getByText('This is a message')).toHaveAttribute('type', 'button')
+    const button = screen.getByRole('button', { name: 'This is a message' })
+    expect(button).toBeInTheDocument()
     expect(screen.getByText('Knappen fungerar!')).toBeInTheDocument()
   })
 
