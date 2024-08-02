@@ -3,8 +3,7 @@
 exports[`Component <Button> changes output after first click 1`] = `
 <DocumentFragment>
   <button
-    class="kth-button primary"
-    type="button"
+    class="kth-button success"
   >
     This is a message
   </button>
@@ -17,8 +16,7 @@ exports[`Component <Button> changes output after first click 1`] = `
 exports[`Component <Button> creates a button 1`] = `
 <DocumentFragment>
   <button
-    class="kth-button primary"
-    type="button"
+    class="kth-button success"
   >
     This is a message
   </button>

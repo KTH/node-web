@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Button as KthButton } from '@kth/ui-components'
 
 import i18n from '../../../../i18n'
 
@@ -7,9 +8,9 @@ function Button({ caption = 'N/A', lang = 'sv', onClick = null }) {
   const doClick = onClick || setButtonClicked
   return (
     <>
-      <button type="button" className="kth-button primary" onClick={() => doClick(true)}>
+      <KthButton variant="success" onClick={() => doClick(true)}>
         {caption}
-      </button>
+      </KthButton>
       {buttonClicked ? <p>{i18n.message('template_button_works', lang)}</p> : null}
     </>
   )

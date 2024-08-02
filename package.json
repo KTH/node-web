@@ -35,7 +35,8 @@
     "@kth/log": "^4.0.7",
     "@kth/monitor": "^4.3.1",
     "@kth/session": "^3.0.9",
-    "@kth/style": "^0.19.1",
+    "@kth/style": "^1.0.0",
+    "@kth/ui-components": "^0.0.0",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
@@ -95,15 +96,6 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ],
-    "plugins": [
-      "@babel/plugin-transform-runtime"
-    ]
-  },
   "jest": {
     "clearMocks": true,
     "notifyMode": "failure-change",
@@ -113,6 +105,12 @@
     "verbose": true,
     "testEnvironment": "jsdom",
     "resolver": "./test/resolver.js",
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/(?!(@kth/ui-components)/)"
+    ],
+    "moduleNameMapper": {
+      "^.*\\.scss$": "<rootDir>/test/stubs/style.js"
+    },
     "collectCoverageFrom": [
       "{public,server}/**/*.{js,jsx}"
     ],
