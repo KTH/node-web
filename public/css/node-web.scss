@@ -27,8 +27,6 @@ main {
 }
 
 #app {
-  padding: 15px 0;
-
   > nav {
     grid-column: 1;
   }
@@ -40,6 +38,5 @@ main {
   @media (min-width: 992px) {
     display: grid;
     grid-template-columns: 300px 1fr;
-    padding-inline: 0;
   }
 }
