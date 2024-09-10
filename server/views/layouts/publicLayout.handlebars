@@ -47,10 +47,8 @@
 <body>
   <a class="skipToMainContent" href="#mainContent" tabindex="1">{{i18n 'skip_to_main_content' lang}}</a>
   {{> kthHeader }}
-  <div class="kth-main-content container withMainMenu">
-    <div class="row">
-        {{{body}}}
-    </div>
+  <div class="kth-main-content">
+    {{{body}}}
   </div>
   {{> kthFooter }}
   {{{render 'scripts'}}}
