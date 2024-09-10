@@ -2,11 +2,11 @@ import React from 'react'
 
 import i18n from '../../../../i18n'
 
-function MobileMenu({ lang, ancestorItem = {} }) {
+function MobileMenu({ lang, ancestor }) {
   return (
     <nav className="kth-local-navigation--mobile" aria-labelledby="kth-local-navigation-title--mobile">
       <button className="kth-button menu" id="kth-local-navigation-title--mobile">
-        <span>{ancestorItem.label}</span>
+        <span>{ancestor}</span>
       </button>
       <dialog className="kth-mobile-menu left">
         <div className="kth-mobile-menu__navigation">

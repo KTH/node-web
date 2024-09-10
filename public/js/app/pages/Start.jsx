@@ -12,7 +12,7 @@ import Button from '../components/Button'
 function Start() {
   const [webContext, setContext] = useWebContext()
   const { mainMenu, message, lang, count = 0 } = webContext
-  const { parentItem, menuItems } = mainMenu
+  const { ancestor, menuItems, parentItem } = mainMenu
 
   const incrementCount = () => {
     const newVal = { count: count + 1 }
@@ -21,8 +21,8 @@ function Start() {
 
   return (
     <>
-      <MobileMenu ancestorItem={menuItems[0]} />
-      <MainMenu parentItem={parentItem} menuItems={menuItems} />
+      <MobileMenu ancestor={ancestor} />
+      <MainMenu ancestor={ancestor} parentItem={parentItem} menuItems={menuItems} />
       <MainContent>
         <h1>Node-web</h1>
         <h2>{i18n.message('template_app_works', lang)}</h2>

@@ -20,16 +20,9 @@ async function getIndex(req, res, next) {
     const { proxyPrefixPath, hostUrl } = serverConfig
     const { uri: proxyPrefix } = proxyPrefixPath
 
-    const parentItem = {
-      url: hostUrl,
-      label: i18n.message('host_name', lang),
-    }
-
-    const menuItems = [
-      {
-        label: i18n.message('site_name', lang),
-      },
-      [
+    const mainMenu = {
+      ancestor: i18n.message('site_name', lang),
+      menuItems: [
         {
           type: 'leaf',
           url: `${proxyPrefix}/secure`,
@@ -46,7 +39,11 @@ async function getIndex(req, res, next) {
           label: i18n.message('template_silent_login_page_heading', lang),
         },
       ],
-    ]
+      parentItem: {
+        url: hostUrl,
+        label: i18n.message('host_name', lang),
+      },
+    }
 
     const webContext = {
       isAdmin: user ? user.isAdmin : false,
@@ -54,10 +51,7 @@ async function getIndex(req, res, next) {
       lang,
       message: 'Howdi from Sample controller',
       apiHost: hostUrl,
-      mainMenu: {
-        parentItem,
-        menuItems,
-      },
+      mainMenu,
     }
 
     const compressedData = getCompressedData(webContext)
