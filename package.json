@@ -81,11 +81,11 @@
     "nodemon": "^3.1.7",
     "null-loader": "^4.0.1",
     "prettier": "^3.3.3",
-    "sass": "^1.80.5",
+    "sass": "^1.80.6",
     "sass-loader": "^16.0.3",
     "set-value": "^4.1.0",
     "terser-webpack-plugin": "^5.3.10",
-    "webpack": "^5.96.0",
+    "webpack": "^5.96.1",
     "webpack-cli": "^5.1.4"
   },
   "prettier": {
