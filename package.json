@@ -1,7 +1,7 @@
 {
   "name": "node-web",
   "version": "2.0.0",
-  "description": "Template project for a node express web server",
+  "description": "Node Web is a frontend service used together with node-api. It is also a template for Node Web applications developed at KTH.",
   "private": true,
   "license": "MIT",
   "author": "KTH",
