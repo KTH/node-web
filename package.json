@@ -35,7 +35,7 @@
     "@kth/log": "^4.0.7",
     "@kth/monitor": "^4.3.1",
     "@kth/session": "^3.0.9",
-    "@kth/style": "^1.8.0",
+    "@kth/style": "^1.9.0",
     "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.5",
