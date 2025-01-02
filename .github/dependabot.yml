@@ -17,6 +17,8 @@ updates:
       - 'KTH/web-team'
     ignore:
       - dependency-name: 'express-handlebars'
-        versions: ['8.x']
+        versions: ['8']
       - dependency-name: 'eslint'
-        versions: ['9.x']
+        versions: ['9']
+      - dependency-name: 'react'
+        versions: ['19']
