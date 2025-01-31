@@ -4,6 +4,7 @@
 
 const log = require('@kth/log')
 const language = require('@kth/kth-node-web-common/lib/language')
+const typeset = require('typeset')
 
 const i18n = require('../../i18n')
 const serverConfig = require('../configuration').server
@@ -45,6 +46,13 @@ async function getIndex(req, res, next) {
       },
     }
 
+    const unprocessedHtml = `
+      <h3>Åker ordningens och, vad.</h3>
+      <p>”Löksås ipsum för räv denna dunge trevnadens gamla dimmhöljd lax ska, groda det där att blev sjö hav blivit som, tid rot så blivit del rännil hav mot häst. Tre att björnbär händer färdväg så rot precis, vad plats händer hans genom tidigare nya mjuka, redan fram göras sig vemod händer. Och helt flera som därmed kanske redan enligt gör redan, träutensilierna hela kan för ordningens äng annat samtidigt, flera enligt hwila det som stora denna sig.”</p>
+      <p>Sorgliga del hwila flera både miljoner har gamla vid nya, tid sitt plats dock hav dock vad. Sista där dock göras fram ordningens dimma rot att, själv rännil sorgliga plats annat blev annan färdväg, räv smultron vad brunsås precis kom nu. Ser vid samtidigt upprätthållande kanske vad faktor som blev del, händer icke redan räv sjö vidsträckt därmed och, vidsträckt göras redan kan ser har flera söka.</p>
+    `
+    const processedHtml = typeset(unprocessedHtml)
+
     const webContext = {
       isAdmin: user ? user.isAdmin : false,
       proxyPrefixPath,
@@ -52,6 +60,8 @@ async function getIndex(req, res, next) {
       message: 'Howdi from Sample controller',
       apiHost: hostUrl,
       mainMenu,
+      unprocessedHtml,
+      processedHtml,
     }
 
     const compressedData = getCompressedData(webContext)
