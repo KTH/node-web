@@ -16,8 +16,6 @@ updates:
     reviewers:
       - 'KTH/web-team'
     ignore:
-      - dependency-name: 'express-handlebars'
-        versions: ['8']
       - dependency-name: 'eslint'
         versions: ['9']
       - dependency-name: 'react'
