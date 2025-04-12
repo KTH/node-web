@@ -73,7 +73,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-extended": "^4.0.2",
     "jest-sonar-reporter": "^2.0.0",
-    "lint-staged": "^15.5.0",
+    "lint-staged": "^15.5.1",
     "mini-css-extract-plugin": "^2.9.2",
     "nodemon": "^3.1.9",
     "null-loader": "^4.0.1",
