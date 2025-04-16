@@ -214,11 +214,7 @@ server.use(
   config.proxyPrefixPath.uri,
   cortinaMiddleware({
     blockApiUrl: config.blockApi.blockUrl,
-    siteName: { en: i18n.message('site_name', 'en'), sv: i18n.message('site_name', 'sv') },
-    localeText: { en: i18n.message('locale_text', 'en'), sv: i18n.message('locale_text', 'sv') },
-    resourceUrl: config.hostUrl === 'https://www.kth.se' ? 'https://www.kth.se' : 'https://www-r.referens.sys.kth.se',
     redisConfig: config.cache.cortinaBlock.redis,
-    useStyle10: true,
   })
 )
 
