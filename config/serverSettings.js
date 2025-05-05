@@ -93,6 +93,6 @@ module.exports = {
     redisOptions: unpackRedisConfig('REDIS_URI', devRedis),
   },
   toolbar: {
-    url: getEnv('TOOLBAR_URL', devDefaults('https://www-r.referens.sys.kth.se/social/toolbar/widget.js')),
+    url: getEnv('TOOLBAR_URL', devDefaults('https://app-r.referens.sys.kth.se/kpm/kpm.js')),
   },
 }
