@@ -29,7 +29,7 @@
   {{prefixScript '/static/kth-style/js/backtotop.js' 'head-scripts'}}
   {{{render 'head-scripts'}}}
 
-  <script src="{{toolbarUrl}}"></script>
+  <script src="{{toolbarUrl}}" async></script>
   <script type="module">
     import { MenuPanel } from '{{proxyPrefix}}/assets/js/index.js'
     MenuPanel.initTranslationModal(
