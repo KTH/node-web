@@ -38,7 +38,7 @@ Sensible defaults are set and the application can run locally with a minimal `.e
 | `REDIS_URI`                | URL to [Redis](https://redis.io/), used to store data from CMS and sessions                                               | `redis://localhost:6379/`                                                                                              |
 | `SESSION_USE_REDIS`        | Enables or disables saving sessions to Redis                                                                              | `true`                                                                                                                 |
 | `SESSION_SECURE_COOKIE`    | Enables or disables using secure cookies for sessions, should be `true` unless in local development                       | `false`                                                                                                                |
-| `TOOLBAR_URL`              | URL to KTH’s personal menu, KPM                                                                                           | `https://www-r.referens.sys.kth.se/social/toolbar/widget.js`                                                           |
+| `TOOLBAR_URL`              | URL to KTH’s personal menu, KPM                                                                                           | `https://app-r.referens.sys.kth.se/kpm/kpm.js`                                                                         |
 
 ### Local Databases
 
