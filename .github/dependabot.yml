@@ -20,5 +20,7 @@ updates:
         versions: ['9']
       - dependency-name: 'react'
         versions: ['19']
+      - dependency-name: 'react-dom'
+        versions: ['19']
       - dependency-name: 'express'
         versions: ['5']
