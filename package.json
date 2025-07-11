@@ -29,7 +29,7 @@
     "@babel/runtime": "^7.27.6",
     "@kth/api-call": "^4.1.0",
     "@kth/appinsights": "^0.5.1",
-    "@kth/cortina-block": "^7.0.0",
+    "@kth/cortina-block": "^7.1.0",
     "@kth/kth-node-passport-oidc": "^5.2.0",
     "@kth/kth-node-web-common": "^9.6.1",
     "@kth/log": "^4.0.7",
