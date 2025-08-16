@@ -42,7 +42,7 @@
     "express-handlebars": "^8.0.3",
     "kth-node-access-log": "^0.2.10",
     "kth-node-configuration": "^2.1.0",
-    "kth-node-express-routing": "^2.2.0",
+    "kth-node-express-routing": "^2.3.0",
     "kth-node-i18n": "^1.0.18",
     "kth-node-redis": "^3.4.0",
     "kth-style": "^10.5.2",
