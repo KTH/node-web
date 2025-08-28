@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.28.3",
-    "@kth/api-call": "^4.2.1",
+    "@kth/api-call": "^4.3.0",
     "@kth/appinsights": "^0.6.0",
     "@kth/cortina-block": "^7.1.0",
     "@kth/kth-node-passport-oidc": "^5.3.0",
