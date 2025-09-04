@@ -42,8 +42,6 @@ registerHeaderContentHelper({
 registerBreadcrumbHelper()
 registerLanguageLinkHelper()
 registerConditionalLogotypeSrcHelper()
-require('@kth/kth-node-web-common/lib/handlebars/helpers/contentedit')
 
 const i18n = require('../../../i18n')
 require('@kth/kth-node-web-common/lib/handlebars/helpers/createI18nHelper')(i18n)
-require('@kth/kth-node-web-common/lib/handlebars/helpers/safe')
