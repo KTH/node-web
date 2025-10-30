@@ -32,7 +32,7 @@
     "@kth/cortina-block": "^7.2.0",
     "@kth/kth-node-passport-oidc": "^5.3.0",
     "@kth/kth-node-web-common": "^10.0.0",
-    "@kth/log": "^4.0.7",
+    "@kth/log": "^4.0.8",
     "@kth/monitor": "^4.3.2",
     "@kth/session": "^3.1.0",
     "@kth/style": "^1.13.0",
