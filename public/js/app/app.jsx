@@ -4,7 +4,7 @@ import { hydrateRoot } from 'react-dom/client'
 // @ts-check
 
 import React from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router'
 
 import { WebContextProvider } from './context/WebContext'
 import { uncompressData } from './context/compress'
