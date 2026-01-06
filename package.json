@@ -78,7 +78,7 @@
     "nodemon": "^3.1.11",
     "null-loader": "^4.0.1",
     "prettier": "^3.7.4",
-    "sass": "^1.97.1",
+    "sass": "^1.97.2",
     "sass-loader": "^16.0.6",
     "terser-webpack-plugin": "^5.3.16",
     "webpack": "^5.104.1",
