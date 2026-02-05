@@ -39,7 +39,7 @@
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.6.1",
     "express": "^4.22.1",
-    "express-handlebars": "^8.0.4",
+    "express-handlebars": "^8.0.5",
     "kth-node-access-log": "^0.2.10",
     "kth-node-configuration": "^2.1.0",
     "kth-node-express-routing": "^2.3.1",
