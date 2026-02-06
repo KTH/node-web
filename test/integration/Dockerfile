@@ -1,4 +1,4 @@
-FROM kthregistry.azurecr.io/kth-nodejs-22:latest
+FROM kthregistry.azurecr.io/kth-nodejs-24:latest
 LABEL maintainer="KTH-Webb web-developers@kth.se"
 
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.9.0/wait /wait
