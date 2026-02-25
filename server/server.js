@@ -1,7 +1,6 @@
 /* eslint-disable import/order */
 
 const { cortinaMiddleware } = require('@kth/cortina-block')
-const i18n = require('../i18n')
 
 // Now read the server config etc.
 const config = require('./configuration').server
