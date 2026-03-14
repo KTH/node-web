@@ -57,7 +57,7 @@
     "@babel/plugin-transform-runtime": "^7.29.0",
     "@babel/preset-env": "^7.29.0",
     "@babel/preset-react": "^7.28.5",
-    "@kth/eslint-config-kth": "^4.0.0-2",
+    "@kth/eslint-config-kth": "^4.0.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/jest": "^30.0.0",
