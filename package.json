@@ -65,7 +65,7 @@
     "browserslist": "^4.28.2",
     "concurrently": "^9.2.1",
     "css-loader": "^7.1.4",
-    "eslint": "^9.39.4",
+    "eslint": "^10.2.1",
     "file-loader": "^6.2.0",
     "husky": "^9.1.7",
     "jest": "^30.3.0",
@@ -79,9 +79,9 @@
     "prettier": "^3.8.3",
     "sass": "^1.99.0",
     "sass-loader": "^16.0.7",
-    "terser-webpack-plugin": "^5.4.0",
+    "terser-webpack-plugin": "^5.5.0",
     "webpack": "^5.106.2",
-    "webpack-cli": "^6.0.1"
+    "webpack-cli": "^7.0.2"
   },
   "prettier": {
     "arrowParens": "avoid",
