@@ -34,7 +34,7 @@
     "@kth/kth-node-web-common": "^10.0.1",
     "@kth/log": "^4.0.8",
     "@kth/monitor": "^4.3.2",
-    "@kth/session": "^3.1.1",
+    "@kth/session": "^3.2.1",
     "@kth/style": "^1.14.1",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.6.1",
@@ -44,12 +44,12 @@
     "kth-node-configuration": "^2.1.0",
     "kth-node-express-routing": "^2.3.1",
     "kth-node-i18n": "^1.0.18",
-    "kth-node-redis": "^4.0.0",
+    "kth-node-redis": "^4.1.1",
     "kth-style": "^10.5.3",
     "passport": "^0.7.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router": "^7.15.1"
+    "react-router": "^7.16.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.29.7",
