@@ -23,7 +23,7 @@
     "prepare": "husky",
     "postinstall": "bash -c 'rm -rf ./dist; rm -rf ./node_modules/.cache/webpack'",
     "test:integration": "node test/integration/check-_paths.js http://localhost:3000/node",
-    "test:integration-in-docker": "docker build --progress plain -t node-web . && bash -c 'LOCAL_IMAGE_ID=node-web docker-compose -f docker-compose-integration-tests.yml up --abort-on-container-exit --build --no-log-prefix --remove-orphans  --always-recreate-deps --force-recreate'"
+    "test:integration-in-docker": "docker build --progress plain -t node-web . && bash -c 'LOCAL_IMAGE_ID=node-web docker compose -f docker-compose-integration-tests.yml up --abort-on-container-exit --build --no-log-prefix --remove-orphans  --always-recreate-deps --force-recreate'"
   },
   "dependencies": {
     "@babel/runtime": "^7.29.7",

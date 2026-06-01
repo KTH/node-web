@@ -4,11 +4,6 @@ services:
     ports:
       - 6379
 
-  # oidc:
-  #   image: qlik/simple-oidc-provider:latest
-  #   ports:
-  #     - 9000
-
   mock-api:
     build: ./test/mock-api
     ports:
@@ -19,7 +14,7 @@ services:
     environment:
       SERVICE_PUBLISH: '/node'
       SERVER_PORT: 3000
-      REDIS_URI: 'redis://redis'
+      REDIS_URI: 'redis://redis:6379'
       API_KEYS: '?name=devClient&apiKey=1234&scope=write&scope=read'
       NODE_API_URI: 'http://mock-api:3001/api/node'
       NODE_API_KEY: '1234'
