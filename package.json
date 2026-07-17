@@ -37,7 +37,7 @@
     "@kth/session": "^3.2.1",
     "@kth/style": "^1.14.1",
     "cookie-parser": "^1.4.7",
-    "dotenv": "^16.6.1",
+    "dotenv": "^17.4.2",
     "express": "^4.22.2",
     "express-handlebars": "^9.0.1",
     "kth-node-access-log": "^1.0.0",

@@ -1,6 +1,6 @@
 'use strict'
 
-require('dotenv').config()
+require('dotenv').config({ quiet: true })
 
 // eslint-disable-next-line import/newline-after-import
 const { KthAppinsights } = require('@kth/appinsights')
