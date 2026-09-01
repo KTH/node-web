@@ -16,9 +16,15 @@ const messagesEnglish = require('./messages.en')
 const messagesSwedish = require('./messages.se')
 
 // Add the error messages to the application defined messages before pushing them.
-messagesSwedish.messages = { ...messagesSwedish.messages, ...errorMessagesSwedish.messages }
-messagesEnglish.messages = { ...messagesEnglish.messages, ...errorMessagesEnglish.messages }
+const combinedMessagesEnglish = {
+  ...messagesEnglish,
+  messages: { ...messagesEnglish.messages, ...errorMessagesEnglish.messages },
+}
+const combinedMessagesSwedish = {
+  ...messagesSwedish,
+  messages: { ...messagesSwedish.messages, ...errorMessagesSwedish.messages },
+}
 
-i18n.messages.push(messagesEnglish, messagesSwedish)
+i18n.messages.push(combinedMessagesEnglish, combinedMessagesSwedish)
 
 module.exports = i18n
