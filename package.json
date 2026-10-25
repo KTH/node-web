@@ -30,10 +30,10 @@
     "@kth/api-call": "^4.5.2",
     "@kth/appinsights": "^1.1.0",
     "@kth/cortina-block": "^7.2.1",
-    "@kth/kth-node-passport-oidc": "^6.0.0",
-    "@kth/kth-node-web-common": "^11.0.0",
+    "@kth/kth-node-passport-oidc": "^6.0.1",
+    "@kth/kth-node-web-common": "^11.0.1",
     "@kth/log": "^4.0.8",
-    "@kth/monitor": "^4.3.2",
+    "@kth/monitor": "^4.3.3",
     "@kth/session": "^3.2.1",
     "@kth/style": "^1.15.1",
     "cookie-parser": "^1.4.7",
@@ -80,7 +80,7 @@
     "sass": "^1.106.1",
     "sass-loader": "^17.0.1",
     "terser-webpack-plugin": "^5.6.1",
-    "webpack": "^5.112.1",
+    "webpack": "^5.112.2",
     "webpack-cli": "^6.0.1"
   },
   "prettier": {
